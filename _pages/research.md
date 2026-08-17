@@ -13,7 +13,7 @@ who share a diagnosis can differ substantially in their symptoms, their biology,
 the course their illness takes and how they respond to treatment. This
 heterogeneity is one of the central problems in psychiatry. If two patients look
 very different clinically, why should we expect them to share the same
-underlying (neuro)biology, or to benefit from the same treatment?
+underlying neurobiology, or to benefit from the same treatment?
 
 My research asks whether brain and other biological measurements can help move
 psychiatry from population-level descriptions toward **individualised,
@@ -48,23 +48,28 @@ whether different trajectories lead to different clinical outcomes. Those are
 questions about direction of influence, and they are difficult to approach any
 other way.
 
+{% include figure-credit.html
+   src="/assets/images/figures/fig-normative-model.svg"
+   alt="Centile curves of a brain measure plotted against age, with one individual's four repeated scans overlaid. The first three sit within the expected range; the fourth falls below the fifth centile."
+   caption="Rather than comparing patients with controls as groups, a normative model places each individual against the range expected at their age. With repeated scans, a departure from that range can be dated."
+   credit="Figure by W.B. Bruin" %}
+
 This is the focus of my current work at Amsterdam UMC with Prof. dr. Odile van
 den Heuvel, using repeated MRI assessments from the **Generation R** cohort to
 map brain development from childhood into young adulthood in relation to
 obsessive-compulsive symptomatology. Two preregistered projects run in parallel:
-one on [thalamic maturation](https://osf.io/9zwtc/overview) and its relation to 
-broader subcortical and cortical development, and one on brain maturation in relation 
-to obsessive-compulsive symptoms. At Leiden University I work with Dr. Moji Aghajani 
-on similar questions in adolescent anxiety, using data from the ENIGMA consortium.
-
-A KNAW Ter Meulen grant (2026) supports an extension of this line with the University
-of Southern California and the University of Michigan, using scans from roughly
-15,000 young people across more than thirty countries to build developmental
-reference curves that hold across diagnostic boundaries rather than within them.
+one on thalamic maturation and its relation to broader subcortical and cortical
+development, and one on brain maturation in relation to obsessive-compulsive
+symptoms. At Leiden University I work with Dr. Moji Aghajani on the same set of
+questions in adolescent anxiety.
 
 Related work uses **brain-age modelling**, in which a model trained to estimate
 chronological age from imaging data is applied to individuals, and the gap
 between predicted and actual age is treated as an index of atypical development.
+A KNAW Ter Meulen grant supports an extension of this line with the University
+of Southern California and the University of Michigan, using scans from roughly
+15,000 young people across more than thirty countries to build developmental
+reference curves that hold across diagnostic boundaries rather than within them.
 
 The longer-term aim is to move from static measures of brain structure toward
 **longitudinal, multimodal models of developmental trajectories**, integrating
@@ -85,6 +90,14 @@ model that transferred reliably to new sites, while medication status was
 associated with substantial and widely distributed anatomical differences,
 separable at the individual level in a way that diagnosis itself was not.
 
+{% include figure-credit.html
+   src="/assets/images/figures/fig-generalisation.png"
+   alt="Boxplots of classification AUC for ten machine learning algorithms under three cross-validation schemes. Internal validation clusters near 0.6; leave-one-site-out validation drops to around chance level."
+   caption="Classification of OCD versus controls across ten algorithms. Under internal cross-validation performance sits around 0.6 AUC; under leave-one-site-out validation it falls to chance. The choice of validation scheme, not the choice of algorithm, is what decides whether a model generalises."
+   credit="Bruin et al. (2020), Translational Psychiatry"
+   url="https://doi.org/10.1038/s41398-020-01013-y"
+   licence="CC BY 4.0" %}
+
 A subsequent mega-analysis of resting-state functional connectivity, covering
 1,024 patients and 1,028 controls across 28 sites and the largest such study of
 OCD at the time of publication in 2023, found widespread reduced connectivity,
@@ -92,6 +105,15 @@ most pronounced within the **sensorimotor network**, alongside a smaller number
 of hyper-connections involving the thalamus. Notably, the fronto-striatal
 circuitry that has long dominated neurobiological models of OCD was not where
 the strongest effects lay.
+
+{% include figure-credit.html
+   src="/assets/images/figures/fig-ocd-connectome.png"
+   alt="Two panels. Above, the 400-parcel functional atlas mapped onto 17 resting-state networks, shown on inflated brain surfaces with a colour key. Below, a circular connectogram in which each arc is a connection differing between OCD patients and controls; blue arcs mark lower connectivity and are densest within the sensorimotor networks."
+   caption="Connections differing between 1,024 patients with OCD and 1,028 controls across 28 sites. Blue arcs mark lower connectivity in patients. The densest cluster sits within the sensorimotor networks (SomMotA and SomMotB, upper left) rather than in the fronto-striatal circuitry that dominates existing models of the disorder."
+   credit="Bruin et al. (2023), Molecular Psychiatry"
+   url="https://doi.org/10.1038/s41380-023-02077-0"
+   licence="CC BY 4.0"
+   light="true" %}
 
 Extending this to anxiety disorders in young people, across 32 sites and 3,343
 participants aged 10 to 25, transdiagnostic classification again reached only
@@ -140,6 +162,14 @@ seven centres. At the three larger contributing centres the models reached AUCs
 of 0.82 to 0.83, and retained acceptable performance under leave-one-site-out
 validation.
 
+{% include figure-credit.html
+   src="/assets/images/figures/fig-ect-networks.png"
+   alt="Axial brain slices showing two independent component networks: one centred on the temporal lobes, one on frontopolar cortex."
+   caption="The two functional networks that contributed most to predicting ECT outcome: a temporal lobe network and a frontopolar network, each reaching above 0.75 AUC on their own for response or remission."
+   credit="Bruin et al. (2023), Psychological Medicine"
+   url="https://doi.org/10.1017/S0033291723002040"
+   licence="CC BY" %}
+
 ECT is a useful test case. It is delivered in hospital, outcomes vary widely
 between patients, MRI is inexpensive relative to the treatment itself, and the
 scan could be acquired before treatment begins. The broader goal is not a
@@ -181,7 +211,7 @@ methodological obstacles to clinical translation more broadly: missing data,
 small samples, site heterogeneity and the gap between a research cohort and a
 clinic population.
 
-This is why **external validation** matters. A model that performs
+This is why **external validation** matters so much to me. A model that performs
 well on a random held-out subset of its own dataset and fails at a new site has
 told us very little. Leave-one-site-out validation, independent replication and
 frank reporting of failure are not optional extras but core parts of biomarker
@@ -200,8 +230,8 @@ person sits on a developmental trajectory, how their brain departs from what
 would be expected, how that departure relates to their symptoms, and whether it
 carries any information about which treatment will help.
 
-Getting there will take more than a single MRI scan. My work is moving increasingly 
-toward **multimodal and longitudinal approaches**, combining structural and functional
+Getting there will take more than MRI. My work is moving increasingly toward
+**multimodal and longitudinal approaches**, combining structural and functional
 imaging with clinical, behavioural and other biological measures, and toward
 models that can characterise individual trajectories and identify biologically
 meaningful subgroups without assuming that diagnostic categories map neatly onto

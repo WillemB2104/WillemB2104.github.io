@@ -10,16 +10,17 @@ author_profile: true
 ## In brief
 
 **Postdoctoral Researcher**, Leiden University, Institute of Education & Child
-Studies (2024–present)
-**Postdoctoral Researcher**, Amsterdam UMC, Department of Psychiatry
+Studies (2023–present)
+
+**Postdoctoral Researcher**, Amsterdam UMC - location VUmc, Department of Psychiatry
 (2025–present)
 
 **PhD in Psychiatry**, Amsterdam UMC / University of Amsterdam (2024)
 *[Neuroimaging Biomarkers for Psychiatry: Predicting Diagnosis and Treatment
 Outcome using Machine Learning](https://pure.uva.nl/ws/files/163646716/Thesis.pdf)*
 
-Daily supervisor and co-promotor for one PhD candidate, and supervisor to
-Research Master's students.
+Daily supervisor and co-promotor for one PhD candidate, and supervisor to four
+MSc research students. Guest lecturer at Leiden University since 2024.
 
 Member of the
 [ENIGMA-OCD](https://enigma.ini.usc.edu/ongoing/enigma-ocd-working-group/) and
@@ -32,14 +33,14 @@ groups, and of [GEMRIC](https://mmiv.no/gemric/).
 *Esketamine-induced psychoanalytic processes in neurophysiological brain
 dynamics*
 
-**KNAW Academy Ter Meulen Beurs**, 2026
+**KNAW Ter Meulen Beurs**, 2026
 *The Heterogeneous Brain in Youth Psychiatry: A Normative Modeling Perspective*
 
-**KNAW Academy Van Leersum Grant**, 2024
+**Academy Van Leersum Grant**, KNAW, 2024
 *Pathways to precision psychiatry: big data analytics for juvenile mood
 disorders*
 
-**KNAW Academy Van der Gaag Grant**, 2023
+**KNAW Van der Gaag Grant**, 2023
 *Research on juvenile mood disorders*, carried out with the ENIGMA consortium at
 USC.
 [Interview with the KNAW](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
@@ -50,6 +51,6 @@ Nice, 2019
 **Travel Grant**, Society of Biological Psychiatry 74th Annual Meeting, Chicago,
 2019
 
-The PDF has the full record, including education, teaching, academic service and
-talks. For publications, see the
-[publications page]({{ "/publications/" | relative_url }}).
+The PDF has the full record, including education, certifications and work
+history. See also my [talks and media]({{ "/media/" | relative_url }}) and
+[publications]({{ "/publications/" | relative_url }}).

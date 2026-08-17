@@ -30,7 +30,8 @@
 
     var cs = window.getComputedStyle(host);
     if (cs.position === "static") host.style.position = "relative";
-    host.style.overflow = "hidden";
+    // Deliberately not setting overflow here: the masthead needs to let its
+    // mobile nav dropdown escape. The hero clips itself via CSS instead.
     host.insertBefore(canvas, host.firstChild);
 
     if (o.lift) {

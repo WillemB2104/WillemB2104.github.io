@@ -195,3 +195,116 @@
   }
 })();
 </script>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Wubdog.
+   Type "wubdog" into site search (or anywhere on the page) and the screen
+   rains dogs. Harmless, pointer-events: none, and it respects
+   prefers-reduced-motion. Search itself keeps working throughout.
+--------------------------------------------------------------------------- */
+(function () {
+  var WORD = "wubdog";
+  var GLYPHS = ["\uD83D\uDC36", "\uD83D\uDC15", "\uD83E\uDDB4", "\uD83D\uDC3E", "\uD83D\uDC29"];
+  var running = false;
+  var typed = "";
+
+  var reduce = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function styles() {
+    if (document.getElementById("wubdog-style")) return;
+    var s = document.createElement("style");
+    s.id = "wubdog-style";
+    s.textContent =
+      "#wubdog-layer{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden}" +
+      "#wubdog-layer span{position:absolute;top:-2em;will-change:transform,opacity;" +
+      "animation:wubdog-fall linear forwards}" +
+      "@keyframes wubdog-fall{" +
+      "0%{transform:translateY(-10vh) rotate(0deg);opacity:0}" +
+      "8%{opacity:1}" +
+      "90%{opacity:1}" +
+      "100%{transform:translateY(110vh) rotate(var(--spin));opacity:0}}" +
+      "#wubdog-toast{position:fixed;left:50%;bottom:2.2rem;transform:translateX(-50%);" +
+      "z-index:10000;background:#1c2230;color:#d7dee8;border:1px solid #2b3446;" +
+      "border-radius:999px;padding:.55rem 1.1rem;font-size:.9rem;" +
+      "font-family:'IBM Plex Sans',sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);" +
+      "opacity:0;transition:opacity .3s ease}" +
+      "#wubdog-toast.on{opacity:1}";
+    document.head.appendChild(s);
+  }
+
+  function toast(msg, ms) {
+    var t = document.getElementById("wubdog-toast");
+    if (!t) {
+      t = document.createElement("div");
+      t.id = "wubdog-toast";
+      t.setAttribute("role", "status");
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    requestAnimationFrame(function () { t.classList.add("on"); });
+    setTimeout(function () {
+      t.classList.remove("on");
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400);
+    }, ms || 3200);
+  }
+
+  function rain() {
+    if (running) return;
+    running = true;
+    styles();
+    toast("\uD83D\uDC36 Wubdog mode activated");
+
+    if (reduce) { running = false; return; }
+
+    var layer = document.createElement("div");
+    layer.id = "wubdog-layer";
+    layer.setAttribute("aria-hidden", "true");
+    document.body.appendChild(layer);
+
+    var COUNT = window.innerWidth < 600 ? 34 : 64;
+    for (var i = 0; i < COUNT; i++) {
+      (function (i) {
+        setTimeout(function () {
+          var el = document.createElement("span");
+          el.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          el.style.left = (Math.random() * 98) + "vw";
+          el.style.fontSize = (1.1 + Math.random() * 2.1) + "rem";
+          el.style.animationDuration = (4.2 + Math.random() * 3.6) + "s";
+          el.style.setProperty("--spin", (Math.random() * 900 - 450) + "deg");
+          layer.appendChild(el);
+        }, i * 70);
+      })(i);
+    }
+
+    setTimeout(function () {
+      if (layer.parentNode) layer.parentNode.removeChild(layer);
+      running = false;
+    }, 11000);
+  }
+
+  function clean(v) {
+    return (v || "").toLowerCase().replace(/[^a-z]/g, "");
+  }
+
+  // 1. The site search box
+  document.addEventListener("input", function (e) {
+    var t = e.target;
+    if (!t || t.tagName !== "INPUT") return;
+    var isSearch = t.type === "search" ||
+      (t.className && String(t.className).indexOf("search-input") !== -1) ||
+      t.id === "search";
+    if (isSearch && clean(t.value) === WORD) rain();
+  }, true);
+
+  // 2. Or just type it anywhere outside a text field
+  document.addEventListener("keydown", function (e) {
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA" || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!/^[a-zA-Z]$/.test(e.key)) return;
+    typed = (typed + e.key.toLowerCase()).slice(-WORD.length);
+    if (typed === WORD) { typed = ""; rain(); }
+  });
+})();
+</script>

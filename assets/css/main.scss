@@ -98,6 +98,8 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 
 // Masthead ------------------------------------------------------------------
 .masthead {
+  position: relative;
+  overflow: hidden;
   border-bottom: 1px solid $hairline;
   background-color: rgba(21, 26, 36, 0.88);
   backdrop-filter: saturate(140%) blur(10px);
@@ -119,6 +121,8 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   color: $muted-text-color;
   text-transform: none;
 }
+
+.masthead__inner-wrap { position: relative; z-index: 2; }
 
 .greedy-nav {
   background: transparent;
@@ -150,7 +154,7 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   }
 }
 
-#trajectory-field {
+.trajectory-field {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -237,17 +241,17 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 .author__name {
   font-family: $header-font-family;
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
 }
 
 .author__bio {
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.6;
   color: $muted-text-color;
 }
 
 .author__urls-wrapper li a,
-.author__urls-wrapper li { font-size: 0.92rem; }
+.author__urls-wrapper li { font-size: 1rem; }
 
 .author__urls li { padding: 0.3em 0; }
 
@@ -278,16 +282,16 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
     font-family: $header-font-family;
     background-color: $panel-slate;
     color: $expected;
-    font-size: 0.9rem;          // rem, not em: the theme nests these inside
+    font-size: 1rem;            // rem, not em: the theme nests these inside
     letter-spacing: 0.03em;     // several shrinking containers
     text-transform: uppercase;
     padding: 0.7rem 1rem;
   }
 
   .toc__menu a {
-    font-size: 0.88rem;
-    padding: 0.55rem 1rem;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+    line-height: 1.45;
   }
 }
 
@@ -318,7 +322,7 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
     max-width: 100%;
   }
 
-  a { font-family: $monospace; font-size: 0.9em; }
+  a { font-family: $monospace; font-size: 0.95rem; }
 
   .page__footer-follow ul {
     display: flex;
@@ -332,7 +336,7 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 
   .page__footer-copyright {
     font-family: $monospace;
-    font-size: 0.78em;
+    font-size: 0.85rem;
     color: $muted-text-color;
   }
 }
@@ -377,7 +381,7 @@ button:focus-visible {
 
   figcaption {
     margin-top: 0.7em;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     line-height: 1.55;
     color: $muted-text-color;
     text-align: left;
@@ -389,7 +393,7 @@ button:focus-visible {
     display: block;
     margin-top: 0.3em;
     font-family: $monospace;
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     opacity: 0.8;
   }
 }

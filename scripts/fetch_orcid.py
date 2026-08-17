@@ -126,15 +126,16 @@ def is_self(family, given):
     )
 
 
-def format_authors(crossref_authors):
-    """Crossref author objects -> 'Bruin, W.B., van den Heuvel, O.A., ...'
+def format_authors(authors):
+    """Normalised author dicts -> 'Bruin, W.B., van den Heuvel, O.A., ...'
 
-    Returns (full, short). The matching author is wrapped in <strong>
-    individually, which avoids partial matches inside names like 'de Bruin'.
+    Accepts entries with family/given, or a single 'name' field. Returns
+    (full, short). The matching author is wrapped in <strong> individually,
+    which avoids partial matches inside names like 'de Bruin'.
     """
     out = []
     self_index = None
-    for a in crossref_authors:
+    for a in authors:
         family = (a.get("family") or "").strip()
         given = (a.get("given") or "").strip()
 
@@ -183,6 +184,64 @@ def shorten_authors(entries, self_index, threshold=8):
 # --------------------------------------------------------------------------
 # Crossref
 # --------------------------------------------------------------------------
+def fetch_datacite(doi):
+    """Zenodo, figshare and other DataCite DOIs are not in Crossref at all."""
+    url = "https://api.datacite.org/dois/" + urllib.parse.quote(doi, safe="")
+    data = get_json(url, headers={"Accept": "application/vnd.api+json"})
+    return dig(data or {}, "data", "attributes")
+
+
+def fetch_orcid_work_detail(orcid_id, put_code):
+    """Last resort: the full ORCID work record sometimes lists contributors."""
+    if not put_code:
+        return None
+    url = f"https://pub.orcid.org/v3.0/{orcid_id}/work/{put_code}"
+    return get_json(url, headers={"Accept": "application/json"})
+
+
+def authors_from_crossref(cr):
+    out = []
+    for a in (cr.get("author") or []):
+        out.append({"family": a.get("family") or "",
+                    "given": a.get("given") or "",
+                    "name": a.get("name") or ""})
+    return out
+
+
+def authors_from_datacite(att):
+    out = []
+    for c in (att.get("creators") or []):
+        out.append({"family": c.get("familyName") or "",
+                    "given": c.get("givenName") or "",
+                    "name": c.get("name") or ""})
+    return out
+
+
+def authors_from_orcid_detail(detail):
+    out = []
+    contribs = dig(detail or {}, "contributors", "contributor", default=[]) or []
+    for c in contribs:
+        name = dig(c, "credit-name", "value", default="")
+        if not name:
+            continue
+        # ORCID credit names arrive in mixed formats; keep them verbatim
+        out.append({"family": "", "given": "", "name": name})
+    return out
+
+
+# Venues that mean "preprint" regardless of how ORCID typed the record
+PREPRINT_VENUES = (
+    "research square", "biorxiv", "medrxiv", "arxiv", "ssrn",
+    "preprints.org", "osf preprints", "psyarxiv",
+)
+
+
+def looks_like_preprint(journal, wtype):
+    if wtype in ("preprint", "working-paper"):
+        return True
+    return any(v in (journal or "").lower() for v in PREPRINT_VENUES)
+
+
 def fetch_crossref(doi):
     url = "https://api.crossref.org/works/" + urllib.parse.quote(doi)
     headers = {"User-Agent": f"personal-site/1.0 (mailto:{CONTACT_EMAIL})"}
@@ -198,8 +257,9 @@ def year_from_orcid(summary):
         return None
 
 
-def build_record(summary):
+def build_record(summary, orcid_id=ORCID_ID):
     doi = extract_doi(summary)
+    put_code = summary.get("put-code")
     title = dig(summary, "title", "title", "value", default="").strip()
     journal = (dig(summary, "journal-title", "value") or "").strip()
     year = year_from_orcid(summary)
@@ -209,6 +269,8 @@ def build_record(summary):
     citations = 0
     url = dig(summary, "url", "value") or ""
 
+    people = []
+
     if doi:
         cr = fetch_crossref(doi)
         time.sleep(0.2)  # be polite to the API
@@ -216,14 +278,41 @@ def build_record(summary):
             title = (cr.get("title") or [title])[0] or title
             container = cr.get("container-title") or []
             journal = container[0] if container else journal
-            authors, authors_short = format_authors(cr.get("author") or [])
+            people = authors_from_crossref(cr)
             citations = cr.get("is-referenced-by-count", 0) or 0
             parts = dig(cr, "issued", "date-parts", default=[[]])
             if parts and parts[0]:
                 year = parts[0][0]
             if cr.get("type") == "posted-content":
                 wtype = "preprint"
+
+        # Zenodo/figshare DOIs are registered with DataCite, not Crossref,
+        # and versioned Research Square DOIs often miss in Crossref too.
+        if not people:
+            att = fetch_datacite(doi)
+            time.sleep(0.2)
+            if att:
+                people = authors_from_datacite(att)
+                journal = journal or (att.get("publisher") or "")
+                if not year:
+                    year = att.get("publicationYear") or year
+                print(f"      (authors via DataCite)")
+
         url = f"https://doi.org/{doi}"
+
+    # Final fallback: the full ORCID record occasionally lists contributors
+    if not people:
+        detail = fetch_orcid_work_detail(orcid_id, put_code)
+        time.sleep(0.2)
+        people = authors_from_orcid_detail(detail)
+        if people:
+            print(f"      (authors via ORCID record)")
+
+    if people:
+        authors, authors_short = format_authors(people)
+
+    if looks_like_preprint(journal, wtype):
+        wtype = "preprint"
 
     return {
         "title": re.sub(r"\s+", " ", title).strip(),

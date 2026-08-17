@@ -1,7 +1,38 @@
 ---
-# You don't need to edit this file, it's empty on purpose.
-# Edit theme's home layout instead if you wanna make some changes
-# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-layout: home
-author_profile: true
+layout: splash
+permalink: /
+title: false
+excerpt: "Postdoctoral researcher · Amsterdam UMC & Leiden University"
+header:
+  overlay_color: "#1f2428"
+  overlay_filter: "0.15"
+
+intro:
+  - excerpt: >-
+      I'm a postdoctoral researcher working at the intersection of
+      neuroimaging, machine learning and clinical psychiatry. My work asks how
+      the brain develops from childhood into young adulthood, how those
+      trajectories go awry in psychiatric conditions, and whether we can turn
+      that understanding into markers that are actually useful in the clinic.
+
+feature_row:
+  - title: "Research"
+    excerpt: "Normative modelling of brain development, biomarkers for treatment response, and large-scale consortium neuroimaging."
+    url: "/research/"
+    btn_label: "What I work on"
+    btn_class: "btn--primary"
+  - title: "Publications"
+    excerpt: "A continuously updated list of my papers and preprints, generated directly from my ORCID record."
+    url: "/publications/"
+    btn_label: "Browse publications"
+    btn_class: "btn--primary"
+  - title: "Get in touch"
+    excerpt: "I'm always glad to hear from potential collaborators, students, and anyone interested in the work."
+    url: "/contact/"
+    btn_label: "Contact"
+    btn_class: "btn--primary"
 ---
+
+{% include feature_row id="intro" type="center" %}
+
+{% include feature_row %}

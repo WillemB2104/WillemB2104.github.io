@@ -11,8 +11,11 @@ somebody's head. Papers turn that into effect sizes and AUCs, which is useful
 but abstract.
 
 So here is the raw material, unabstracted. This is my own brain, a T1-weighted
-structural MRI scan, rendered in your browser. Drag to move the crosshair,
-scroll to move through slices, and use the controls to change the view.
+structural MRI scan, rendered in your browser.
+
+**Click or drag** to move the crosshair. **Right-click and drag** to adjust the
+contrast. Once you have clicked into the viewer, **scroll** moves through
+slices; until then scrolling just moves the page.
 
 <div id="brain-wrap">
   <div id="brain-status" role="status">Loading the scan (about 3&nbsp;MB)&hellip;</div>
@@ -43,11 +46,24 @@ NIfTI viewer.
 
 ## What you are looking at
 
-The bright ribbon around the outside is **grey matter**, the cortex, roughly
-2.5&nbsp;mm thick and folded to fit inside the skull. The paler mass underneath
-is **white matter**, the wiring that connects regions to one another. The dark
-butterfly shapes near the middle are the **ventricles**, cavities filled with
-cerebrospinal fluid.
+The bright rim right at the outside is scalp and subcutaneous fat. Just inside
+it the skull appears almost black, because dense bone returns virtually no
+signal.
+
+Within the brain itself, the folded ribbon following the surface is **grey
+matter**, the cortex, roughly 2.5&nbsp;mm thick. It looks mid-grey. The
+**brighter** mass underneath it is **white matter**, the myelinated wiring
+connecting one region to another. The dark butterfly shapes near the centre are
+the **ventricles**, cavities filled with cerebrospinal fluid, which is close to
+black here.
+
+That ordering catches people out, because the names suggest the opposite. It is
+a property of the scan rather than the tissue. This is a **T1-weighted** image,
+and myelin is fatty, so white matter returns a strong signal and appears pale,
+while grey matter appears darker and fluid appears black. On a T2-weighted scan
+the contrast largely inverts and cerebrospinal fluid becomes bright. Choosing
+which contrast to acquire is one of the first decisions in designing an imaging
+study.
 
 Deep in the centre sit the **thalamus** and the **basal ganglia**, structures
 that appear repeatedly in my work: the thalamus turned out to be one of the
@@ -65,10 +81,13 @@ hospitals, and you have the sort of dataset the
 
 Facial features can be reconstructed from a structural MRI, which makes an
 unedited scan identifiable. This one has been through a defacing algorithm that
-strips the face and ears while leaving the brain untouched. It is standard
+strips the face while leaving the brain untouched. It is standard
 practice before sharing any structural scan, including your own.
 
 <a id="brain-download" class="btn btn--primary" href="#" download>Download the scan (NIfTI)</a>
+
+The file here has been resampled to 1.2&nbsp;mm and quantised to 16 bits to keep
+the page light, so it is meant for looking at rather than for analysis.
 
 Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
 {: .notice--info}
@@ -132,12 +151,18 @@ Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
       "The scan can still be downloaded below.";
   } else {
     try {
-      const { Niivue } = await import("https://cdn.jsdelivr.net/npm/@niivue/niivue@0.69.0/+esm");
+      const mod = await import("https://cdn.jsdelivr.net/npm/@niivue/niivue@0.69.0/+esm");
+      const Niivue = mod.Niivue;
+      // Recent NiiVue defaults the primary drag to contrast adjustment. This
+      // page wants dragging to move the crosshair instead.
+      const CROSSHAIR = (mod.DRAG_MODE && mod.DRAG_MODE.crosshair !== undefined)
+        ? mod.DRAG_MODE.crosshair : 8;
       const nv = new Niivue({
         backColor: [0.055, 0.071, 0.098, 1],
         crosshairColor: [0.94, 0.66, 0.28, 1],
         show3Dcrosshair: true,
         isColorbar: false,
+        dragMode: CROSSHAIR,
       });
       nv.attachTo("brain-canvas");
       await nv.loadVolumes([{ url: SCAN, colormap: "gray", opacity: 1, visible: true }]);
@@ -145,6 +170,23 @@ Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
 
       status.hidden = true;
       controls.hidden = false;
+
+      // The viewer binds the mouse wheel to slice navigation, which would trap
+      // the page scroll. Swallow wheel events in the capture phase until the
+      // user clicks into the viewer; clicks and drags are never intercepted.
+      const wrap = document.getElementById("brain-wrap");
+      let engaged = false;
+      wrap.addEventListener("wheel", (e) => {
+        if (!engaged) e.stopPropagation();
+      }, { capture: true });
+      wrap.addEventListener("pointerdown", () => {
+        engaged = true;
+        wrap.classList.add("is-engaged");
+      });
+      wrap.addEventListener("mouseleave", () => {
+        engaged = false;
+        wrap.classList.remove("is-engaged");
+      });
 
       const mark = (btn, attr) => {
         btn.parentElement.querySelectorAll("button[data-" + attr + "]")

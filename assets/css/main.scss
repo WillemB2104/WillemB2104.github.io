@@ -223,16 +223,24 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 }
 
 // Sidebar -------------------------------------------------------------------
-// Bigger portrait, and legible supporting text.
-.sidebar .author__avatar img,
+// Below 925px the theme switches the sidebar to a horizontal author header,
+// where a large avatar breaks the layout. Keep it small there and only enlarge
+// it once the sidebar becomes its own column.
 .author__avatar img {
-  max-width: 200px;
-  width: 100%;
   border-radius: 50%;
   border: 1px solid $hairline;
+  max-width: 110px;
 }
 
-.author__avatar { width: 100%; }
+@media (min-width: 58em) {
+  .sidebar .author__avatar img,
+  .author__avatar img {
+    max-width: 200px;
+    width: 100%;
+  }
+
+  .author__avatar { width: 100%; }
+}
 
 // The theme shrinks the whole sidebar with $type-size-6, so every nested em
 // compounds. Absolute rem values below stop that.
@@ -354,7 +362,7 @@ button:focus-visible {
     .page__title { font-size: 2.1em; }
     .page__lead { font-size: 0.85em; }
   }
-  .sidebar .author__avatar img { max-width: 140px; }
+  .author__avatar img { max-width: 90px; }
 }
 
 // Figures -------------------------------------------------------------------

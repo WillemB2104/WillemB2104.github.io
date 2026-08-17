@@ -3,196 +3,204 @@
    Percentile bands with individual trajectories, and measurement points
    travelling along them through developmental time. Teal is within the
    expected range; a point turns amber when its trajectory leaves the band.
-   Runs only on the splash landing page. */
+   Rendered twice: large in the splash hero, and as a faint strip behind the
+   masthead so every page carries it. */
 (function () {
-  var hero = document.querySelector(".page__hero--overlay");
-  if (!hero || !document.body.classList.contains("layout--splash")) return;
-
   var reduce = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var canvas = document.createElement("canvas");
-  canvas.id = "trajectory-field";
-  canvas.setAttribute("aria-hidden", "true");
-
-  // Positioned inline as well as in CSS, so a missing stylesheet can never
-  // push the hero text out of place.
-  var s = canvas.style;
-  s.position = "absolute";
-  s.top = "0"; s.left = "0"; s.right = "0"; s.bottom = "0";
-  s.width = "100%"; s.height = "100%";
-  s.zIndex = "1"; s.display = "block"; s.pointerEvents = "none";
-  if (!hero.style.position) hero.style.position = "relative";
-  hero.style.overflow = "hidden";
-
-  hero.insertBefore(canvas, hero.firstChild);
-
-  var wrapper = hero.querySelector(".wrapper");
-  if (wrapper) { wrapper.style.position = "relative"; wrapper.style.zIndex = "2"; }
-
-  var ctx = canvas.getContext("2d");
-  if (!ctx) return;
-
   var EXPECTED = [63, 208, 201];
   var DEVIATION = [240, 168, 72];
-  var W = 0, H = 0, lines = [], points = [], raf = null, last = null, onscreen = true;
 
   function rgba(c, a) { return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")"; }
   function mean(t) { return 0.62 * (1 - Math.exp(-3.4 * t)) - 0.16 * t * t; }
   function spread(t) { return 0.05 + 0.17 * Math.pow(t, 0.9); }
-  function px(t) { return t * W; }
-  function py(v) { return H - (0.09 * H + v * H * 0.66); }
 
-  function zOf(t, ln) { return ln.z + ln.drift * Math.pow(t, 2.6); }
-  function yOf(t, ln) {
-    return mean(t) + zOf(t, ln) * spread(t)
-      + Math.sin(t * ln.freq * Math.PI + ln.phase) * ln.wob;
-  }
+  function createField(host, o) {
+    if (!host) return;
 
-  function seed(n) {
-    lines = []; points = [];
-    for (var i = 0; i < n; i++) {
-      var dev = (i === n - 1);
-      var ln = {
-        dev: dev,
-        z: dev ? 0.05 : (Math.random() * 2 - 1),
-        drift: dev ? 2.3 : (Math.random() * 0.4 - 0.2),
-        wob: 0.006 + Math.random() * 0.012,
-        phase: Math.random() * Math.PI * 2,
-        freq: 2 + Math.random() * 3
-      };
-      lines.push(ln);
-      // Two measurement points per trajectory, staggered around the cycle
-      for (var m = 0; m < 2; m++) {
-        points.push({
-          line: ln,
-          t: (i * 0.11 + m * 0.5) % 1,
-          speed: 0.045 + Math.random() * 0.02
-        });
+    var canvas = document.createElement("canvas");
+    canvas.className = "trajectory-field";
+    canvas.setAttribute("aria-hidden", "true");
+    var s = canvas.style;
+    s.position = "absolute"; s.top = "0"; s.left = "0"; s.right = "0"; s.bottom = "0";
+    s.width = "100%"; s.height = "100%";
+    s.zIndex = "0"; s.display = "block"; s.pointerEvents = "none";
+    if (o.opacity) s.opacity = String(o.opacity);
+
+    var cs = window.getComputedStyle(host);
+    if (cs.position === "static") host.style.position = "relative";
+    host.style.overflow = "hidden";
+    host.insertBefore(canvas, host.firstChild);
+
+    if (o.lift) {
+      var kids = host.querySelectorAll(o.lift);
+      for (var q = 0; q < kids.length; q++) {
+        kids[q].style.position = "relative";
+        kids[q].style.zIndex = "2";
       }
     }
-  }
 
-  function band(zLo, zHi, alpha) {
-    var i, t;
-    ctx.beginPath();
-    for (i = 0; i <= 90; i++) {
-      t = i / 90;
-      var v = mean(t) + zHi * spread(t);
-      if (i === 0) ctx.moveTo(px(t), py(v)); else ctx.lineTo(px(t), py(v));
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    var W = 0, H = 0, lines = [], points = [], raf = null, last = null, onscreen = true;
+
+    function px(t) { return t * W; }
+    function py(v) { return H - (o.base * H + v * H * o.scale); }
+    function zOf(t, ln) { return ln.z + ln.drift * Math.pow(t, 2.6); }
+    function yOf(t, ln) {
+      return mean(t) + zOf(t, ln) * spread(t)
+        + Math.sin(t * ln.freq * Math.PI + ln.phase) * ln.wob;
     }
-    for (i = 90; i >= 0; i--) {
-      t = i / 90;
-      ctx.lineTo(px(t), py(mean(t) + zLo * spread(t)));
-    }
-    ctx.closePath();
-    ctx.fillStyle = rgba(EXPECTED, alpha);
-    ctx.fill();
-  }
 
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-
-    band(-1.96, 1.96, 0.05);
-    band(-0.67, 0.67, 0.06);
-
-    // Median
-    ctx.beginPath();
-    for (var i = 0; i <= 90; i++) {
-      var t = i / 90;
-      if (i === 0) ctx.moveTo(px(t), py(mean(t))); else ctx.lineTo(px(t), py(mean(t)));
-    }
-    ctx.strokeStyle = rgba(EXPECTED, 0.32);
-    ctx.lineWidth = 1;
-    ctx.setLineDash([4, 6]);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // Trajectories
-    for (var k = 0; k < lines.length; k++) {
-      var ln = lines[k];
-      ctx.beginPath();
-      for (var j = 0; j <= 90; j++) {
-        var tt = j / 90;
-        var yy = py(yOf(tt, ln));
-        if (j === 0) ctx.moveTo(px(tt), yy); else ctx.lineTo(px(tt), yy);
+    function seed(n) {
+      lines = []; points = [];
+      for (var i = 0; i < n; i++) {
+        var dev = (i === n - 1);
+        var ln = {
+          dev: dev,
+          z: dev ? 0.05 : (Math.random() * 2 - 1),
+          drift: dev ? 2.3 : (Math.random() * 0.4 - 0.2),
+          wob: 0.006 + Math.random() * 0.012,
+          phase: Math.random() * Math.PI * 2,
+          freq: 2 + Math.random() * 3
+        };
+        lines.push(ln);
+        for (var m = 0; m < o.dotsPerLine; m++) {
+          points.push({ line: ln, t: (i * 0.11 + m / o.dotsPerLine) % 1,
+                        speed: 0.045 + Math.random() * 0.02 });
+        }
       }
-      ctx.strokeStyle = rgba(ln.dev ? DEVIATION : EXPECTED, ln.dev ? 0.38 : 0.18);
-      ctx.lineWidth = 1;
-      ctx.stroke();
     }
 
-    // Travelling measurement points
-    for (var q = 0; q < points.length; q++) {
-      var p = points[q];
-      var outside = Math.abs(zOf(p.t, p.line)) > 1.96;
-      var col = outside ? DEVIATION : EXPECTED;
-      var x = px(p.t), y = py(yOf(p.t, p.line));
-      // fade in and out at the edges so the loop is not visible
-      var edge = Math.min(1, Math.min(p.t, 1 - p.t) / 0.06);
-      var r = outside ? 3.4 : 2.4;
-
+    function band(zLo, zHi, alpha) {
+      var i, t;
       ctx.beginPath();
-      ctx.arc(x, y, r * 2.8, 0, Math.PI * 2);
-      ctx.fillStyle = rgba(col, 0.12 * edge);
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = rgba(col, (outside ? 1 : 0.78) * edge);
+      for (i = 0; i <= 90; i++) {
+        t = i / 90;
+        var v = mean(t) + zHi * spread(t);
+        if (i === 0) ctx.moveTo(px(t), py(v)); else ctx.lineTo(px(t), py(v));
+      }
+      for (i = 90; i >= 0; i--) {
+        t = i / 90;
+        ctx.lineTo(px(t), py(mean(t) + zLo * spread(t)));
+      }
+      ctx.closePath();
+      ctx.fillStyle = rgba(EXPECTED, alpha);
       ctx.fill();
     }
-  }
 
-  function frame(ts) {
-    if (last === null) last = ts;
-    var dt = Math.min((ts - last) / 1000, 0.05);
-    last = ts;
-    for (var q = 0; q < points.length; q++) {
-      points[q].t += points[q].speed * dt;
-      if (points[q].t > 1) points[q].t -= 1;
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      band(-1.96, 1.96, o.bandAlpha);
+      band(-0.67, 0.67, o.bandAlpha * 1.2);
+
+      if (o.median) {
+        ctx.beginPath();
+        for (var i = 0; i <= 90; i++) {
+          var t = i / 90;
+          if (i === 0) ctx.moveTo(px(t), py(mean(t))); else ctx.lineTo(px(t), py(mean(t)));
+        }
+        ctx.strokeStyle = rgba(EXPECTED, 0.32);
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 6]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      for (var k = 0; k < lines.length; k++) {
+        var ln = lines[k];
+        ctx.beginPath();
+        for (var j = 0; j <= 90; j++) {
+          var tt = j / 90, yy = py(yOf(tt, ln));
+          if (j === 0) ctx.moveTo(px(tt), yy); else ctx.lineTo(px(tt), yy);
+        }
+        ctx.strokeStyle = rgba(ln.dev ? DEVIATION : EXPECTED,
+          ln.dev ? o.lineAlpha * 2 : o.lineAlpha);
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      for (var q = 0; q < points.length; q++) {
+        var p = points[q];
+        var outside = Math.abs(zOf(p.t, p.line)) > 1.96;
+        var col = outside ? DEVIATION : EXPECTED;
+        var x = px(p.t), y = py(yOf(p.t, p.line));
+        var edge = Math.min(1, Math.min(p.t, 1 - p.t) / 0.06);
+        var r = o.dot * (outside ? 1.4 : 1);
+
+        ctx.beginPath();
+        ctx.arc(x, y, r * 2.8, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(col, 0.12 * edge);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(col, (outside ? 1 : 0.78) * edge);
+        ctx.fill();
+      }
     }
-    draw();
-    raf = window.requestAnimationFrame(frame);
-  }
 
-  function resize() {
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = hero.clientWidth;
-    H = hero.clientHeight;
-    if (!W || !H) return;
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    draw();
-  }
+    function frame(ts) {
+      if (last === null) last = ts;
+      var dt = Math.min((ts - last) / 1000, 0.05);
+      last = ts;
+      for (var q = 0; q < points.length; q++) {
+        points[q].t += points[q].speed * dt;
+        if (points[q].t > 1) points[q].t -= 1;
+      }
+      draw();
+      raf = window.requestAnimationFrame(frame);
+    }
 
-  function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
-  function play() { if (!raf && !reduce) { last = null; raf = window.requestAnimationFrame(frame); } }
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = host.clientWidth; H = host.clientHeight;
+      if (!W || !H) return;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
 
-  seed(9);
-  resize();
+    function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
+    function play() { if (!raf && !reduce) { last = null; raf = window.requestAnimationFrame(frame); } }
 
-  var rt;
-  window.addEventListener("resize", function () {
-    clearTimeout(rt);
-    rt = setTimeout(resize, 120);
-  });
+    seed(o.lines);
+    resize();
 
-  if (reduce) {
-    draw();
-  } else {
+    var rt;
+    window.addEventListener("resize", function () {
+      clearTimeout(rt); rt = setTimeout(resize, 120);
+    });
+
+    if (reduce) { draw(); return; }
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (e) {
         onscreen = e[0].isIntersecting;
         if (onscreen) play(); else stop();
-      }, { threshold: 0 }).observe(hero);
+      }, { threshold: 0 }).observe(host);
     }
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) stop(); else if (onscreen) play();
     });
     play();
   }
+
+  // Splash hero: the full statement
+  if (document.body.classList.contains("layout--splash")) {
+    createField(document.querySelector(".page__hero--overlay"), {
+      lines: 9, dotsPerLine: 2, dot: 2.4, base: 0.09, scale: 0.66,
+      bandAlpha: 0.05, lineAlpha: 0.18, median: true, lift: ".wrapper"
+    });
+  }
+
+  // Masthead: a faint version, so every page carries the motif
+  createField(document.querySelector(".masthead"), {
+    lines: 6, dotsPerLine: 1, dot: 1.8, base: 0.12, scale: 0.85,
+    bandAlpha: 0.035, lineAlpha: 0.14, median: false, opacity: 0.85,
+    lift: ".masthead__inner-wrap"
+  });
 })();
 </script>
 

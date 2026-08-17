@@ -32,14 +32,14 @@ groups, and of [GEMRIC](https://mmiv.no/gemric/).
 *Esketamine-induced psychoanalytic processes in neurophysiological brain
 dynamics*
 
-**KNAW Ter Meulen Beurs**, 2026
+**KNAW Academy Ter Meulen Beurs**, 2026
 *The Heterogeneous Brain in Youth Psychiatry: A Normative Modeling Perspective*
 
-**Academy Van Leersum Grant**, KNAW, 2024
+**KNAW Academy Van Leersum Grant**, 2024
 *Pathways to precision psychiatry: big data analytics for juvenile mood
 disorders*
 
-**KNAW Van der Gaag Grant**, 2023
+**KNAW Academy Van der Gaag Grant**, 2023
 *Research on juvenile mood disorders*, carried out with the ENIGMA consortium at
 USC.
 [Interview with the KNAW](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)

@@ -65,7 +65,7 @@ hospitals, and you have the sort of dataset the
 
 Facial features can be reconstructed from a structural MRI, which makes an
 unedited scan identifiable. This one has been through a defacing algorithm that
-strips the face and ears while leaving the brain untouched. It is standard
+strips the face while leaving the brain untouched. It is standard
 practice before sharing any structural scan, including your own.
 
 <a id="brain-download" class="btn btn--primary" href="#" download>Download the scan (NIfTI)</a>

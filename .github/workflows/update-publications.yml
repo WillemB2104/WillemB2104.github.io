@@ -1,0 +1,37 @@
+name: Update publications from ORCID
+
+on:
+  schedule:
+    # Every Monday at 05:00 UTC. Adjust or add more entries as you like.
+    - cron: "0 5 * * 1"
+  workflow_dispatch:        # lets you trigger it by hand from the Actions tab
+
+permissions:
+  contents: write           # needed so the job can commit the updated file
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch ORCID works and rebuild _data/publications.yml
+        run: python scripts/fetch_orcid.py
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- _data/publications.yml; then
+            echo "No changes — nothing to commit."
+          else
+            git add _data/publications.yml
+            git commit -m "chore: refresh publications from ORCID"
+            git push
+          fi

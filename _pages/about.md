@@ -107,7 +107,7 @@ support international collaborative research.
 
 Much of what I do happens at a scale no single site can reach. I've led and
 coordinated analyses within international consortia including
-[**ENIGMA**](https://enigma.ini.usc.edu/), covering both the
+[**ENIGMA**](https://enigma.ini.usc.edu/): including the 
 [ENIGMA-OCD](https://enigma.ini.usc.edu/ongoing/enigma-ocd-working-group/) and
 [ENIGMA-ANXIETY](https://enigma.ini.usc.edu/ongoing/enigma-anxiety/) working
 groups, and [**GEMRIC**](https://mmiv.no/gemric/), working across 70+ sites for

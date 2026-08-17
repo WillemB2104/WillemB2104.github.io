@@ -1,9 +1,13 @@
+# Main top-bar navigation.
+# Order here is the order shown on the site.
 main:
-  - title: "Posts"
-    url: /posts/
-  - title: "Categories"
-    url: /categories/
-  - title: "Tags"
-    url: /tags/
   - title: "About"
     url: /about/
+  - title: "Research"
+    url: /research/
+  - title: "Publications"
+    url: /publications/
+  - title: "CV"
+    url: /cv/
+  - title: "Contact"
+    url: /contact/

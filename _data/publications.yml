@@ -32,8 +32,8 @@
   citations: 0
 
 - title: "Disrupted Higher-Order Topology in OCD Brain Networks Revealed by Hodge Laplacian – an ENIGMA Study"
-  authors: ""
-  authors_short: ""
+  authors: "Ruan, H., Chung, M.K., <strong>Bruin, W.B.</strong>, Dzinalija, N., Thompson, P., Stein, D., van den Heuvel, O., Koch, K."
+  authors_short: "Ruan, H., Chung, M.K., <strong>Bruin, W.B.</strong>, Dzinalija, N., Thompson, P., Stein, D., van den Heuvel, O., Koch, K."
   journal: "Zenodo"
   type: "data-set"
   doi: "10.5281/zenodo.18861977"
@@ -132,10 +132,10 @@
   citations: 12
 
 - title: "White matter diffusion estimates in obsessive-compulsive disorder across 1,653 individuals: Machine learning findings from the ENIGMA OCD Working Group"
-  authors: ""
-  authors_short: ""
+  authors: "Cha, J., Kim, B., Kim, G., Abe, Y., Alonso, P., Ameis, S., Anticevic, A., Arnold, P.D., Balachander, S., Banaj, N., Bargalló, N., Batistuzzo, M.C., Benedetti, F., Bertolín, S., Beucke, J.-C., Bollettini, I., Brem, S., Brennan, B.P., Buitelaar, J.K., Calvo, R., Cheng, Y., Chhatkuli, R.B., Coelho, A., Couto, B., Dallaspezia, S., Ely, B.A., Ferreira, S., Fontaine, M., Fouche, J.-P., Grazioplene, R., Gruner, P., Hagen, K., Hansen, B., Hirano, Y., Höxter, M.Q., Hough, M., Hu, H., Huyser, C., Ikuta, T., Jahanshad, N., James, A., Jaspers-Fayer, F., Kasprzak, S., Kathmann, N., Kaufmann, C., Kim, M., Koch, K., Kvale, G., Kwon, J.S., Lazaro, L., Lee, J., Lochner, C., Lu, J., Manrique, D.R., Martínez-Zalacaín, I., Masuda, Y., Matsumoto, K., Maziero, M.P., Menchón, J.M., Minuzzi, L., Moreira, P.S., Morgado, P., Narayanaswamy, J.C., Narumoto, J., Ortiz, A.E., Ota, J., Pariente, J.C., Perriello, C., Picó-Pérez, M., Pittenger, C., Poletti, S., Real, E., Reddy, Y.C.J., van Rooij, D., Sakai, Y., Sato, J.R., Segalas, C., Shavitt, R.G., Shen, Z., Shimizu, E., Shivakumar, V., Soriano-Mas, C., Sousa, N., Sousa, M.M., Spalletta, G., Stern, E.R., Stewart, S.E., Szeszko, P.R., Thomopoulos, S.I., Vecchio, D., Venkatasubramanian, G., Vriend, C., Walitza, S., Wang, Z., Watanabe, A., Wolters, L., Xu, J., Yamada, K., Yun, J.-Y., Zarei, M., Zhao, Q., Zhu, X., Thompson, P.M., Bruin, W.B., van Wingen, G.A., Piras, F., Piras, F., Stein, D.J., van den Heuvel, O.A., Simpson, H.B., Marsh, R."
+  authors_short: "Cha, J., Kim, B., Kim, G., &hellip;, Marsh, R."
   journal: "Research Square"
-  type: "other"
+  type: "preprint"
   doi: "10.21203/rs.3.rs-2749722"
   url: "https://doi.org/10.21203/rs.3.rs-2749722"
   year: 2023

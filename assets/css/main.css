@@ -1,0 +1,304 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+// 1. Skin first, so its variables are in scope
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+
+// ---------------------------------------------------------------------------
+// 2. Variable overrides. These must sit between the skin and the theme import,
+//    because the theme's own variables are declared with !default.
+// ---------------------------------------------------------------------------
+
+// Type ----------------------------------------------------------------------
+$doc-font-size: 15;
+
+$sans-serif: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, sans-serif;
+$monospace: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+$header-font-family: "Space Grotesk", $sans-serif;
+$global-font-family: $sans-serif;
+$caption-font-family: $sans-serif;
+
+// Palette -------------------------------------------------------------------
+// Teal reads as "expected"; amber reads as "deviation". The same pairing is
+// used in the hero animation.
+$deep-slate: #151a24;
+$panel-slate: #1c2230;
+$hairline: #2b3446;
+
+$expected: #3fd0c9;
+$deviation: #f0a848;
+
+$background-color: $deep-slate;
+$text-color: #d7dee8;
+$muted-text-color: #8a97ab;
+$border-color: $hairline;
+$code-background-color: $panel-slate;
+
+$primary-color: $expected;
+$link-color: #5adcd3;
+$link-color-hover: $deviation;
+$link-color-visited: #5adcd3;
+
+$masthead-link-color: $text-color;
+$masthead-link-color-hover: $expected;
+$footer-background-color: #11151d;
+
+$success-color: $expected;
+$warning-color: $deviation;
+$info-color: $expected;
+
+// 3. The theme itself
+@import "minimal-mistakes";
+
+// ---------------------------------------------------------------------------
+// 4. Custom styling
+// ---------------------------------------------------------------------------
+
+// Headings: tighter, with a little negative tracking so the display face
+// doesn't feel loose at large sizes.
+h1, h2, h3, h4, .page__title, .archive__item-title {
+  letter-spacing: -0.015em;
+}
+
+.page__title {
+  font-weight: 600;
+}
+
+// Masthead ------------------------------------------------------------------
+.masthead {
+  border-bottom: 1px solid $hairline;
+  background-color: rgba(21, 26, 36, 0.88);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+}
+
+.site-title {
+  font-family: $header-font-family;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.site-subtitle {
+  font-family: $monospace;
+  font-size: 0.66em;
+  letter-spacing: 0.04em;
+  color: $muted-text-color;
+  text-transform: lowercase;
+}
+
+.greedy-nav {
+  background: transparent;
+
+  a {
+    font-family: $header-font-family;
+    font-weight: 500;
+  }
+}
+
+// Hero ----------------------------------------------------------------------
+.page__hero--overlay {
+  position: relative;
+  overflow: hidden;
+  padding: 5.5em 0 4.5em;
+  background-color: $deep-slate;
+
+  .wrapper {
+    position: relative;
+    z-index: 2;
+  }
+
+  .page__title {
+    font-size: 3em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-shadow: none;
+  }
+
+  .page__lead {
+    font-family: $monospace;
+    font-size: 0.95em;
+    letter-spacing: 0.02em;
+    color: rgba(215, 222, 232, 0.82);
+    text-shadow: none;
+  }
+}
+
+#trajectory-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+}
+
+// A hairline that reads as the axis the trajectories sit on
+.page__hero--overlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(63, 208, 201, 0.5),
+    rgba(240, 168, 72, 0.35),
+    transparent
+  );
+  z-index: 3;
+}
+
+// Landing page cards --------------------------------------------------------
+.feature__wrapper {
+  border-bottom: 0;
+  padding-top: 0.5em;
+}
+
+.feature__item {
+  .archive__item {
+    background: $panel-slate;
+    border: 1px solid $hairline;
+    border-radius: 6px;
+    padding: 1.6em 1.4em 1.8em;
+    height: 100%;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .archive__item:hover {
+    border-color: rgba(63, 208, 201, 0.55);
+    transform: translateY(-2px);
+  }
+
+  .archive__item-title {
+    margin-top: 0;
+    font-size: 1.15em;
+    font-weight: 600;
+  }
+
+  .archive__item-excerpt {
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: $muted-text-color;
+  }
+}
+
+// Intro block on the landing page
+.feature__item--center .archive__item-excerpt {
+  font-size: 1.02em;
+  line-height: 1.7;
+  color: $text-color;
+  max-width: 46em;
+  margin: 0 auto;
+}
+
+// Buttons -------------------------------------------------------------------
+.btn {
+  font-family: $header-font-family;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: 4px;
+}
+
+.btn--primary {
+  background-color: transparent;
+  border: 1px solid $expected;
+  color: $expected;
+
+  &:hover {
+    background-color: $expected;
+    color: $deep-slate;
+  }
+}
+
+// Sidebar -------------------------------------------------------------------
+.author__avatar img {
+  border: 1px solid $hairline;
+}
+
+.author__name {
+  font-family: $header-font-family;
+  font-weight: 600;
+}
+
+.author__urls-wrapper li a {
+  font-size: 0.82em;
+}
+
+// Body copy -----------------------------------------------------------------
+.page__content {
+  p, li {
+    line-height: 1.68;
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+  }
+
+  h2 {
+    font-weight: 600;
+    border-bottom: 1px solid $hairline;
+    padding-bottom: 0.3em;
+  }
+}
+
+// Table of contents ---------------------------------------------------------
+.toc {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid $hairline;
+  box-shadow: none;
+
+  .nav__title {
+    font-family: $header-font-family;
+    background-color: $panel-slate;
+    color: $expected;
+    font-size: 0.75em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .toc__menu a {
+    font-size: 0.72em;
+  }
+}
+
+// Notices -------------------------------------------------------------------
+.notice--info {
+  background-color: rgba(63, 208, 201, 0.07);
+  border-left: 2px solid $expected;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.82em;
+}
+
+// Footer --------------------------------------------------------------------
+.page__footer {
+  border-top: 1px solid $hairline;
+
+  a {
+    font-family: $monospace;
+    font-size: 0.9em;
+  }
+}
+
+// Accessibility floor -------------------------------------------------------
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid $deviation;
+  outline-offset: 2px;
+}
+
+@media (max-width: 37.5em) {
+  .page__hero--overlay {
+    padding: 3.5em 0 3em;
+
+    .page__title { font-size: 2.1em; }
+    .page__lead { font-size: 0.85em; }
+  }
+}

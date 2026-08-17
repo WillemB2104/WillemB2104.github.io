@@ -9,6 +9,8 @@ main:
     url: /publications/
   - title: "Talks & Media"
     url: /media/
+  - title: "My Brain"
+    url: /brain/
   - title: "CV"
     url: /cv/
   - title: "Contact"

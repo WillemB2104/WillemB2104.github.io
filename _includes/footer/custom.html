@@ -195,12 +195,15 @@
     });
   }
 
-  // Masthead: a faint version, so every page carries the motif
-  createField(document.querySelector(".masthead"), {
-    lines: 6, dotsPerLine: 1, dot: 1.8, base: 0.12, scale: 0.85,
-    bandAlpha: 0.035, lineAlpha: 0.14, median: false, opacity: 0.85,
-    lift: ".masthead__inner-wrap"
-  });
+  // Masthead: a faint version on every page except the splash, which already
+  // carries the full-size field in its hero.
+  if (!document.body.classList.contains("layout--splash")) {
+    createField(document.querySelector(".masthead"), {
+      lines: 6, dotsPerLine: 1, dot: 1.8, base: 0.12, scale: 0.85,
+      bandAlpha: 0.035, lineAlpha: 0.14, median: false, opacity: 0.85,
+      lift: ".masthead__inner-wrap"
+    });
+  }
 })();
 </script>
 

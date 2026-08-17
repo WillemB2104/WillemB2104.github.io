@@ -19,7 +19,7 @@ masthead_title           : "Willem B. Bruin"
 breadcrumbs              : false
 words_per_minute         : 200
 
-# Theme — must be remote_theme on GitHub Pages, not `theme`
+# Theme: must be remote_theme on GitHub Pages, not `theme`
 remote_theme             : "mmistakes/minimal-mistakes@4.28.1"
 
 # Skin options: "default", "air", "aqua", "contrast", "dark", "dirt",
@@ -52,7 +52,7 @@ analytics:
   provider               : false
 
 # ─────────────────────────────────────────────────────────────────────────────
-# AUTHOR — this drives the sidebar that appears on every page
+# AUTHOR: this drives the sidebar that appears on every page
 # ─────────────────────────────────────────────────────────────────────────────
 author:
   name             : *name
@@ -64,6 +64,9 @@ author:
   email            : "w.b.bruin@amsterdamumc.nl"
   orcid_id         : "0000-0002-0672-8903"
   links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:w.b.bruin@amsterdamumc.nl"
     - label: "ORCID"
       icon: "fab fa-fw fa-orcid"
       url: "https://orcid.org/0000-0002-0672-8903"
@@ -173,7 +176,7 @@ tag_archive:
   path: /tags/
 
 # ─────────────────────────────────────────────────────────────────────────────
-# DEFAULTS — what every page and post inherits unless overridden
+# DEFAULTS: what every page and post inherits unless overridden
 # ─────────────────────────────────────────────────────────────────────────────
 defaults:
   # _posts

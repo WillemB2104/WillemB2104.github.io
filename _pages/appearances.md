@@ -80,7 +80,7 @@ Using Structural Neuroimaging Data, a Benchmark for ENIGMA.*
 ## Teaching and supervision
 
 **PhD candidate**, daily supervisor and co-promotor
-Leonardo Nacci, *Biotype-based personalised rTMS treatment in OCD*,
+*Biotype-based personalised rTMS treatment in OCD*,
 Amsterdam UMC (2025 to present)
 
 **Guest lecturer**, Leiden University, MSc Education and Child Studies

@@ -1,8 +1,9 @@
 <script>
 /* Normative trajectory field.
-   Percentile bands with individual trajectories drawn across them, one of
-   which departs from the expected range. Teal is expected, amber is deviation.
-   Only runs on the splash landing page. */
+   Percentile bands with individual trajectories, and measurement points
+   travelling along them through developmental time. Teal is within the
+   expected range; a point turns amber when its trajectory leaves the band.
+   Runs only on the splash landing page. */
 (function () {
   var hero = document.querySelector(".page__hero--overlay");
   if (!hero || !document.body.classList.contains("layout--splash")) return;
@@ -13,14 +14,28 @@
   var canvas = document.createElement("canvas");
   canvas.id = "trajectory-field";
   canvas.setAttribute("aria-hidden", "true");
+
+  // Positioned inline as well as in CSS, so a missing stylesheet can never
+  // push the hero text out of place.
+  var s = canvas.style;
+  s.position = "absolute";
+  s.top = "0"; s.left = "0"; s.right = "0"; s.bottom = "0";
+  s.width = "100%"; s.height = "100%";
+  s.zIndex = "1"; s.display = "block"; s.pointerEvents = "none";
+  if (!hero.style.position) hero.style.position = "relative";
+  hero.style.overflow = "hidden";
+
   hero.insertBefore(canvas, hero.firstChild);
+
+  var wrapper = hero.querySelector(".wrapper");
+  if (wrapper) { wrapper.style.position = "relative"; wrapper.style.zIndex = "2"; }
 
   var ctx = canvas.getContext("2d");
   if (!ctx) return;
 
   var EXPECTED = [63, 208, 201];
   var DEVIATION = [240, 168, 72];
-  var W = 0, H = 0, lines = [], raf = null, startTs = null, visible = true;
+  var W = 0, H = 0, lines = [], points = [], raf = null, last = null, onscreen = true;
 
   function rgba(c, a) { return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")"; }
   function mean(t) { return 0.62 * (1 - Math.exp(-3.4 * t)) - 0.16 * t * t; }
@@ -28,25 +43,34 @@
   function px(t) { return t * W; }
   function py(v) { return H - (0.09 * H + v * H * 0.66); }
 
-  function seed(n) {
-    lines = [];
-    for (var i = 0; i < n; i++) {
-      var dev = (i === n - 1);
-      lines.push({
-        dev: dev,
-        z: dev ? 0.05 : (Math.random() * 2 - 1),
-        drift: dev ? 1.25 : (Math.random() * 0.4 - 0.2),
-        wob: 0.006 + Math.random() * 0.012,
-        phase: Math.random() * Math.PI * 2,
-        freq: 2 + Math.random() * 3,
-        delay: dev ? 0.10 : Math.random() * 0.3
-      });
-    }
+  function zOf(t, ln) { return ln.z + ln.drift * Math.pow(t, 2.6); }
+  function yOf(t, ln) {
+    return mean(t) + zOf(t, ln) * spread(t)
+      + Math.sin(t * ln.freq * Math.PI + ln.phase) * ln.wob;
   }
 
-  function yOf(t, ln) {
-    return mean(t) + (ln.z + ln.drift * Math.pow(t, 2.6)) * spread(t)
-      + Math.sin(t * ln.freq * Math.PI + ln.phase) * ln.wob;
+  function seed(n) {
+    lines = []; points = [];
+    for (var i = 0; i < n; i++) {
+      var dev = (i === n - 1);
+      var ln = {
+        dev: dev,
+        z: dev ? 0.05 : (Math.random() * 2 - 1),
+        drift: dev ? 2.3 : (Math.random() * 0.4 - 0.2),
+        wob: 0.006 + Math.random() * 0.012,
+        phase: Math.random() * Math.PI * 2,
+        freq: 2 + Math.random() * 3
+      };
+      lines.push(ln);
+      // Two measurement points per trajectory, staggered around the cycle
+      for (var m = 0; m < 2; m++) {
+        points.push({
+          line: ln,
+          t: (i * 0.11 + m * 0.5) % 1,
+          speed: 0.045 + Math.random() * 0.02
+        });
+      }
+    }
   }
 
   function band(zLo, zHi, alpha) {
@@ -66,54 +90,69 @@
     ctx.fill();
   }
 
-  function draw(progress) {
+  function draw() {
     ctx.clearRect(0, 0, W, H);
+
     band(-1.96, 1.96, 0.05);
     band(-0.67, 0.67, 0.06);
 
+    // Median
     ctx.beginPath();
     for (var i = 0; i <= 90; i++) {
       var t = i / 90;
       if (i === 0) ctx.moveTo(px(t), py(mean(t))); else ctx.lineTo(px(t), py(mean(t)));
     }
-    ctx.strokeStyle = rgba(EXPECTED, 0.33);
+    ctx.strokeStyle = rgba(EXPECTED, 0.32);
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 6]);
     ctx.stroke();
     ctx.setLineDash([]);
 
+    // Trajectories
     for (var k = 0; k < lines.length; k++) {
       var ln = lines[k];
-      var p = (progress - ln.delay) / (1 - ln.delay);
-      if (p <= 0) continue;
-      if (p > 1) p = 1;
-
       ctx.beginPath();
-      var first = true;
       for (var j = 0; j <= 90; j++) {
         var tt = j / 90;
-        if (tt > p) break;
         var yy = py(yOf(tt, ln));
-        if (first) { ctx.moveTo(px(tt), yy); first = false; } else { ctx.lineTo(px(tt), yy); }
+        if (j === 0) ctx.moveTo(px(tt), yy); else ctx.lineTo(px(tt), yy);
       }
-      ctx.strokeStyle = rgba(ln.dev ? DEVIATION : EXPECTED, ln.dev ? 0.94 : 0.30);
-      ctx.lineWidth = ln.dev ? 1.8 : 1;
+      ctx.strokeStyle = rgba(ln.dev ? DEVIATION : EXPECTED, ln.dev ? 0.38 : 0.18);
+      ctx.lineWidth = 1;
       ctx.stroke();
+    }
 
-      var ex = px(p), ey = py(yOf(p, ln));
+    // Travelling measurement points
+    for (var q = 0; q < points.length; q++) {
+      var p = points[q];
+      var outside = Math.abs(zOf(p.t, p.line)) > 1.96;
+      var col = outside ? DEVIATION : EXPECTED;
+      var x = px(p.t), y = py(yOf(p.t, p.line));
+      // fade in and out at the edges so the loop is not visible
+      var edge = Math.min(1, Math.min(p.t, 1 - p.t) / 0.06);
+      var r = outside ? 3.4 : 2.4;
+
       ctx.beginPath();
-      ctx.arc(ex, ey, ln.dev ? 3.2 : 1.6, 0, Math.PI * 2);
-      ctx.fillStyle = rgba(ln.dev ? DEVIATION : EXPECTED, ln.dev ? 1 : 0.5);
+      ctx.arc(x, y, r * 2.8, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(col, 0.12 * edge);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(col, (outside ? 1 : 0.78) * edge);
       ctx.fill();
     }
   }
 
   function frame(ts) {
-    if (startTs === null) startTs = ts;
-    var elapsed = (ts - startTs) / 1000;
-    var p = elapsed / 8;
-    draw(p > 1 ? 1 : p);
-    if (elapsed > 15) startTs = ts;
+    if (last === null) last = ts;
+    var dt = Math.min((ts - last) / 1000, 0.05);
+    last = ts;
+    for (var q = 0; q < points.length; q++) {
+      points[q].t += points[q].speed * dt;
+      if (points[q].t > 1) points[q].t -= 1;
+    }
+    draw();
     raf = window.requestAnimationFrame(frame);
   }
 
@@ -124,30 +163,33 @@
     if (!W || !H) return;
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
-    canvas.style.width = W + "px";
-    canvas.style.height = H + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    if (reduce) draw(1);
+    draw();
   }
 
   function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
-  function play() { if (!raf && !reduce) { startTs = null; raf = window.requestAnimationFrame(frame); } }
+  function play() { if (!raf && !reduce) { last = null; raf = window.requestAnimationFrame(frame); } }
 
   seed(9);
   resize();
-  window.addEventListener("resize", function () { resize(); });
+
+  var rt;
+  window.addEventListener("resize", function () {
+    clearTimeout(rt);
+    rt = setTimeout(resize, 120);
+  });
 
   if (reduce) {
-    draw(1);
+    draw();
   } else {
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        visible = entries[0].isIntersecting;
-        if (visible) play(); else stop();
+      new IntersectionObserver(function (e) {
+        onscreen = e[0].isIntersecting;
+        if (onscreen) play(); else stop();
       }, { threshold: 0 }).observe(hero);
     }
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) stop(); else if (visible) play();
+      if (document.hidden) stop(); else if (onscreen) play();
     });
     play();
   }

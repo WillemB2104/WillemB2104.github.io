@@ -65,14 +65,14 @@ Outcome using Machine Learning](https://pure.uva.nl/ws/files/163646716/Thesis.pd
 Psychiatric diagnosis still rests on the subjective assessment of symptoms.
 Patients sharing a diagnosis can look very different from one another, symptoms
 overlap heavily across disorders, and treatment guidelines largely follow a
-one-size-fits-all logic,  which for some patients means delay, or a treatment
+one-size-fits-all logic, which for some patients means delay, or a treatment
 that was never going to work. The thesis asked whether machine learning applied
 to neuroimaging data could produce **generalisable** biomarkers to help with
 this.
 
 The answer turned out to be more interesting than a straightforward yes or no.
-Working with the **ENIGMA-OCD** consortium, 2,304 patients and 2,068 controls
-across 36 institutes, structural MRI proved unable to separate patients from
+Working with the **ENIGMA-OCD** consortium (2,304 patients and 2,068 controls
+across 36 institutes), structural MRI proved unable to separate patients from
 controls in a way that transferred to new sites. But grouping patients by
 medication status enabled good classification, revealing that medication is
 associated with substantial, widely distributed differences in brain anatomy,
@@ -84,7 +84,7 @@ existing disease models.
 
 Extending this to **anxiety disorders in youth** across 32 sites and 3,343 young
 people aged 10–25, transdiagnostic classification again reached only modest
-performance - though the effect sizes were considerably larger than for
+performance, though the effect sizes were considerably larger than for
 univariate differences, and comparable to brain-based classification elsewhere in
 psychiatry.
 
@@ -99,7 +99,7 @@ genuinely plausible.
 
 Alongside the consortium work, I carried out a **randomised controlled trial in
 OCD** comparing the effects of pharmacological and psychological treatment on
-brain activity - running it from recruitment through data collection. The
+brain activity, running it from recruitment through data collection. The
 resulting dataset has since been contributed to ENIGMA-OCD and continues to
 support international collaborative research.
 
@@ -107,10 +107,10 @@ support international collaborative research.
 
 Much of what I do happens at a scale no single site can reach. I've led and
 coordinated analyses within international consortia including
-[**ENIGMA**](https://enigma.ini.usc.edu/) - both the
-[OCD](https://enigma.ini.usc.edu/ongoing/enigma-ocd-working-group/) and
-[anxiety](https://enigma.ini.usc.edu/ongoing/enigma-anxiety/) working groups -
-and [**GEMRIC**](https://mmiv.no/gemric/), working across 70+ sites for
+[**ENIGMA**](https://enigma.ini.usc.edu/), covering both the
+[ENIGMA-OCD](https://enigma.ini.usc.edu/ongoing/enigma-ocd-working-group/) and
+[ENIGMA-ANXIETY](https://enigma.ini.usc.edu/ongoing/enigma-anxiety/) working
+groups, and [**GEMRIC**](https://mmiv.no/gemric/), working across 70+ sites for
 data-driven biomarker development and validation.
 
 The functional connectivity mega-analysis framework I developed for ENIGMA-OCD
@@ -145,24 +145,23 @@ Studies I led within these consortia:
   (2020).
   [doi:10.1038/s41398-020-01013-y](https://doi.org/10.1038/s41398-020-01013-y)
 
-This kind of work might seem unglamorous but is essential: harmonising protocols,
+This kind of work is unglamorous and essential: harmonising protocols,
 reconciling heterogeneous data, and building analyses that hold up across
 populations rather than fitting the quirks of one scanner in one hospital.
 
 My collaboration with **Prof. Paul Thompson**, director of ENIGMA, has been
-supported by two personal grants from the Royal Netherlands Academy of Arts and
-Sciences (KNAW) - the
-[Van der Gaag](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
-and Van Leersum grants - and included research visits to his lab at USC. The
-KNAW published a short
+supported by thee personal grants from the Royal Netherlands Academy of Arts and
+Sciences (KNAW), the
+[Van der Gaag](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren),
+Van Leersum  and ter Meulen grants, and included research visits to his lab at USC. 
+The KNAW published a short
 [interview about the Van der Gaag project](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
 (in Dutch), covering the use of AI and normative modelling to study brain
 development in young people with anxiety and mood disorders.
- 
 
 ## Approach
 
-I care about **validation**. A prediction model that performs beautifully in
+I care  about **validation**. A prediction model that performs beautifully in
 a held-out split of the same dataset and collapses at a new site hasn't told us
 much, and internal cross-validation on a small, carefully curated sample is a
 poor guide to what will happen in practice. Leave-one-site-out validation,
@@ -170,7 +169,7 @@ external replication, and honest reporting of where models fail are what make th
 difference between an interesting result and a usable one.
 
 The work I find worth doing is the kind that survives contact with new, unseen
-samples that better reflect clinical practice, patients with prior treatment
+samples that better reflect clinical practice: patients with prior treatment
 exposure, comorbidities, varying symptom severity, and all the heterogeneity that
 gets excluded from tightly controlled study populations.
 

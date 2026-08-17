@@ -55,8 +55,9 @@ obsessive-compulsive symptomatology. Two preregistered projects run in parallel:
 one on [thalamic maturation](https://osf.io/9zwtc/overview) and its relation to 
 broader subcortical and cortical development, and one on brain maturation in relation 
 to obsessive-compulsive symptoms. At Leiden University I work with Dr. Moji Aghajani 
-on similar questions in adolescent anxiety, using data from the ENIGMA consortium.  
-A KNAW Ter Meulen grant supports an extension of this line with the University
+on similar questions in adolescent anxiety, using data from the ENIGMA consortium.
+
+A KNAW Ter Meulen grant (2026) supports an extension of this line with the University
 of Southern California and the University of Michigan, using scans from roughly
 15,000 young people across more than thirty countries to build developmental
 reference curves that hold across diagnostic boundaries rather than within them.

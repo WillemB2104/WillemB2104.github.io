@@ -81,15 +81,20 @@ $info-color: $expected;
 // 4. Custom styling
 // ---------------------------------------------------------------------------
 
-// Headings: tighter, with a little negative tracking so the display face
-// doesn't feel loose at large sizes.
+// Emphasis ------------------------------------------------------------------
+// Bold text carries the amber accent. Links stay teal so that "important"
+// and "clickable" remain visually distinct. To make links amber too, change
+// $link-color to $deviation in the dials above.
+.page__content {
+  strong, b { color: $deviation; font-weight: 600; }
+}
+
+// Headings ------------------------------------------------------------------
 h1, h2, h3, h4, .page__title, .archive__item-title {
   letter-spacing: -0.015em;
 }
 
-.page__title {
-  font-weight: 600;
-}
+.page__title { font-weight: 600; }
 
 // Masthead ------------------------------------------------------------------
 .masthead {
@@ -105,21 +110,19 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   letter-spacing: -0.02em;
 }
 
+// Sans, not mono: this is a tagline, not metadata.
 .site-subtitle {
-  font-family: $monospace;
-  font-size: 0.66em;
-  letter-spacing: 0.04em;
+  font-family: $sans-serif;
+  font-size: 0.72em;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   color: $muted-text-color;
-  text-transform: lowercase;
+  text-transform: none;
 }
 
 .greedy-nav {
   background: transparent;
-
-  a {
-    font-family: $header-font-family;
-    font-weight: 500;
-  }
+  a { font-family: $header-font-family; font-weight: 500; font-size: 1em; }
 }
 
 // Hero ----------------------------------------------------------------------
@@ -129,10 +132,7 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   padding: 5.5em 0 4.5em;
   background-color: $deep-slate;
 
-  .wrapper {
-    position: relative;
-    z-index: 2;
-  }
+  .wrapper { position: relative; z-index: 2; }
 
   .page__title {
     font-size: 3em;
@@ -160,29 +160,18 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   pointer-events: none;
 }
 
-// A hairline that reads as the axis the trajectories sit on
 .page__hero--overlay::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 0; right: 0; bottom: 0;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(63, 208, 201, 0.5),
-    rgba(240, 168, 72, 0.35),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent,
+    rgba(63, 208, 201, 0.5), rgba(240, 168, 72, 0.35), transparent);
   z-index: 3;
 }
 
 // Landing page cards --------------------------------------------------------
-.feature__wrapper {
-  border-bottom: 0;
-  padding-top: 0.5em;
-}
+.feature__wrapper { border-bottom: 0; padding-top: 0.5em; }
 
 .feature__item {
   .archive__item {
@@ -193,29 +182,21 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
     height: 100%;
     transition: border-color 0.18s ease, transform 0.18s ease;
   }
-
   .archive__item:hover {
     border-color: rgba(63, 208, 201, 0.55);
     transform: translateY(-2px);
   }
-
-  .archive__item-title {
-    margin-top: 0;
-    font-size: 1.15em;
-    font-weight: 600;
-  }
-
+  .archive__item-title { margin-top: 0; font-size: 1.2em; font-weight: 600; }
   .archive__item-excerpt {
-    font-size: 0.85em;
+    font-size: 0.92em;
     line-height: 1.6;
     color: $muted-text-color;
   }
 }
 
-// Intro block on the landing page
 .feature__item--center .archive__item-excerpt {
-  font-size: 1.02em;
-  line-height: 1.7;
+  font-size: 1.05em;
+  line-height: 1.75;
   color: $text-color;
   max-width: 46em;
   margin: 0 auto;
@@ -227,47 +208,54 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   font-weight: 500;
   letter-spacing: 0.01em;
   border-radius: 4px;
+  font-size: 0.85em;
 }
 
 .btn--primary {
   background-color: transparent;
   border: 1px solid $expected;
   color: $expected;
-
-  &:hover {
-    background-color: $expected;
-    color: $deep-slate;
-  }
+  &:hover { background-color: $expected; color: $deep-slate; }
 }
 
 // Sidebar -------------------------------------------------------------------
+// Bigger portrait, and legible supporting text.
+.sidebar .author__avatar img,
 .author__avatar img {
+  max-width: 200px;
+  width: 100%;
+  border-radius: 50%;
   border: 1px solid $hairline;
 }
+
+.author__avatar { width: 100%; }
 
 .author__name {
   font-family: $header-font-family;
   font-weight: 600;
+  font-size: 1.05em;
 }
 
-.author__urls-wrapper li a {
-  font-size: 0.82em;
-}
+.author__bio { font-size: 0.92em; line-height: 1.6; }
+
+.author__urls-wrapper li a,
+.author__urls-wrapper li { font-size: 0.95em; }
+
+.author__urls li { padding: 0.3em 0; }
 
 // Body copy -----------------------------------------------------------------
 .page__content {
-  p, li {
-    line-height: 1.68;
-  }
+  font-size: 1em;
 
-  a {
-    text-underline-offset: 0.18em;
-  }
+  p, li { line-height: 1.7; }
+
+  a { text-underline-offset: 0.18em; }
 
   h2 {
     font-weight: 600;
     border-bottom: 1px solid $hairline;
     padding-bottom: 0.3em;
+    margin-top: 2em;
   }
 }
 
@@ -282,14 +270,12 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
     font-family: $header-font-family;
     background-color: $panel-slate;
     color: $expected;
-    font-size: 0.75em;
-    letter-spacing: 0.04em;
+    font-size: 0.82em;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
   }
 
-  .toc__menu a {
-    font-size: 0.72em;
-  }
+  .toc__menu a { font-size: 0.84em; padding: 0.5em 1em; }
 }
 
 // Notices -------------------------------------------------------------------
@@ -297,16 +283,44 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   background-color: rgba(63, 208, 201, 0.07);
   border-left: 2px solid $expected;
   border-radius: 0 4px 4px 0;
-  font-size: 0.82em;
+  font-size: 0.9em;
+
+  strong, b { color: $deviation; }
+}
+
+// Publications --------------------------------------------------------------
+// Inside a reference list, amber marks the author (me). Titles stay in body
+// colour, or the page turns into a wall of amber.
+.pub-entry {
+  strong, b { color: $deviation; }
+  .pub-title { color: $text-color; font-weight: 600; }
 }
 
 // Footer --------------------------------------------------------------------
 .page__footer {
   border-top: 1px solid $hairline;
 
-  a {
+  footer {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  a { font-family: $monospace; font-size: 0.9em; }
+
+  .page__footer-follow ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4em 1.4em;
+    margin: 0 0 0.6em;
+  }
+
+  .page__footer-follow li { padding: 0; }
+
+  .page__footer-copyright {
     font-family: $monospace;
-    font-size: 0.9em;
+    font-size: 0.78em;
+    color: $muted-text-color;
   }
 }
 
@@ -320,8 +334,8 @@ button:focus-visible {
 @media (max-width: 37.5em) {
   .page__hero--overlay {
     padding: 3.5em 0 3em;
-
     .page__title { font-size: 2.1em; }
     .page__lead { font-size: 0.85em; }
   }
+  .sidebar .author__avatar img { max-width: 140px; }
 }

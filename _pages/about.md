@@ -84,7 +84,7 @@ existing disease models.
 
 Extending this to **anxiety disorders in youth** across 32 sites and 3,343 young
 people aged 10–25, transdiagnostic classification again reached only modest
-performance — though the effect sizes were considerably larger than for
+performance - though the effect sizes were considerably larger than for
 univariate differences, and comparable to brain-based classification elsewhere in
 psychiatry.
 
@@ -99,7 +99,7 @@ genuinely plausible.
 
 Alongside the consortium work, I carried out a **randomised controlled trial in
 OCD** comparing the effects of pharmacological and psychological treatment on
-brain activity — running it from recruitment through data collection. The
+brain activity - running it from recruitment through data collection. The
 resulting dataset has since been contributed to ENIGMA-OCD and continues to
 support international collaborative research.
 
@@ -107,9 +107,9 @@ support international collaborative research.
 
 Much of what I do happens at a scale no single site can reach. I've led and
 coordinated analyses within international consortia including
-[**ENIGMA**](https://enigma.ini.usc.edu/) — both the
+[**ENIGMA**](https://enigma.ini.usc.edu/) - both the
 [OCD](https://enigma.ini.usc.edu/ongoing/enigma-ocd-working-group/) and
-[anxiety](https://enigma.ini.usc.edu/ongoing/enigma-anxiety/) working groups —
+[anxiety](https://enigma.ini.usc.edu/ongoing/enigma-anxiety/) working groups -
 and [**GEMRIC**](https://mmiv.no/gemric/), working across 70+ sites for
 data-driven biomarker development and validation.
 
@@ -151,9 +151,9 @@ populations rather than fitting the quirks of one scanner in one hospital.
 
 My collaboration with **Prof. Paul Thompson**, director of ENIGMA, has been
 supported by two personal grants from the Royal Netherlands Academy of Arts and
-Sciences (KNAW) — the
+Sciences (KNAW) - the
 [Van der Gaag](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
-and Van Leersum grants — and included research visits to his lab at USC. The
+and Van Leersum grants - and included research visits to his lab at USC. The
 KNAW published a short
 [interview about the Van der Gaag project](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
 (in Dutch), covering the use of AI and normative modelling to study brain

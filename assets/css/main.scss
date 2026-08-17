@@ -99,7 +99,8 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 // Masthead ------------------------------------------------------------------
 .masthead {
   position: relative;
-  overflow: hidden;
+  // No overflow:hidden here. The mobile nav dropdown is absolutely positioned
+  // and hangs below the masthead, so clipping empties the menu.
   border-bottom: 1px solid $hairline;
   background-color: rgba(21, 26, 36, 0.88);
   backdrop-filter: saturate(140%) blur(10px);
@@ -123,6 +124,19 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 }
 
 .masthead__inner-wrap { position: relative; z-index: 2; }
+
+// Mobile menu panel: above the animation, and opaque enough to read
+.greedy-nav .hidden-links {
+  z-index: 20;
+  background: $panel-slate;
+  border: 1px solid $hairline;
+
+  a { color: $text-color; }
+  a:hover { color: $expected; }
+
+  &::before { border-bottom-color: $hairline; }
+  &::after { border-bottom-color: $panel-slate; }
+}
 
 .greedy-nav {
   background: transparent;

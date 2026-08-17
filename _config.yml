@@ -36,7 +36,7 @@ lunr:
 # ─────────────────────────────────────────────────────────────────────────────
 # SEO / SOCIAL SHARING
 # ─────────────────────────────────────────────────────────────────────────────
-og_image                 : # /assets/images/site-preview.jpg
+og_image                 : "/assets/images/og-card.png"
 social:
   type                   : Person
   name                   : *name
@@ -143,7 +143,6 @@ exclude:
   - vendor
 
 plugins:
-  - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
@@ -151,7 +150,6 @@ plugins:
 
 # mimic GitHub Pages with --safe
 whitelist:
-  - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
@@ -161,8 +159,6 @@ whitelist:
 # OUTPUTTING
 # ─────────────────────────────────────────────────────────────────────────────
 permalink: /:categories/:title/
-paginate: 5
-paginate_path: /page:num/
 timezone: Europe/Amsterdam
 
 category_archive:

@@ -30,28 +30,13 @@ week, with metadata and citation counts from Crossref. My name is shown in
 
 **{{ pubs | size }} outputs · {{ total_citations }} citations recorded by Crossref.**
 
-{% assign preprints = pubs | where: "type", "preprint" %}
-{% assign published = pubs | where_exp: "p", "p.type != 'preprint'" %}
-
-{% if preprints.size > 0 %}
-## Preprints
-
-{% for p in preprints %}
-{% if p.authors != "" %}{{ p.authors }}{% endif %}{% if p.year %} ({{ p.year }}){% endif %}.
-**{{ p.title }}**.{% if p.journal != "" %} *{{ p.journal }}*.{% endif %}
-{% if p.url != "" %}[{% if p.doi != "" %}doi:{{ p.doi }}{% else %}link{% endif %}]({{ p.url }}){% endif %}
-{: .pub-entry}
-
-{% endfor %}
-{% endif %}
-
-{% assign by_year = published | group_by: "year" | sort: "name" | reverse %}
+{% assign by_year = pubs | group_by: "year" | sort: "name" | reverse %}
 
 {% for group in by_year %}
 ## {{ group.name }}
 
 {% for p in group.items %}
-{% if p.authors != "" %}{{ p.authors }}. {% endif %}**{{ p.title }}**.{% if p.journal != "" %} *{{ p.journal }}*.{% endif %}
+{% if p.type == 'preprint' %}<span class="pub-preprint">Preprint</span> {% endif %}{% if p.authors_short %}{{ p.authors_short }}. {% elsif p.authors != "" %}{{ p.authors }}. {% endif %}**{{ p.title }}**.{% if p.journal != "" %} *{{ p.journal }}*.{% endif %}
 {% case p.type %}
 {% when 'book-chapter' %}<span class="pub-tag">Book chapter</span>
 {% when 'book' %}<span class="pub-tag">Book</span>
@@ -70,17 +55,38 @@ week, with metadata and citation counts from Crossref. My name is shown in
 {% endif %}
 
 <style>
-  .pub-entry { margin-bottom: 1.1em; line-height: 1.5; }
-  .pub-cites { opacity: 0.55; font-size: 0.85em; white-space: nowrap; }
+  .pub-entry {
+    font-size: 0.82em;
+    line-height: 1.55;
+    margin-bottom: 1.1em;
+  }
+  .pub-entry strong { font-weight: 700; }
+  .pub-cites { opacity: 0.55; font-size: 0.9em; white-space: nowrap; }
+  .pub-preprint {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.06em;
+    margin-right: 0.35em;
+    opacity: 0.85;
+  }
+  .pub-preprint::after { content: ":"; }
   .pub-tag {
     display: inline-block;
-    font-size: 0.7em;
+    font-size: 0.75em;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 0.15em 0.5em;
+    padding: 0.1em 0.45em;
     border: 1px solid currentColor;
     border-radius: 3px;
-    opacity: 0.6;
+    opacity: 0.55;
     vertical-align: middle;
+  }
+  /* Tighter year headings so the list reads as a list, not a series of sections */
+  .page__content h2 {
+    font-size: 1.15em;
+    margin: 1.8em 0 0.6em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid rgba(128,128,128,0.25);
   }
 </style>

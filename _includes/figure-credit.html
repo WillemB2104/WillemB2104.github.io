@@ -1,0 +1,23 @@
+{% comment %}
+Figure with caption and credit.
+Usage:
+  {% include figure-credit.html
+     src="/assets/images/figures/fig-x.png"
+     alt="Plain-language description of what the figure shows."
+     caption="What the reader should take from it."
+     credit="Bruin et al. (2020), Translational Psychiatry"
+     url="https://doi.org/10.1038/s41398-020-01013-y"
+     licence="CC BY 4.0"
+     light="true" %}   <!-- light="true" keeps a white-background figure as published -->
+{% endcomment %}
+<figure class="fig-credit{% if include.light %} on-light{% endif %}">
+  <img src="{{ include.src | relative_url }}" alt="{{ include.alt }}" loading="lazy">
+  <figcaption>
+    {% if include.caption %}<span class="fig-caption">{{ include.caption }}</span>{% endif %}
+    {% if include.credit %}
+      <span class="fig-source">
+        {% if include.url %}<a href="{{ include.url }}">{{ include.credit }}</a>{% else %}{{ include.credit }}{% endif %}{% if include.licence %} · {{ include.licence }}{% endif %}
+      </span>
+    {% endif %}
+  </figcaption>
+</figure>

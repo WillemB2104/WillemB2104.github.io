@@ -20,7 +20,7 @@ which the site renders.
 |---|---|
 | Script | [`scripts/fetch_orcid.py`](scripts/fetch_orcid.py) |
 | Workflow | [`.github/workflows/update-publications.yml`](.github/workflows/update-publications.yml) |
-| Generated data | `_data/publications.yml` - do not edit by hand |
+| Generated data | `_data/publications.yml` (do not edit by hand) |
 | Page | [`_pages/publications.md`](_pages/publications.md) |
 | Schedule | Weekly, Mondays 05:00 UTC |
 
@@ -35,7 +35,7 @@ workflow*.
 ORCID privacy settings, and that Settings → Actions → General → Workflow
 permissions is set to *Read and write*.
 
-To add a publication, add it to ORCID - not to this repo.
+To add a publication, add it to ORCID, not to this repo.
 
 ---
 
@@ -44,7 +44,7 @@ To add a publication, add it to ORCID - not to this repo.
 ```
 _config.yml                 site settings, author profile, social links
 _data/navigation.yml        top navigation bar
-_data/publications.yml      generated - see above
+_data/publications.yml      generated, see above
 _pages/                     about, research, publications, cv, contact
 assets/images/              profile photo, thesis cover
 scripts/                    ORCID fetcher (excluded from the built site)
@@ -53,7 +53,7 @@ index.html                  landing page
 
 ## Running it locally
 
-Optional - everything can be edited through the GitHub web interface.
+Optional. Everything can be edited through the GitHub web interface.
 
 ```bash
 bundle install

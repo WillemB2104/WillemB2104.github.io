@@ -7,14 +7,30 @@
 // 1. Skin first, so its variables are in scope
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
 
-// ---------------------------------------------------------------------------
-// 2. Variable overrides. These must sit between the skin and the theme import,
-//    because the theme's own variables are declared with !default.
-// ---------------------------------------------------------------------------
+// ===========================================================================
+//  DIALS. Everything you are likely to want to adjust is in this block.
+//  These must sit between the skin import and the theme import, because the
+//  theme declares its own variables with !default.
+// ===========================================================================
 
-// Type ----------------------------------------------------------------------
+// --- TYPE SIZE -------------------------------------------------------------
+// Base size in px. Every other size on the site is derived from this, so
+// changing this one number rescales the whole site.
+//   16 = theme default (too large)   15 = current   14 = compact
 $doc-font-size: 15;
 
+// Heading scale. Lower these to shrink headings without touching body text.
+// Theme defaults are 2.441 / 1.953 / 1.563 / 1.25 / 1 / 0.75.
+$type-size-1: 2.2em;    // page titles
+$type-size-2: 1.65em;   // h2
+$type-size-3: 1.35em;   // h3
+$type-size-4: 1.15em;   // h4
+$type-size-5: 1em;      // body
+$type-size-6: 0.78em;   // small print, captions
+
+// --- TYPEFACES -------------------------------------------------------------
+// Loaded in _includes/head/custom.html. If you change a family here, change
+// the Google Fonts link there too or it will fall back to a system font.
 $sans-serif: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
   Roboto, sans-serif;
 $monospace: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
@@ -22,19 +38,26 @@ $header-font-family: "Space Grotesk", $sans-serif;
 $global-font-family: $sans-serif;
 $caption-font-family: $sans-serif;
 
-// Palette -------------------------------------------------------------------
-// Teal reads as "expected"; amber reads as "deviation". The same pairing is
-// used in the hero animation.
-$deep-slate: #151a24;
-$panel-slate: #1c2230;
-$hairline: #2b3446;
+// --- PALETTE ---------------------------------------------------------------
+// Teal means "within the expected range", amber means "deviation". The hero
+// animation uses the same two colours for the same two meanings, so if you
+// change them here, change EXPECTED / DEVIATION in
+// _includes/footer/custom.html to match.
+$deep-slate:  #151a24;   // page background
+$panel-slate: #1c2230;   // cards, code blocks, table of contents
+$hairline:    #2b3446;   // borders and rules
 
-$expected: #3fd0c9;
-$deviation: #f0a848;
+$expected:  #3fd0c9;     // teal accent
+$deviation: #f0a848;     // amber accent
 
+// --- TEXT COLOURS ----------------------------------------------------------
+// Body text is deliberately not pure white. On a dark background pure white
+// vibrates and is tiring to read; #d7dee8 still clears WCAG AA comfortably.
+$text-color:       #d7dee8;   // body copy
+$muted-text-color: #8a97ab;   // captions, card excerpts, metadata
+
+// --- MAPPING (you rarely need to touch below here) -------------------------
 $background-color: $deep-slate;
-$text-color: #d7dee8;
-$muted-text-color: #8a97ab;
 $border-color: $hairline;
 $code-background-color: $panel-slate;
 

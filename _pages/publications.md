@@ -36,7 +36,7 @@ week, with metadata and citation counts from Crossref. My name is shown in
 ## {{ group.name }}
 
 {% for p in group.items %}
-{% if p.type == 'preprint' %}<span class="pub-preprint">Preprint</span> {% endif %}{% if p.authors_short %}{{ p.authors_short }}. {% elsif p.authors != "" %}{{ p.authors }}. {% endif %}**{{ p.title }}**.{% if p.journal != "" %} *{{ p.journal }}*.{% endif %}
+{% if p.type == 'preprint' %}<span class="pub-preprint">Preprint</span> {% endif %}{% if p.authors_short != "" and p.authors_short %}{{ p.authors_short }}. {% elsif p.authors != "" %}{{ p.authors }}. {% endif %}<span class="pub-title">{{ p.title }}</span>.{% if p.journal != "" %} *{{ p.journal }}*.{% endif %}
 {% case p.type %}
 {% when 'book-chapter' %}<span class="pub-tag">Book chapter</span>
 {% when 'book' %}<span class="pub-tag">Book</span>

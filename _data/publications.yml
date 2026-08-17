@@ -61,6 +61,16 @@
   year: 2025
   citations: 0
 
+- title: "White matter diffusion estimates in obsessive-compulsive disorder across 1653 individuals: machine learning findings from the ENIGMA OCD Working Group"
+  authors: "Kim, B.G., Kim, G., Abe, Y., Alonso, P., Ameis, S., Anticevic, A., Arnold, P.D., Balachander, S., Banaj, N., Bargalló, N., Batistuzzo, M.C., Benedetti, F., Bertolín, S., Beucke, J.C., Bollettini, I., Brem, S., Brennan, B.P., Buitelaar, J.K., Calvo, R., Castelo-Branco, M., Cheng, Y., Chhatkuli, R.B., Ciullo, V., Coelho, A., Couto, B., Dallaspezia, S., Ely, B.A., Ferreira, S., Fontaine, M., Fouche, J.P., Grazioplene, R., Gruner, P., Hagen, K., Hansen, B., Hanna, G.L., Hirano, Y., Höxter, M.Q., Hough, M., Hu, H., Huyser, C., Ikuta, T., Jahanshad, N., James, A., Jaspers-Fayer, F., Kasprzak, S., Kathmann, N., Kaufmann, C., Kim, M., Koch, K., Kvale, G., Kwon, J.S., Lazaro, L., Lee, J., Lochner, C., Lu, J., Manrique, D.R., Martínez-Zalacaín, I., Masuda, Y., Matsumoto, K., Maziero, M.P., Menchón, J.M., Minuzzi, L., Moreira, P.S., Morgado, P., Narayanaswamy, J.C., Narumoto, J., Ortiz, A.E., Ota, J., Pariente, J.C., Perriello, C., Picó-Pérez, M., Pittenger, C., Poletti, S., Real, E., Reddy, Y.C.J., van Rooij, D., Sakai, Y., Sato, J.R., Segalas, C., Shavitt, R.G., Shen, Z., Shimizu, E., Shivakumar, V., Soreni, N., Soriano-Mas, C., Sousa, N., Sousa, M.M., Spalletta, G., Stern, E.R., Stewart, S.E., Szeszko, P.R., Thomas, R., Thomopoulos, S.I., Vecchio, D., Venkatasubramanian, G., Vriend, C., Walitza, S., Wang, Z., Watanabe, A., Wolters, L., Xu, J., Yamada, K., Yun, J.Y., Zarei, M., Zhao, Q., Zhu, X., ENIGMA-OCD Working Group, Arai, H., Araújo, A.I., Araki, K., Arnold, P.D., Baker, J.T., Bargalló, N., Bertolín, S., Best, J.R., Boedhoe, P.S.W., Bölte, S., Brecke, V., Buitelaar, J.K., Calvo, R., Cappi, C., Castelhano, J., Chen, W., Chihiro, S., Cho, K.I.K., Choi, S., Costa, D., Dai, N., Dalvie, S., Denys, D., Diniz, J.B., Duarte, I.C., Federico, C., Feusner, J.D., Fitzgerald, K.D., Fridgeirsson, E.A., Grünblatt, E., Hamatani, S., Hanna, G., He, M., van den Heuvel, O.A., Höxter, M.Q., Hough, M., Ikari, K., Ipser, J., Jiang, H., Jiang, L., de Joode, N.T., Kathmann, N., Kim, T., Kitagawa, H., Kuno, M., Bin Kwak, Y., Kwon, J.S., van Leeuwen, W., Li, C.s.R., Li, N., Liu, Y., liu, F., Lopes, A.C., Lu, J., Milaneschi, Y., van Marle, H., Mas, S., Mataix-Cols, D., de Mathis, M.A., Mazieiro, M.P., Medland, S., Melo, R., Miguel, E.C., Morer, A., De Nadai, A.S., Nakao, T., Nihei, M., Norman, L., Nurmi, E.L., O’Neil, J., Oh, S., Okawa, S., Piacentini, J.C., Picó-Pérez, M., Rodriguez, N., van Rooij, D., Sato, J.R., Segalas, C., Silva, R., Soreni, N., Stevens, M., van der Straten, A., Takahashi, J., Tanamatis, T., Tang, J., Thorsen, A.L., Tolin, D., Uhlmann, A., Vai, B., van der Werf, Y.D., Veltman, D.J., Vetter, N., Wang, J., Weeland, C.J., van Wingen, G.A., de Wit, S.J., Wolff, N., Xu, X., Yoshida, T., Zhang, F., Thompson, P.M., <strong>Bruin, W.B.</strong>, van Wingen, G.A., Piras, F., Piras, F., Stein, D.J., van den Heuvel, O.A., Simpson, H.B., Marsh, R., Cha, J."
+  authors_short: "Kim, B.G., Kim, G., Abe, Y., &hellip;, <strong>Bruin, W.B.</strong>, &hellip;, Cha, J."
+  journal: "Molecular Psychiatry"
+  type: "journal-article"
+  doi: "10.1038/s41380-023-02392-6"
+  url: "https://doi.org/10.1038/s41380-023-02392-6"
+  year: 2024
+  citations: 17
+
 - title: "Brain Activation During Virtual Reality Symptom Provocation in Obsessive-Compulsive Disorder: Proof-of-Concept Study"
   authors: "van Bennekom, M.J., van Wingen, G., <strong>Bruin, W.B.</strong>, Luigjes, J., Denys, D."
   authors_short: "van Bennekom, M.J., van Wingen, G., <strong>Bruin, W.B.</strong>, Luigjes, J., Denys, D."
@@ -130,16 +140,6 @@
   url: "https://doi.org/10.1016/j.brs.2023.07.054"
   year: 2023
   citations: 12
-
-- title: "White matter diffusion estimates in obsessive-compulsive disorder across 1,653 individuals: Machine learning findings from the ENIGMA OCD Working Group"
-  authors: "Cha, J., Kim, B., Kim, G., Abe, Y., Alonso, P., Ameis, S., Anticevic, A., Arnold, P.D., Balachander, S., Banaj, N., Bargalló, N., Batistuzzo, M.C., Benedetti, F., Bertolín, S., Beucke, J.-C., Bollettini, I., Brem, S., Brennan, B.P., Buitelaar, J.K., Calvo, R., Cheng, Y., Chhatkuli, R.B., Coelho, A., Couto, B., Dallaspezia, S., Ely, B.A., Ferreira, S., Fontaine, M., Fouche, J.-P., Grazioplene, R., Gruner, P., Hagen, K., Hansen, B., Hirano, Y., Höxter, M.Q., Hough, M., Hu, H., Huyser, C., Ikuta, T., Jahanshad, N., James, A., Jaspers-Fayer, F., Kasprzak, S., Kathmann, N., Kaufmann, C., Kim, M., Koch, K., Kvale, G., Kwon, J.S., Lazaro, L., Lee, J., Lochner, C., Lu, J., Manrique, D.R., Martínez-Zalacaín, I., Masuda, Y., Matsumoto, K., Maziero, M.P., Menchón, J.M., Minuzzi, L., Moreira, P.S., Morgado, P., Narayanaswamy, J.C., Narumoto, J., Ortiz, A.E., Ota, J., Pariente, J.C., Perriello, C., Picó-Pérez, M., Pittenger, C., Poletti, S., Real, E., Reddy, Y.C.J., van Rooij, D., Sakai, Y., Sato, J.R., Segalas, C., Shavitt, R.G., Shen, Z., Shimizu, E., Shivakumar, V., Soriano-Mas, C., Sousa, N., Sousa, M.M., Spalletta, G., Stern, E.R., Stewart, S.E., Szeszko, P.R., Thomopoulos, S.I., Vecchio, D., Venkatasubramanian, G., Vriend, C., Walitza, S., Wang, Z., Watanabe, A., Wolters, L., Xu, J., Yamada, K., Yun, J.-Y., Zarei, M., Zhao, Q., Zhu, X., Thompson, P.M., Bruin, W.B., van Wingen, G.A., Piras, F., Piras, F., Stein, D.J., van den Heuvel, O.A., Simpson, H.B., Marsh, R."
-  authors_short: "Cha, J., Kim, B., Kim, G., &hellip;, Marsh, R."
-  journal: "Research Square"
-  type: "preprint"
-  doi: "10.21203/rs.3.rs-2749722"
-  url: "https://doi.org/10.21203/rs.3.rs-2749722"
-  year: 2023
-  citations: 0
 
 - title: "Multimodal multi-center analysis of electroconvulsive therapy effects in depression: Brainwide gray matter increase without functional changes"
   authors: "van de Mortel, L., <strong>Bruin, W.</strong>, Thomas, R., Abbott, C., Argyelan, M., van Eijndhoven, P., Mulders, P., Narr, K., Tendolkar, I., Verdijk, J., van Waarde, J., Bartsch, H., Oltedal, L., van Wingen, G."

@@ -17,8 +17,11 @@ Department of Psychiatry, and at
 Institute of Education & Child Studies.
 
 The broad question I keep returning to is a simple one that turns out to be very
-hard: **can we measure something in an individual's brain that helps explain,
-predict, and ultimately improve their diagnosis and treatment?**
+hard.
+
+Can we measure something in an individual's brain that helps explain, predict,
+and ultimately improve their diagnosis and treatment?
+{: .lead-question}
 
 Answering it takes brain scans from thousands of people across many countries,
 far more than any single study or hospital can collect, combined with machine

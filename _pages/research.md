@@ -8,45 +8,35 @@ toc_label: "Research themes"
 toc_sticky: true
 ---
 
-Psychiatric disorders are diagnosed almost entirely from symptoms. Yet people
-who share a diagnosis can differ substantially in their symptoms, their biology,
-the course their illness takes and how they respond to treatment. This
-heterogeneity is one of the central problems in psychiatry. If two patients look
-very different clinically, why should we expect them to share the same
-underlying neurobiology, or to benefit from the same treatment?
+Psychiatry still diagnoses and treats largely on the basis of what patients
+report about their own symptoms. Two people with the same diagnosis can look
+very different from one another, the same symptoms appear across different
+disorders, and treatment decisions mostly follow general guidelines rather than
+anything measured in the individual patient.
 
-My research asks whether brain and other biological measurements can help move
-psychiatry from population-level descriptions toward **individualised,
-developmentally informed models of mental health**.
+My research asks whether measurements of the brain can add something useful:
+**sharpening diagnosis, explaining why some people develop psychiatric
+disorders while others do not, and predicting which treatment will work for a
+given patient.** I work across obsessive-compulsive, anxiety and mood
+disorders, using brain scans from thousands of people, machine learning, and
+studies that follow the same individuals over many years.
 
-Three linked questions run through the work: how brain development relates to
-the emergence of psychopathology, whether biological measures can identify
-meaningful subgroups of patients, and whether they can help predict which
-treatment will work for a given individual. Underneath all three sits a concern
-with generalisability, which is to say understanding when a computational model
-has captured clinically meaningful biology and when it has merely captured
-noise, scanner differences or other artefacts of how the data were collected.
+Four strands run through this work.
 
 ## Brain development and individual trajectories
 
-Most psychiatric conditions first emerge during adolescence and young adulthood,
-while the brain is still changing substantially. Much neuroimaging research
-nonetheless relies on cross-sectional comparisons of patient and control groups,
-and group averages obscure exactly the individual variation that is likely to
-matter most.
+Many psychiatric disorders first appear during childhood, adolescence or young
+adulthood, while the brain is still changing rapidly. Yet most brain imaging
+studies take a single snapshot, comparing a group of patients with a group of
+healthy people at one moment in time. A snapshot cannot show how anyone got
+there, or what happens next.
 
-**Normative modelling** offers a different approach. Rather than asking whether
-patients differ from controls on average, it estimates where an individual sits
-relative to an expected developmental trajectory, much as paediatric growth
-charts situate a single child against reference curves. The deviation itself
-becomes the measurement.
-
-With repeated MRI assessments, this framework can go beyond asking whether a
-brain looks atypical at one moment. It can ask whether developmental deviations
-*precede* the emergence of symptoms, whether they shift as symptoms develop, and
-whether different trajectories lead to different clinical outcomes. Those are
-questions about direction of influence, and they are difficult to approach any
-other way.
+**Normative modelling** offers one way to address this. It works much like the
+growth charts used at any child health clinic: instead of asking whether a
+group of patients differs from a group of controls on average, it maps the
+range of brain measures expected at each age, and then asks where one
+individual sits relative to that range. How far someone deviates from the
+expected range becomes a measurement in its own right.
 
 {% include figure-credit.html
    src="/assets/images/figures/fig-normative-model.svg"
@@ -54,57 +44,52 @@ other way.
    caption="Rather than comparing patients with controls as groups, a normative model places each individual against the range expected at their age. With repeated scans, a departure from that range can be dated."
    credit="Figure by W.B. Bruin" %}
 
+With repeated scans of the same people, this approach can do something a
+snapshot cannot: follow individuals along their own developmental paths, and
+ask whether deviations in brain development come before symptoms appear, change
+alongside them, or follow them. That ordering in time is essential for
+understanding what drives what.
+
 This is the focus of my current work at Amsterdam UMC with Prof. dr. Odile van
-den Heuvel, using repeated MRI assessments from the **Generation R** cohort to
-map brain development from childhood into young adulthood in relation to
-obsessive-compulsive symptomatology. Two preregistered projects run in parallel:
-one on thalamic maturation and its relation to broader subcortical and cortical
-development, and one on brain maturation in relation to obsessive-compulsive
-symptoms. At Leiden University I work with Dr. Moji Aghajani on the same set of
-questions in adolescent anxiety.
+den Heuvel, using **Generation R**, a Dutch study that has followed thousands
+of children from before birth with repeated MRI scans. Two preregistered
+projects run in parallel: one examining the maturation of the **thalamus**, a
+relay station deep in the brain, in relation to wider brain development, and
+another examining brain maturation in relation to obsessive-compulsive
+symptoms.
 
-Related work uses **brain-age modelling**, in which a model trained to estimate
-chronological age from imaging data is applied to individuals, and the gap
-between predicted and actual age is treated as an index of atypical development.
-A KNAW Ter Meulen grant supports an extension of this line with the University
-of Southern California and the University of Michigan, using scans from roughly
-15,000 young people across more than thirty countries to build developmental
-reference curves that hold across diagnostic boundaries rather than within them.
+At Leiden University, I work with Dr. Moji Aghajani on similar questions in adolescent anxiety, using data from the **ENIGMA-Anxiety** consortium.
 
-The longer-term aim is to move from static measures of brain structure toward
-**longitudinal, multimodal models of developmental trajectories**, integrating
-brain structure, brain function, behaviour and other biological measures.
+Related work uses **brain-age modelling**. A model learns to guess a person's
+age from their brain scan alone; applied to a new individual, the gap between
+the guessed age and their real age becomes a simple summary of whether their
+brain looks older or younger than expected.
 
-## From group differences to individual biomarkers
+A **KNAW Ter Meulen Beurs** supports an international extension of this line of research with the University of Southern California and the University of Michigan. Using scans from roughly 15,000 young people across more than thirty countries, this work aims to develop developmental reference curves that capture normative variation across populations rather than being specific to individual diagnostic groups.
 
-Much of my earlier work asked a more direct question: can neuroimaging
-distinguish people with a psychiatric disorder from those without one?
+## Diagnostic biomarkers in OCD and anxiety
 
-Within the
-[ENIGMA-OCD](https://enigma.ini.usc.edu/ongoing/enigma-ocd-working-group/)
-consortium I examined structural MRI from 2,304 patients with OCD and 2,068
-controls across 46 datasets. The central finding was not an accurate diagnostic
-classifier. It was a demonstration of how strongly **clinical and technical
-heterogeneity constrain brain-based classification**. Structural MRI produced no
-model that transferred reliably to new sites, while medication status was
-associated with substantial and widely distributed anatomical differences,
-separable at the individual level in a way that diagnosis itself was not.
+Can a brain scan tell us whether someone has a psychiatric disorder? Working
+with the **ENIGMA-OCD** consortium, I tested this on the largest dataset then
+available: scans of brain anatomy from 2,304 people with OCD and 2,068 healthy
+controls, collected at 36 institutes around the world.
 
-{% include figure-credit.html
-   src="/assets/images/figures/fig-generalisation.png"
-   alt="Boxplots of classification AUC for ten machine learning algorithms under three cross-validation schemes. Internal validation clusters near 0.6; leave-one-site-out validation drops to around chance level."
-   caption="Classification of OCD versus controls across ten algorithms. Under internal cross-validation performance sits around 0.6 AUC; under leave-one-site-out validation it falls to chance. The choice of validation scheme, not the choice of algorithm, is what decides whether a model generalises."
-   credit="Bruin et al. (2020), Translational Psychiatry"
-   url="https://doi.org/10.1038/s41398-020-01013-y"
-   licence="CC BY 4.0" %}
+The result was informative in an unexpected way. Models trained to recognise
+OCD from brain anatomy did not hold up when tested on scans from hospitals they
+had not seen before. But models distinguishing medicated from unmedicated
+patients worked considerably better, revealing widespread differences in brain
+anatomy associated with medication use. The lesson: the differences between
+patients, including the treatments they are already receiving, can be larger
+than the differences produced by the disorder itself.
 
-A subsequent mega-analysis of resting-state functional connectivity, covering
-1,024 patients and 1,028 controls across 28 sites and the largest such study of
-OCD at the time of publication in 2023, found widespread reduced connectivity,
-most pronounced within the **sensorimotor network**, alongside a smaller number
-of hyper-connections involving the thalamus. Notably, the fronto-striatal
-circuitry that has long dominated neurobiological models of OCD was not where
-the strongest effects lay.
+A follow-up study looked at brain activity rather than anatomy, measuring how
+strongly different regions communicate with one another in more than 2,000
+participants. People with OCD showed weaker communication across much of the
+brain, and the effect was strongest in the **sensorimotor network**, the
+regions handling movement and bodily sensation, rather than in the
+decision-and-habit circuits that textbook models of OCD emphasise. The
+disorder's biology, in other words, may reach further than the standard models
+suggest.
 
 {% include figure-credit.html
    src="/assets/images/figures/fig-ocd-connectome.png"
@@ -115,134 +100,117 @@ the strongest effects lay.
    licence="CC BY 4.0"
    light="true" %}
 
-Extending this to anxiety disorders in young people, across 32 sites and 3,343
-participants aged 10 to 25, transdiagnostic classification again reached only
-modest accuracy at the individual level. The multivariate effect sizes were
-nonetheless considerably larger than those from conventional univariate
-comparisons, which illustrates both the promise of distributed brain signatures
-and the distance that still separates statistical discrimination from clinically
-useful prediction.
+I then extended this approach to anxiety disorders in young people, using
+scans from 3,343 participants aged 10 to 25 across 32 sites. Models that
+combined information from across the whole brain could separate patients from
+controls only modestly, though far better than any single brain measure could.
+Together these studies show both the promise of brain-based classification and
+how far it still is from being clinically useful.
 
-Taken together these results shaped how I approach biomarker research: **a
-biomarker earns its name only if it generalises beyond the dataset it was built
-on and captures variation that means something at the level of the individual.**
+### Key papers
 
-Key papers:
-
-* Bruin et al. (2025). *Structural brain differences associated with panic
-  disorder: an ENIGMA-Anxiety Working Group mega-analysis of 4,924 individuals
-  worldwide.* Molecular Psychiatry. Shared first author.
+- Han, Bruin, et al. (2025). *Structural brain differences associated with panic disorder: an ENIGMA-Anxiety Working Group mega-analysis of 4,924 individuals worldwide.* **Molecular Psychiatry.** Shared first author.
   [Link](https://www.nature.com/articles/s41380-025-03376-4)
-* Bruin et al. (2024). *Brain-based classification of youth with anxiety
-  disorders: transdiagnostic examinations within the ENIGMA-Anxiety database
-  using machine learning.* Nature Mental Health.
+
+- Bruin et al. (2024). *Brain-based classification of youth with anxiety disorders: transdiagnostic examinations within the ENIGMA-Anxiety database using machine learning.* **Nature Mental Health.**
   [doi:10.1038/s44220-023-00173-2](https://doi.org/10.1038/s44220-023-00173-2)
-* Bruin et al. (2023). *The functional connectome in obsessive-compulsive
-  disorder: resting-state mega-analysis and machine learning classification for
-  the ENIGMA-OCD consortium.* Molecular Psychiatry.
+
+- Bruin et al. (2023). *The functional connectome in obsessive-compulsive disorder.* **Molecular Psychiatry.**
   [doi:10.1038/s41380-023-02077-0](https://doi.org/10.1038/s41380-023-02077-0)
-* Bruin et al. (2020). *Structural neuroimaging biomarkers for
-  obsessive-compulsive disorder in the ENIGMA-OCD consortium: medication
-  matters.* Translational Psychiatry.
+
+- Bruin et al. (2020). *Structural neuroimaging biomarkers for obsessive-compulsive disorder in the ENIGMA-OCD consortium: medication matters.* **Translational Psychiatry.**
   [doi:10.1038/s41398-020-01013-y](https://doi.org/10.1038/s41398-020-01013-y)
 
-## Predicting treatment response
+## Predicting treatment outcome
 
-Distinguishing patients from controls is, in the end, the less consequential
-question. Clinicians already know who is ill. What they cannot know is what will
-happen next, and which treatment a particular person is most likely to benefit
-from.
+Diagnosis is only one challenge. Clinicians usually know who is unwell. What
+they cannot know in advance is **which treatment is likely to work for which
+patient**, and choosing wrongly can cost months (or far worse).
 
-My clearest result here concerns **electroconvulsive therapy** for
-treatment-resistant depression. Working with the
-[GEMRIC](https://mmiv.no/gemric/) consortium, I developed and validated
-multimodal models combining grey matter volume, functional connectivity and
-clinical variables to predict remission, using data from 189 patients across
-seven centres. At the three larger contributing centres the models reached AUCs
-of 0.82 to 0.83, and retained acceptable performance under leave-one-site-out
-validation.
+My clearest example concerns **electroconvulsive therapy (ECT)**, one of the
+most effective treatments for severe depression that has resisted other
+options. Working within the **Global ECT-MRI Collaboration (GEMRIC)**, I built
+models that combine brain structure, brain activity and clinical information to
+predict, before treatment begins, who will recover. At the larger contributing
+centres these predictions were right substantially more often than chance, and
+crucially they remained informative when tested on hospitals the models had
+never seen.
 
 {% include figure-credit.html
    src="/assets/images/figures/fig-ect-networks.png"
    alt="Axial brain slices showing two independent component networks: one centred on the temporal lobes, one on frontopolar cortex."
-   caption="The two functional networks that contributed most to predicting ECT outcome: a temporal lobe network and a frontopolar network, each reaching above 0.75 AUC on their own for response or remission."
+   caption="The two brain networks that contributed most to predicting who recovers with ECT: one centred on the temporal lobes, one on the frontopolar cortex. Each was informative for predicting recovery even on its own."
    credit="Bruin et al. (2023), Psychological Medicine"
    url="https://doi.org/10.1017/S0033291723002040"
    licence="CC BY" %}
 
-ECT is a useful test case. It is delivered in hospital, outcomes vary widely
-between patients, MRI is inexpensive relative to the treatment itself, and the
-scan could be acquired before treatment begins. The broader goal is not a
-biomarker for one intervention, though, but an understanding of how **multimodal
-biological information can be turned into treatment-relevant predictions**.
+ECT is a setting where a prediction like this could genuinely matter: the
+treatment is demanding for patients and hospitals alike, its effects when it
+works are substantial, and an MRI scan is cheap compared with the cost and
+burden of a full treatment course. It is a concrete example of where a
+validated brain measure could one day help decide who should be offered which
+treatment.
 
-I have also worked on treatment effects more directly, including a randomised
-controlled trial in OCD comparing how pharmacological and psychological
-treatment alter brain activity, which I ran from recruitment through data
-collection. I am currently a co-investigator on a funded project examining the
-brain dynamics underlying esketamine treatment in depression.
+The same question applies to psychological treatment. In related work I contributed to models predicting **cognitive behavioural therapy outcome in OCD** from clinical and neuroimaging data, where clinical variables turned out to carry much of the predictive information. That result is a useful corrective: neuroimaging has to earn its place against simpler and cheaper measures rather than being assumed to improve on them.
 
-Key papers:
+I have also conducted a randomised controlled trial in OCD examining how pharmacological and psychological treatment affect brain activity, from recruitment through data collection.
 
-* Bruin et al. (2023). *Development and validation of a multimodal neuroimaging
-  biomarker for electroconvulsive therapy outcome in depression: a multicenter
-  machine learning analysis.* Psychological Medicine.
+Most recently, I am a co-investigator on a project funded by the **ZonMw Neuropsychoanalyse Fonds** investigating the brain dynamics underlying **esketamine treatment** in depression. Esketamine acts far more rapidly than conventional antidepressants, which makes it an unusually informative setting for asking what changes in the brain when a treatment works, and how quickly.
+
+### Key paper
+
+- Bruin et al. (2023). *Development and validation of a multimodal neuroimaging biomarker for electroconvulsive therapy outcome in depression: a multicenter machine learning analysis.* **Psychological Medicine.**
   [doi:10.1017/S0033291723002040](https://doi.org/10.1017/S0033291723002040)
-* van der Straten, Bruin et al. (2024). *Pharmacological and psychological
-  treatment have common and specific effects on brain activity in
-  obsessive-compulsive disorder.* Depression and Anxiety.
-  [doi:10.1155/2024/6687657](https://onlinelibrary.wiley.com/doi/10.1155/2024/6687657)
 
 ## Making biomarkers generalisable
 
-A recurring lesson across all of this is that building a model is far easier than
-showing it works outside the data it was trained on.
+It is surprisingly easy to build a model that predicts well for the patients
+it was developed on and then fails for patients at a different hospital,
+scanned on a different machine. This is one of the central challenges in
+psychiatric neuroimaging, and much of my methodological work confronts it
+directly.
 
-Large-scale neuroimaging supplies the statistical power needed to study
-heterogeneity, but brings a problem of its own. Data pooled across dozens of
-sites differ in scanners, acquisition protocols, preprocessing, participant
-populations and clinical procedures. Without careful harmonisation and
-validation, a model will happily learn those differences instead of the biology.
+{% include figure-credit.html
+   src="/assets/images/figures/fig-generalisation.png"
+   alt="Boxplots of classification AUC for ten machine learning algorithms under three cross-validation schemes. Internal validation clusters near 0.6; leave-one-site-out validation drops to around chance level."
+   caption="Telling OCD from controls with ten different algorithms. Tested against the data they were built on (light and green boxes), all perform above chance; tested on hospitals they had never seen (dark boxes), performance drops to a coin flip. How a model is tested, not which algorithm is used, decides whether it generalises."
+   credit="Bruin et al. (2020), Translational Psychiatry"
+   url="https://doi.org/10.1038/s41398-020-01013-y"
+   licence="CC BY 4.0" %}
 
-I developed the functional connectivity mega-analysis framework first used within
-ENIGMA-OCD, since adopted across more than ten ENIGMA disease working groups as
-a standard approach to multi-site resting-state fMRI. I have also written on the
-methodological obstacles to clinical translation more broadly: missing data,
-small samples, site heterogeneity and the gap between a research cohort and a
-clinic population.
+Data pooled from dozens of hospitals arrive with dozens of differences:
+different scanners, different scanning protocols, different patient
+populations, different diagnostic habits. Rather than treating all of that
+variation as a nuisance, my work examines how it shapes the measurements and
+predictions we make, and what it takes for a finding to hold up in spite of
+it.
 
-This is why **external validation** matters so much to me. A model that performs
-well on a random held-out subset of its own dataset and fails at a new site has
-told us very little. Leave-one-site-out validation, independent replication and
-frank reporting of failure are not optional extras but core parts of biomarker
-development. My preprocessing and analysis pipelines are
-[openly available](https://github.com/WillemB2104) for the same reason: methods
-that cannot be inspected are difficult to trust.
+For ENIGMA-OCD I developed the consortium's first shared framework for
+analysing brain activity data across all of its sites at once; it has since
+been adopted by more than ten other ENIGMA working groups studying different
+disorders. I have also worked on the quieter problems that decide whether such
+analyses can be trusted: missing data, scanner differences between sites, and
+how models should be validated.
 
-## Towards individualised, multimodal psychiatry
+The principle running through all of it is **external validation**: testing
+every model on data it has never seen, from places it has never been, and
+reporting openly when it fails. That is a far stronger test than any amount of
+checking a model against the data it was built from.
 
-What connects these strands is an interest in understanding psychiatric illness
-at the level of the individual rather than the group.
+My analysis code and preprocessing pipelines are [openly available](https://github.com/WillemB2104) where possible. Making methods inspectable and reproducible is part of the same goal: developing neuroimaging biomarkers that are not only statistically interesting, but robust enough to be useful beyond the dataset in which they were developed.
 
-I want to move past asking whether a disorder is associated with an average
-difference somewhere in the brain, toward models that can say where a particular
-person sits on a developmental trajectory, how their brain departs from what
-would be expected, how that departure relates to their symptoms, and whether it
-carries any information about which treatment will help.
+## Towards individualised psychiatry
 
-Getting there will take more than MRI. My work is moving increasingly toward
-**multimodal and longitudinal approaches**, combining structural and functional
-imaging with clinical, behavioural and other biological measures, and toward
-models that can characterise individual trajectories and identify biologically
-meaningful subgroups without assuming that diagnostic categories map neatly onto
-distinct neurobiology.
+What connects these projects is a focus on understanding psychiatric illness at the level of the **individual**.
 
-The aim is not better prediction models for their own sake. It is generalisable,
-reproducible and clinically meaningful biomarkers that change how psychiatric
-disorders are understood, stratified and treated.
+Rather than asking only whether a disorder is associated with an average difference in the brain, I want to understand how brain development differs between people, how these differences relate to symptoms, and whether they can provide information about prognosis or treatment response.
+
+Achieving this will require following people over time rather than photographing
+them once, measuring more than one aspect of brain and behaviour, working with
+large and diverse samples, and validating every model far beyond the data it was
+built on. The goal is not prediction for its own sake, but brain measures that
+are **reproducible, generalisable and clinically meaningful**.
 
 ---
 
-A full and continuously updated list of my work is on the
-[publications page]({{ "/publications/" | relative_url }}). More about my
-background is on the [about page]({{ "/about/" | relative_url }}).
+A full and continuously updated list of my work is available on the [publications page]({{ "/publications/" | relative_url }}). More about my background is on the [about page]({{ "/about/" | relative_url }}).

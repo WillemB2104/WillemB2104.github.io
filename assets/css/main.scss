@@ -202,6 +202,50 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 // Landing page cards --------------------------------------------------------
 .feature__wrapper { border-bottom: 0; padding-top: 0.5em; }
 
+// The theme floats these, so a longer excerpt makes one card taller than the
+// rest and strands its button mid-card. Flex gives equal heights and lets the
+// buttons line up along the bottom.
+@media (min-width: 37.5em) {
+  .feature__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+  }
+
+  .feature__item {
+    float: none;
+    width: auto;
+    margin: 0;
+    flex: 1 1 0;
+    display: flex;
+  }
+
+  // the centred intro block is also a feature_row: keep it full width
+  .feature__item--center { flex: 1 1 100%; }
+
+  .feature__item .archive__item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .feature__item .archive__item-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+
+  // the button is the last child; push it to the bottom of the card
+  .feature__item .archive__item-body > p:last-child {
+    margin-top: auto;
+    margin-bottom: 0;
+    padding-top: 1em;
+  }
+}
+
+// Trim the dead space between the cards and the footer on the landing page
+body.layout--splash #main { padding-bottom: 0; }
+
 .feature__item {
   .archive__item {
     background: $panel-slate;

@@ -5,14 +5,9 @@ layout: single
 author_profile: true
 ---
 
-I'm always glad to hear from potential collaborators, students looking for a
-project, and anyone with an interest in the work, whether that's other
-researchers, clinicians, or people affected by the conditions I study.
+I’m always glad to hear from potential collaborators, students looking for a project, and people interested in my research.
 
 ## Email
-
-I hold positions at two institutions, so either address will reach me. Use
-whichever is more relevant to what you're writing about.
 
 **Amsterdam UMC**, Department of Psychiatry
 [w.b.bruin@amsterdamumc.nl](mailto:w.b.bruin@amsterdamumc.nl)
@@ -42,9 +37,9 @@ Team Neuropsychiatry /Department of Psychiatry, Amsterdam UMC - location VUmc
 ## A few notes
 
 **Students.** If you're interested in a master's or research project involving
-neuroimaging, machine learning, or normative modelling, do get in touch. It
-helps if you can say something about what draws you to the topic and what
-methodological background you have.
+neuroimaging, machine learning, brain development or computational psychiatry, feel 
+free to get in touch. It helps to say a little about what draws you to the topic 
+and what methodological background you have.
 
 **Collaboration and data requests.** I work primarily within international
 consortia, and data sharing within those is governed by their own agreements
@@ -53,5 +48,5 @@ process. My analysis code and preprocessing pipelines are
 [openly available](https://github.com/WillemB2104).
 
 **Press and public engagement.** I'm glad to talk about brain development,
-biomarkers in psychiatry, and what machine learning can and can't currently
-deliver in mental health care. 
+biomarkers in psychiatry, and what machine learning can - and cannot - 
+currently deliver in mental health care. 

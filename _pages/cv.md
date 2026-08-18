@@ -29,26 +29,23 @@ groups, and of [GEMRIC](https://mmiv.no/gemric/).
 
 ## Grants and awards
 
-**ZonMw Neuropsychoanalyse Fonds** (co-investigator), 2026, €444,137
-*Esketamine-induced psychoanalytic processes in neurophysiological brain
-dynamics*
+**Neuropsychoanalyse Fonds** (co-investigator), ZonMw, 2026
+*Esketamine-induced psychoanalytic processes in neurophysiological brain dynamics*
 
-**KNAW Ter Meulen Beurs**, 2026
+**Ter Meulen Grant** (recipient), Royal Netherlands Academy of Arts and Sciences (KNAW), 2026
 *The Heterogeneous Brain in Youth Psychiatry: A Normative Modeling Perspective*
 
-**Academy Van Leersum Grant**, KNAW, 2024
-*Pathways to precision psychiatry: big data analytics for juvenile mood
-disorders*
+**Academy Van Leersum Grant** (recipient), KNAW, 2024
+*Pathways to Precision Psychiatry: Big Data Analytics for Juvenile Mood Disorders*
 
-**KNAW Van der Gaag Grant**, 2023
-*Research on juvenile mood disorders*, carried out with the ENIGMA consortium at
-USC.
+**Van der Gaag Grant** (recipient), KNAW, 2023
+*Research on Juvenile Mood Disorders*, carried out with the ENIGMA consortium at USC, Los Angeles.
 [Interview with the KNAW](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
 
 **Selected Early Career Scientist**, ECNP Workshop on Neuropsychopharmacology,
 Nice, 2019
 
-**Travel Grant**, Society of Biological Psychiatry 74th Annual Meeting, Chicago,
+**Travel Grant** (recipient), Society of Biological Psychiatry 74th Annual Meeting, Chicago,
 2019
 
 The PDF has the full record, including education, certifications and work

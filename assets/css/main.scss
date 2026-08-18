@@ -436,15 +436,20 @@ button:focus-visible {
 // emphasis through scale and a rule rather than through bold amber text, which
 // keeps the accent colour meaningful elsewhere.
 .lead-question {
-  margin: 1.6em 0;
-  padding: 0.1em 0 0.1em 1.1em;
-  border-left: 2px solid $deviation;
-  font-size: 1.18em;
-  line-height: 1.5;
-  font-weight: 400;
-  color: $text-color;
+  margin: 1.7em 0;
+  padding: 0.15em 0 0.15em 1.15em;
+  border-left: 3px solid $deviation;
+  font-size: 1.3em;
+  line-height: 1.45;
+  font-weight: 500;      // medium, not bold: presence without shouting
+  color: #e9eff6;        // a touch brighter than body copy
+  letter-spacing: -0.005em;
 
-  strong { color: $text-color; font-weight: 600; }
+  strong { color: inherit; font-weight: 600; }
+}
+
+@media (max-width: 37.5em) {
+  .lead-question { font-size: 1.15em; }
 }
 
 // Small refinements ---------------------------------------------------------

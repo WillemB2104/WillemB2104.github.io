@@ -14,12 +14,15 @@ very different from one another, the same symptoms appear across different
 disorders, and treatment decisions mostly follow general guidelines rather than
 anything measured in the individual patient.
 
-My research asks whether measurements of the brain can add something useful:
-**sharpening diagnosis, explaining why some people develop psychiatric
-disorders while others do not, and predicting which treatment will work for a
-given patient.** I work across obsessive-compulsive, anxiety and mood
-disorders, using brain scans from thousands of people, machine learning, and
-studies that follow the same individuals over many years.
+My research asks whether measurements of the brain can add something useful.
+
+Can we sharpen diagnosis, explain why some people develop psychiatric disorders
+while others do not, and predict which treatment will work for a given patient?
+{: .lead-question}
+
+I work across obsessive-compulsive, anxiety and mood disorders, using brain
+scans from thousands of people, machine learning, and studies that follow the
+same individuals over many years.
 
 Four strands run through this work.
 
@@ -69,10 +72,12 @@ A **KNAW Ter Meulen Beurs** supports an international extension of this line of 
 
 ## Diagnostic biomarkers in OCD and anxiety
 
-Can a brain scan tell us whether someone has a psychiatric disorder? Working
-with the **ENIGMA-OCD** consortium, I tested this on the largest dataset then
-available: scans of brain anatomy from 2,304 people with OCD and 2,068 healthy
-controls, collected at 36 institutes around the world.
+Can a brain scan tell us whether someone has a psychiatric disorder?
+{: .lead-question}
+
+Working with the **ENIGMA-OCD** consortium, I tested this on the largest dataset
+then available: scans of brain anatomy from 2,304 people with OCD and 2,068
+healthy controls, collected at 36 institutes around the world.
 
 The result was informative in an unexpected way. Models trained to recognise
 OCD from brain anatomy did not hold up when tested on scans from hospitals they
@@ -125,7 +130,7 @@ how far it still is from being clinically useful.
 
 Diagnosis is only one challenge. Clinicians usually know who is unwell. What
 they cannot know in advance is **which treatment is likely to work for which
-patient**, and choosing wrongly can cost months (or far worse).
+patient**, and choosing wrongly can cost months.
 
 My clearest example concerns **electroconvulsive therapy (ECT)**, one of the
 most effective treatments for severe depression that has resisted other

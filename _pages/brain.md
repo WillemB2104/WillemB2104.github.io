@@ -29,7 +29,6 @@ slices; until then scrolling just moves the page.
     <button type="button" data-slice="1">Coronal</button>
     <button type="button" data-slice="2">Sagittal</button>
     <button type="button" data-slice="3" class="is-active">All three</button>
-    <button type="button" data-slice="4">3D</button>
   </div>
   <div class="brain-group">
     <span class="brain-label">Colour</span>

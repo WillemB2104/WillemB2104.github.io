@@ -5,13 +5,9 @@ layout: single
 author_profile: true
 ---
 
-Most of what I do comes down to one thing: a three-dimensional grid of numbers,
-each one describing how much signal came back from a cubic millimetre of
-somebody's head. Papers turn that into effect sizes and AUCs, which is useful
-but abstract.
+Most of my research starts with something surprisingly simple: a three-dimensional image made up of numbers. Each number represents the measured MRI signal intensity at one small cube of space in the head: a **voxel**. If a pixel is a single square of a photograph on your screen, a voxel is its three-dimensional counterpart: a tiny block of brain, typically about a millimetre across. A whole scan is a stack of these blocks, several hundred thousand of them, each holding a single number. Once processed, these numbers can be turned into measurements of brain structure, connectivity, and development.
 
-So here is the raw material, unabstracted. This is my own brain, a T1-weighted
-structural MRI scan, rendered in your browser.
+And this is what those numbers represent: **my brain**. Below, you can explore my own structural MRI scan, rendered directly in your browser. This is the raw material from which the measurements I work with are ultimately derived.
 
 **Click or drag** to move the crosshair. **Right-click and drag** to adjust the
 contrast. Once you have clicked into the viewer, **scroll** moves through
@@ -45,41 +41,25 @@ NIfTI viewer.
 
 ## What you are looking at
 
-Around the outside you can pick out the scalp and the skull; just inside them
-the brain begins. The folded ribbon following the surface is **grey matter**,
-the cortex, roughly 2.5 mm thick. The **brighter** mass beneath it is **white
-matter**, the myelinated wiring connecting one region to another. The dark
-butterfly shapes near the centre are the **ventricles**, filled with
-cerebrospinal fluid.
+This is a **T1-weighted anatomical MRI**. It provides a detailed picture of the brain's structure, but it is not a photograph: the brightness of each tissue depends on how that tissue interacts with the MRI signal.
 
-That ordering catches people out, since the names suggest the opposite. It is a
-property of the scan rather than the tissue: this is a T1-weighted image, and
-myelin is fatty, so white matter comes out pale, grey matter darker, and fluid
-close to black.
+Around the outside you can see the scalp and skull. Inside the skull are the brain and the spaces and tissues surrounding it. The folded outer layer is **cerebral cortex**, consisting mainly of **grey matter**, roughly 2.5 mm thick. Beneath it is **white matter**, containing bundles of myelinated nerve fibres that connect different regions of the brain and help them communicate with one another. The dark spaces within the brain are the ventricles, which contain **cerebrospinal fluid** (CSF).
 
-Deep in the centre sit the **thalamus** and the **basal ganglia**, which turn up
-repeatedly in my work: the thalamus was one of the strongest contributors to
-predicting who responds to electroconvulsive therapy, and the basal ganglia are
-central to the models of obsessive-compulsive disorder my ENIGMA work has been
-testing.
+You can also make out other structures that are less obvious at first glance, including the **thalamus** and **basal ganglia** deep within the brain. CSF also surrounds the brain in the subarachnoid space, which lies between the arachnoid mater and pia mater. Small structures such as the choroid plexus, which produces much of the cerebrospinal fluid, can also be visible in the ventricular system, although they are not the main focus of this image.
 
-A scan like this is where a study begins. From here it gets segmented into
-tissue types, registered to a common template, and reduced to a few hundred
-regional measurements. Multiply that by a few thousand people across a few dozen
-hospitals, and you have the sort of dataset the
-[research pages]({{ "/research/" | relative_url }}) describe.
+The relative brightness of these structures depends on two main things: the type of MRI sequence used to acquire the scan and the tissue-specific properties of the brain, including their water and lipid content. In a T1-weighted image, **white matter** generally appears bright because of its high content of lipid-rich myelin, **grey matter** appears in intermediate shades, and water-rich CSF appears dark. These differences in contrast are what allow us to distinguish and measure different brain tissues from the same underlying image.
+
+## From an image to measurements
+
+A scan like this is where a study begins. Depending on the research question, the image can be processed to identify different tissue classes, locate anatomical structures, align the brain to a common space, and extract regional measurements such as cortical thickness, surface area or subcortical volume. Multiply that by a few thousand people across a few dozen hospitals, and you have the sort of dataset the [research pages]({{ "/research/" | relative_url }}) describe.
 
 ## The scan has been defaced
 
-Facial features can be reconstructed from a structural MRI, which makes an
-unedited scan identifiable. This one has been through a defacing algorithm that
-strips the face while leaving the brain untouched. It is standard
-practice before sharing any structural scan, including your own.
+Structural MRI can contain enough information to reconstruct a person's face, making an unprocessed scan potentially identifiable. This scan has therefore been defaced: facial features have been removed while leaving the brain untouched. It is common practice before sharing any structural scan, including your own.
 
 <a id="brain-download" class="btn btn--primary" href="#" download>Download the scan (NIfTI)</a>
 
-The file here has been resampled to 1.2 mm and quantised to 16 bits to keep
-the page light, so it is meant for looking at rather than for analysis.
+The file here has been resampled to 1.2 mm and quantised to 16 bits to keep the page light, so it is intended for exploration rather than quantitative analysis.
 
 Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
 {: .notice--info}

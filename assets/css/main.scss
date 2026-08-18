@@ -107,13 +107,21 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   -webkit-backdrop-filter: saturate(140%) blur(10px);
 }
 
-.site-title {
+// The theme colours this through `.greedy-nav a`, which outranks a bare
+// `.site-title` rule, so the selector has to be at least as specific.
+.masthead .site-title,
+.greedy-nav .site-title,
+.greedy-nav a.site-title {
   font-family: $header-font-family;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: $deviation;
+}
 
-  &:hover { color: lighten($deviation, 8%); }
+.masthead .site-title:hover,
+.greedy-nav .site-title:hover,
+.greedy-nav a.site-title:hover {
+  color: lighten($deviation, 10%);
 }
 
 // Sans, not mono: this is a tagline, not metadata.

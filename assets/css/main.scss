@@ -111,6 +111,9 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   font-family: $header-font-family;
   font-weight: 600;
   letter-spacing: -0.02em;
+  color: $deviation;
+
+  &:hover { color: lighten($deviation, 8%); }
 }
 
 // Sans, not mono: this is a tagline, not metadata.
@@ -418,4 +421,32 @@ button:focus-visible {
     font-size: 0.82rem;
     opacity: 0.8;
   }
+}
+
+// Pull quote ----------------------------------------------------------------
+// For the one sentence on a page that states the central question. Carries its
+// emphasis through scale and a rule rather than through bold amber text, which
+// keeps the accent colour meaningful elsewhere.
+.lead-question {
+  margin: 1.6em 0;
+  padding: 0.1em 0 0.1em 1.1em;
+  border-left: 2px solid $deviation;
+  font-size: 1.18em;
+  line-height: 1.5;
+  font-weight: 400;
+  color: $text-color;
+
+  strong { color: $text-color; font-weight: 600; }
+}
+
+// Small refinements ---------------------------------------------------------
+html { scroll-behavior: smooth; }
+
+::selection {
+  background: rgba(63, 208, 201, 0.28);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

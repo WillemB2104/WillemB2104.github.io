@@ -87,11 +87,11 @@ groups, and within [**GEMRIC**](https://mmiv.no/gemric/), a global collaboration
 studying electroconvulsive therapy, together spanning more than seventy sites
 worldwide.
 
-For ENIGMA-OCD I developed the consortium's first shared framework for
-analysing functional MRI, the kind of scan that measures brain activity rather
-than structure, across all of its sites at once. That framework has since been
-adopted by more than ten other ENIGMA working groups studying different
-disorders.
+For ENIGMA-OCD I developed the consortium's first shared mega-analytic framework for functional MRI, 
+the kind of scan that measures brain activity rather than structure, across all of its sites at once. That framework has since been
+adopted by other ENIGMA working groups studying different disorders.
+
+{% include collaboration-map.html %}
 
 This kind of work often looks unglamorous, but it is what allows the field to
 move forward: agreeing on shared protocols, reconciling data collected in

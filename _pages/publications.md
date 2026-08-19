@@ -30,6 +30,8 @@ week, with metadata and citation counts from Crossref. My name is shown in
 
 **{{ pubs | size }} outputs · {{ total_citations }} citations recorded by Crossref.**
 
+{% include collaboration-map.html %}
+
 {% assign by_year = pubs | group_by: "year" | sort: "name" | reverse %}
 
 {% for group in by_year %}
@@ -56,16 +58,16 @@ week, with metadata and citation counts from Crossref. My name is shown in
 
 <style>
   .pub-entry {
-    font-size: 0.82em;
-    line-height: 1.55;
-    margin-bottom: 1.1em;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.2em;
   }
   .pub-entry strong { font-weight: 700; }
-  .pub-cites { opacity: 0.55; font-size: 0.9em; white-space: nowrap; }
+  .pub-cites { opacity: 0.6; font-size: 0.85rem; white-space: nowrap; }
   .pub-preprint {
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 0.78rem;
     letter-spacing: 0.06em;
     margin-right: 0.35em;
     opacity: 0.85;

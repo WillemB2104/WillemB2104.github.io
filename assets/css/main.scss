@@ -450,6 +450,17 @@ button:focus-visible {
     background: $deep-slate;
   }
 
+  // The collaboration map is inline SVG, not an <img>, so the rule above does
+  // not reach it and it renders at its intrinsic size.
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid $hairline;
+    border-radius: 6px;
+    background: $deep-slate;
+  }
+
   &.on-light img {
     background: #fff;
     border-color: rgba(255, 255, 255, 0.16);
@@ -506,4 +517,17 @@ html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+// Collaboration map ---------------------------------------------------------
+.collab-figure {
+  margin: 2em 0 2.4em;
+
+  #collab-map { width: 100%; }
+
+  .collab-land path {
+    fill: #1f2634;
+    stroke: #2b3446;
+    stroke-width: 0.4;
+  }
 }

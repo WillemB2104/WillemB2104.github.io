@@ -112,7 +112,7 @@ controls only modestly, though far better than any single brain measure could.
 Together these studies show both the promise of brain-based classification and
 how far it still is from being clinically useful.
 
-### Key papers
+#### Key papers
 
 - Han, Bruin, et al. (2025). *Structural brain differences associated with panic disorder: an ENIGMA-Anxiety Working Group mega-analysis of 4,924 individuals worldwide.* **Molecular Psychiatry.** Shared first author.
   [Link](https://www.nature.com/articles/s41380-025-03376-4)
@@ -161,7 +161,7 @@ During my PhD, I have also conducted a **randomised controlled trial in OCD**, f
 
 Most recently, I am a co-investigator on a project funded by the **ZonMw Neuropsychoanalyse Fonds** investigating the brain dynamics underlying **esketamine treatment** in depression. Esketamine acts far more rapidly than conventional antidepressants, which makes it an unusually informative setting for asking what changes in the brain when a treatment works, and how quickly.
 
-### Key paper
+#### Key paper
 
 - Bruin et al. (2023). *Development and validation of a multimodal neuroimaging biomarker for electroconvulsive therapy outcome in depression: a multicenter machine learning analysis.* **Psychological Medicine.**
   [doi:10.1017/S0033291723002040](https://doi.org/10.1017/S0033291723002040)

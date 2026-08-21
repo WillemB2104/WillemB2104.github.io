@@ -22,7 +22,7 @@ Institute of Education & Child Studies, Forensic Family & Youth Care
 [Staff page](https://www.universiteitleiden.nl/en/staffmembers/willem-bruin)
 
 **Amsterdam UMC**
-Team Neuropsychiatry /Department of Psychiatry, Amsterdam UMC - location VUmc
+Team Neuropsychiatry, Department of Psychiatry, Amsterdam UMC - location VUmc
 [Research profile](https://pure.amsterdamumc.nl/en/persons/willem-bruin/)
 
 ## Elsewhere

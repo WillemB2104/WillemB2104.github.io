@@ -112,7 +112,8 @@ controls only modestly, though far better than any single brain measure could.
 Together these studies show both the promise of brain-based classification and
 how far it still is from being clinically useful.
 
-#### Key papers
+Key papers
+{: .section-label}
 
 - Han, Bruin, et al. (2025). *Structural brain differences associated with panic disorder: an ENIGMA-Anxiety Working Group mega-analysis of 4,924 individuals worldwide.* **Molecular Psychiatry.** Shared first author.
   [Link](https://www.nature.com/articles/s41380-025-03376-4)
@@ -128,19 +129,18 @@ how far it still is from being clinically useful.
 
 ## Predicting treatment outcome
 
-Diagnosis is only one challenge. Clinicians usually know who is unwell and who is not. 
-What they often cannot tell in advance is **which treatment is likely to work for which
-patient**. Choosing the wrong treatment can cost months of ineffective care, and in severe 
-depression, delayed recovery can have serious consequences.
+Diagnosis is only one challenge. Clinicians usually know who is unwell. What
+they cannot know in advance is **which treatment is likely to work for which
+patient**, and choosing wrongly can cost months.
 
-One example comes from **electroconvulsive therapy (ECT)**, one of the
-most effective treatments for severe, treatment-resistant depression, that is, 
-depression that has not responded adequately to previous treatments. Working 
-within the **Global ECT-MRI Collaboration (GEMRIC)**, I built models that 
-combine brain structure, brain activity and clinical information to predict, 
-before treatment begins, who will recover. Across the larger contributing centres,
-these predictions were substantially more accurate than chance and, crucially, 
-remained informative when tested on hospitals the models had never seen.
+My clearest example concerns **electroconvulsive therapy (ECT)**, one of the
+most effective treatments for severe depression that has resisted other
+options. Working within the **Global ECT-MRI Collaboration (GEMRIC)**, I built
+models that combine brain structure, brain activity and clinical information to
+predict, before treatment begins, who will recover. At the larger contributing
+centres these predictions were right substantially more often than chance, and
+crucially they remained informative when tested on hospitals the models had
+never seen.
 
 {% include figure-credit.html
    src="/assets/images/figures/fig-ect-networks.png"
@@ -157,11 +157,14 @@ burden of a full treatment course. It is a concrete example of where a
 validated brain measure could one day help decide who should be offered which
 treatment.
 
-During my PhD, I have also conducted a **randomised controlled trial in OCD**, following participants from recruitment through treatment and brain-imaging data collection to examine how pharmacological and psychological treatments affect brain activity. The resulting data became part of **ENIGMA-OCD**, allowing this controlled treatment study to be combined with the consortium's much larger datasets. That collaboration enabled work on another practical question: can we predict **cognitive behavioural therapy (CBT) outcome in OCD** before treatment begins? Models combining clinical and neuroimaging data showed that clinical variables carried much of the predictive information. That result is a useful corrective: neuroimaging has to earn its place against simpler and cheaper measures rather than being assumed to improve on them.
+The same question applies to psychological treatment. In related work I contributed to models predicting **cognitive behavioural therapy outcome in OCD** from clinical and neuroimaging data, where clinical variables turned out to carry much of the predictive information. That result is a useful corrective: neuroimaging has to earn its place against simpler and cheaper measures rather than being assumed to improve on them.
+
+I have also conducted a randomised controlled trial in OCD examining how pharmacological and psychological treatment affect brain activity, from recruitment through data collection.
 
 Most recently, I am a co-investigator on a project funded by the **ZonMw Neuropsychoanalyse Fonds** investigating the brain dynamics underlying **esketamine treatment** in depression. Esketamine acts far more rapidly than conventional antidepressants, which makes it an unusually informative setting for asking what changes in the brain when a treatment works, and how quickly.
 
-#### Key paper
+Key paper
+{: .section-label}
 
 - Bruin et al. (2023). *Development and validation of a multimodal neuroimaging biomarker for electroconvulsive therapy outcome in depression: a multicenter machine learning analysis.* **Psychological Medicine.**
   [doi:10.1017/S0033291723002040](https://doi.org/10.1017/S0033291723002040)

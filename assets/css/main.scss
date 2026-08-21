@@ -365,6 +365,14 @@ body.layout--splash #main { padding-bottom: 0; }
     padding: 0.7rem 1rem;
   }
 
+  // nested entries inherit the link colour and end up teal while top-level
+  // entries stay light; force them to match
+  .toc__menu a,
+  .toc__menu li ul li a { color: $text-color; }
+
+  .toc__menu a:hover,
+  .toc__menu li ul li a:hover { color: $expected; }
+
   .toc__menu a {
     font-size: 0.95rem;
     padding: 0.6rem 1rem;
@@ -530,4 +538,19 @@ html { scroll-behavior: smooth; }
     stroke: #2b3446;
     stroke-width: 0.4;
   }
+}
+
+// Section label -------------------------------------------------------------
+// A heading-like label that stays out of the table of contents, because the
+// theme sweeps every real heading into it.
+.section-label {
+  margin: 2.2em 0 0.9em;
+  font-family: $header-font-family;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: $muted-text-color;
+  border-bottom: 1px solid $hairline;
+  padding-bottom: 0.45em;
 }

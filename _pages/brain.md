@@ -60,9 +60,9 @@ Structural MRI can contain enough information to reconstruct a person's face, ma
 <a id="brain-download" class="btn btn--primary" href="#" download>Download the scan (NIfTI)</a>
 
 The file here has been resampled to 1.2 mm and quantised to 16 bits to keep the page light, so it is intended for exploration rather than quantitative analysis.
+{: .notice--info}
 
 Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
-{: .notice--info}
 
 <style>
   #brain-wrap {
@@ -86,7 +86,6 @@ Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
   /* `hidden` loses to the ID rules below unless we say so explicitly */
   #brain-status[hidden],
   #brain-controls[hidden] { display: none; }
-
   #brain-controls {
     display: flex; flex-wrap: wrap; gap: 1.4em 2em;
     margin-bottom: 2em;
@@ -129,12 +128,22 @@ Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
     try {
       const mod = await import("https://cdn.jsdelivr.net/npm/@niivue/niivue@0.69.0/+esm");
       const Niivue = mod.Niivue;
+
       // Recent NiiVue defaults the primary drag to contrast adjustment. This
       // page wants dragging to move the crosshair instead.
       const CROSSHAIR = (mod.DRAG_MODE && mod.DRAG_MODE.crosshair !== undefined)
         ? mod.DRAG_MODE.crosshair : 8;
+
+      // On narrow screens (e.g. iPhone SE) NiiVue's auto-layout switches the
+      // three planes from a row into a 2x2 grid to make better use of the
+      // space. In grid mode, NiiVue's default "auto" render setting always
+      // adds a 4th panel showing a raw 3D volume render of the whole head -
+      // unmasked, so it shows the scalp/skull even though the scan itself is
+      // defaced. Explicitly disabling the render panel keeps the viewer to
+      // just axial/coronal/sagittal at every screen size.
       const SHOW_RENDER_NEVER = (mod.SHOW_RENDER && mod.SHOW_RENDER.NEVER !== undefined)
         ? mod.SHOW_RENDER.NEVER : 0;
+
       const nv = new Niivue({
         backColor: [0.055, 0.071, 0.098, 1],
         crosshairColor: [0.94, 0.66, 0.28, 1],
@@ -142,6 +151,7 @@ Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
         isColorbar: false,
         dragMode: CROSSHAIR,
         multiplanarEqualSize: true,
+        multiplanarShowRender: SHOW_RENDER_NEVER,
       });
       nv.attachTo("brain-canvas");
       await nv.loadVolumes([{ url: SCAN, colormap: "gray", opacity: 1, visible: true }]);
@@ -179,6 +189,7 @@ Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
           mark(btn, "slice");
         });
       });
+
       controls.querySelectorAll("button[data-cmap]").forEach(btn => {
         btn.addEventListener("click", () => {
           nv.setColormap(nv.volumes[0].id, btn.dataset.cmap);

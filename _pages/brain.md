@@ -133,6 +133,8 @@ Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.
       // page wants dragging to move the crosshair instead.
       const CROSSHAIR = (mod.DRAG_MODE && mod.DRAG_MODE.crosshair !== undefined)
         ? mod.DRAG_MODE.crosshair : 8;
+      const SHOW_RENDER_NEVER = (mod.SHOW_RENDER && mod.SHOW_RENDER.NEVER !== undefined)
+        ? mod.SHOW_RENDER.NEVER : 0;
       const nv = new Niivue({
         backColor: [0.055, 0.071, 0.098, 1],
         crosshairColor: [0.94, 0.66, 0.28, 1],

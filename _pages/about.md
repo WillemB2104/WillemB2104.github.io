@@ -16,8 +16,7 @@ Department of Psychiatry, and at
 [Leiden University](https://www.universiteitleiden.nl/en/staffmembers/willem-bruin),
 Institute of Education & Child Studies.
 
-The broad question I keep returning to is a simple one that turns out to be very
-hard.
+The broad question I keep returning to is:
 
 Can we measure something in an individual's brain that helps explain, predict,
 and ultimately improve their diagnosis and treatment?
@@ -61,16 +60,14 @@ supervised by Prof. dr. Guido van Wingen and Prof. dr. Damiaan Denys.
 Outcome using Machine Learning](https://pure.uva.nl/ws/files/163646716/Thesis.pdf)**
 
 Psychiatric diagnosis rests on the subjective assessment of symptoms. Patients
-sharing a diagnosis can look very different from one another, symptoms overlap
-heavily across disorders, and treatment guidelines largely follow a
+sharing a diagnosis can look very different from one another, the same symptoms often overlap across disorders, and treatment guidelines largely follow a
 one-size-fits-all logic, which for some patients means delay, or a treatment
 that was never going to work. The thesis asked whether machine learning applied
 to neuroimaging data could produce **generalisable** biomarkers to help with
 this.
 
-The answer was more interesting than a straightforward yes or no. Findings that
-looked convincing in one dataset often weakened when tested on data from new
-hospitals, and much of what made prediction hard was not noise but the sheer
+The answer was not a straightforward yes or no. Findings that
+looked convincing in one dataset often weakened when tested on data collected from new hospitals, and much of what made prediction hard was not noise but the sheer
 variety among patients themselves. That experience has shaped how I work since:
 large samples, rigorous validation, reproducibility, and a lasting interest in
 why patients differ so much from one another in the first place.
@@ -94,35 +91,27 @@ adopted by other ENIGMA working groups studying different disorders.
 {% include collaboration-map.html %}
 
 This kind of work often looks unglamorous, but it is what allows the field to
-move forward: agreeing on shared protocols, reconciling data collected in
+move forward: agreeing on shared standardized protocols, reconciling data collected in
 different ways at different hospitals, and building analyses that hold up across
 populations rather than fitting the quirks of one scanner in one place. The
 studies I have led within these consortia are described on the
 [research page]({{ "/research/" | relative_url }}).
 
 My collaboration with **Prof. Paul Thompson**, director of ENIGMA, has been
-supported by three personal grants from the Royal Netherlands Academy of Arts
+supported by personal grants from the Royal Netherlands Academy of Arts
 and Sciences (KNAW): the
 [Van der Gaag](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren),
-Van Leersum and Ter Meulen grants. Together they have funded repeated research
-visits to his lab at USC. The KNAW published a short
+Van Leersum and Ter Meulen grants. They have supported several research visits to his lab at USC, where I have worked closely with the ENIGMA team. The KNAW published a short
 [interview about the Van der Gaag project](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
 (in Dutch), covering the use of AI and normative modelling to study brain
 development in young people with anxiety and mood disorders.
 
 ## Approach
 
-I care most about **validation**: checking that a finding still holds outside
-the data it came from. It is surprisingly easy to build a model that predicts
-well for the patients it was developed on and then fails for patients at a
-different hospital, scanned on a different machine. A model like that has not
-really learned anything about the disorder.
+I care about **validation**: checking that a finding still holds outside
+the data it was derived from. It is much easier to build a model that performs well in the sample it was developed on than one that generalises to patients at another hospital, scanned on a different machine. A model that does not generalise may still capture something about the disorder, but it is unclear how much of what it has learned will hold beyond the original sample.
 
-So the test I hold my own work to is whether it survives contact with new,
-unseen patients who look like the ones a clinician actually sees: people already
-on medication, people with more than one diagnosis, people who are mildly unwell
-and people who are severely unwell. Carefully selected study samples tend to
-leave most of that out.
+That is why I ask whether my models hold up in new patients who resemble those seen in practice: people on medication, with multiple diagnoses, and across the full range of illness severity. Carefully selected study samples often leave much of this variation out.
 
 I also share my analysis pipelines and preprocessing tools
 [openly on GitHub](https://github.com/WillemB2104), for much the same reason:

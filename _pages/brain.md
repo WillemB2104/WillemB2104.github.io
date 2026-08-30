@@ -5,9 +5,15 @@ layout: single
 author_profile: true
 ---
 
-Most of my research starts with something surprisingly simple: a three-dimensional image made up of numbers. Each number represents the measured MRI signal intensity at one small cube of space in the head: a **voxel**. If a pixel is a single square of a photograph on your screen, a voxel is its three-dimensional counterpart: a tiny block of brain, typically about a millimetre across. A whole scan is a stack of these blocks, several hundred thousand of them, each holding a single number. Once processed, these numbers can be turned into measurements of brain structure, connectivity, and development.
+Most of my research starts with something simple: a
+three-dimensional image made of numbers. Each number is the measured MRI signal
+at one small cube of space in the head called a **voxel**, the 3D counterpart of a
+pixel, typically about a millimetre across. A whole scan is a stack of several
+hundred thousand of these blocks, each holding a single number. Processed, they become measurements of brain structure, connectivity and development.
 
-And this is what those numbers represent: **my brain**. Below, you can explore my own structural MRI scan, rendered directly in your browser. This is the raw material from which the measurements I work with are ultimately derived.
+And below is a concrete example of what those numbers can represent: **my brain**! This is my own
+structural MRI scan, some of the raw material from
+which the measurements I work with are derived, rendered directly in your browser, 
 
 **Click or drag** to move the crosshair. **Right-click and drag** to adjust the
 contrast. Once you have clicked into the viewer, **scroll** moves through
@@ -41,25 +47,37 @@ NIfTI viewer.
 
 ## What you are looking at
 
-This is a **T1-weighted anatomical MRI**. It provides a detailed picture of the brain's structure, but it is not a photograph: the brightness of each tissue depends on how that tissue interacts with the MRI signal.
+This is a **T1-weighted anatomical MRI**. It gives a detailed picture of the
+brain's structure: how bright each tissue appears
+depends on how it interacts with the MRI signal. In a T1-weighted image, white matter appears bright because of its lipid-rich
+myelin, grey matter sits in intermediate shades, and water-rich CSF is dark.
+These contrast differences are what let us distinguish and measure the
+different tissues from a single image.
 
-Around the outside you can see the scalp and skull. Inside the skull are the brain and the spaces and tissues surrounding it. The folded outer layer is **cerebral cortex**, consisting mainly of **grey matter**, roughly 2.5 mm thick. Beneath it is **white matter**, containing bundles of myelinated nerve fibres that connect different regions of the brain and help them communicate with one another. The dark spaces within the brain are the ventricles, which contain **cerebrospinal fluid** (CSF).
+Around the outside are the scalp and skull. Just beneath them lies the **cerebral cortex**, the brain’s folded outer layer. It is made up mainly of **grey matter**, where nerve cells are densely packed, and is only about 2.5 mm thick. Beneath the cortex is **white matter**, made up of bundles of myelinated nerve fibres that carry signals between different brain regions.
 
-You can also make out other structures that are less obvious at first glance, including the **thalamus** and **basal ganglia** deep within the brain. CSF also surrounds the brain in the subarachnoid space, which lies between the arachnoid mater and pia mater. Small structures such as the choroid plexus, which produces much of the cerebrospinal fluid, can also be visible in the ventricular system, although they are not the main focus of this image.
-
-The relative brightness of these structures depends on two main things: the type of MRI sequence used to acquire the scan and the tissue-specific properties of the brain, including their water and lipid content. In a T1-weighted image, **white matter** generally appears bright because of its high content of lipid-rich myelin, **grey matter** appears in intermediate shades, and water-rich CSF appears dark. These differences in contrast are what allow us to distinguish and measure different brain tissues from the same underlying image.
+The dark spaces inside the brain are the ventricles, which are filled with **cerebrospinal fluid (CSF)**. CSF also flows around the brain and spinal cord, helping to cushion and protect them. Deep in the centre sit the **thalamus** and, just in front and to either side, the **basal ganglia**: drag the crosshair into the middle of the axial view and they appear as paired grey masses, separated by a pale band of white matter, the internal capsule. Both sit close to the questions I work on. The thalamus is the focus of one of my Generation R projects and has surfaced in my ENIGMA OCD analyses; the basal ganglia anchor the fronto-striatal circuits that most models of OCD are built on.
 
 ## From an image to measurements
 
-A scan like this is where a study begins. Depending on the research question, the image can be processed to identify different tissue classes, locate anatomical structures, align the brain to a common space, and extract regional measurements such as cortical thickness, surface area or subcortical volume. Multiply that by a few thousand people across a few dozen hospitals, and you have the sort of dataset the [research pages]({{ "/research/" | relative_url }}) describe.
+A scan like this is where neuroimaging analyses begin. Depending on the question, it can be
+processed to identify tissue classes, locate anatomical structures, align the
+brain to a common space, and extract measures such as cortical thickness,
+surface area or subcortical volume. Multiply that by a few thousand people
+across a few dozen hospitals, and you have the sort of dataset the
+[research pages]({{ "/research/" | relative_url }}) describe.
 
-## The scan has been defaced
+## My scan has been defaced
 
-Structural MRI can contain enough information to reconstruct a person's face, making an unprocessed scan potentially identifiable. This scan has therefore been defaced: facial features have been removed while leaving the brain untouched. It is common practice before sharing any structural scan, including your own.
+A structural MRI can contain enough information to reconstruct a person's face,
+so an unprocessed scan is potentially identifiable. This one has been defaced:
+facial features removed, brain untouched, which is common practice before sharing any
+structural scan, including your own.
 
 <a id="brain-download" class="btn btn--primary" href="#" download>Download the scan (NIfTI)</a>
 
-The file here has been resampled to 1.2 mm and quantised to 16 bits to keep the page light, so it is intended for exploration rather than quantitative analysis.
+The file has been resampled to 1.2 mm and quantised to 16 bits to keep the page
+light, so it is meant for exploration rather than quantitative analysis.
 {: .notice--info}
 
 Rendered with [NiiVue](https://niivue.com), an open-source WebGL viewer.

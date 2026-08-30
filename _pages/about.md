@@ -57,14 +57,10 @@ supervised by Prof. dr. Guido van Wingen and Prof. dr. Damiaan Denys.
 **[Neuroimaging Biomarkers for Psychiatry: Predicting Diagnosis and Treatment
 Outcome using Machine Learning](https://pure.uva.nl/ws/files/163646716/Thesis.pdf)**
 
-Psychiatric diagnosis rests on the subjective assessment of symptoms. Patients
-sharing a diagnosis can look very different from one another, the same symptoms often 
-overlap across disorders, and treatment guidelines largely follow a
-one-size-fits-all logic, which for some patients means delay, or a treatment
-that was never going to work. The thesis asked whether machine learning applied to neuroimaging data could produce generalisable **biomarkers**, objective measurements of the brain that could help identify, distinguish, or predict something about an individual patient to aid clinical decision-making.
+Psychiatric diagnosis rests on the subjective assessment of symptoms. Patients sharing the same diagnosis can look very different from one another, while symptoms often overlap across disorders, making misdiagnosis possible. Treatment guidelines largely follow a one-size-fits-all logic, which for some patients means delayed treatment or a treatment that was never going to work. The thesis asked whether machine learning applied to neuroimaging data could produce generalisable **biomarkers**, objective measurements of the brain that could help identify, distinguish, or predict something about an individual patient to aid clinical decision-making.
 
-The answer was neither a clean yes or no. Biomarkers that
-looked convincing in one dataset often weakened when tested on data 
+The answer was neither a clean yes or no. Biomarkers that at first glance 
+looked convincing in one dataset often do not hold when tested on data 
 collected from new hospitals, and much of what made prediction hard was not noise 
 but the sheer variety among patients themselves. That experience has shaped 
 how I work since: large samples, rigorous external validation, reproducibility, and a 
@@ -102,7 +98,7 @@ development in young people with anxiety and mood disorders.
 
 ## Approach
 
-I care about **validation**: whether a finding still holds beyond the data from which it was derived. It is often much easier to build a predictive model that performs well in the sample it was derived from than to build one that generalises to patients at another hospital, scanned on a different machine.
+I care about **validation**: whether a finding still holds beyond the data from which it was derived. It is often much easier to build a predictive model that performs well in the sample it was developed on than to build one that generalises to patients at a completely new hospital, scanned on a different machine.
 
 That is why I test my models on patients from independent sites and who better resemble those seen in actual practice: people on medication, with multiple diagnoses, and across the full range of illness severity. I also make my analysis pipelines and preprocessing tools [open on GitHub](https://github.com/WillemB2104), because methods that can be inspected and reused are easier to trust.
 

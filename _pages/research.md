@@ -8,11 +8,7 @@ toc_label: "Research themes"
 toc_sticky: true
 ---
 
-Psychiatry still diagnoses and treats largely on the basis of what patients
-report about their own symptoms. Two people with the same diagnosis can look
-very different from one another, the same symptoms appear across different
-disorders, and treatment decisions mostly follow general guidelines rather than
-anything measured in the individual patient.
+Psychiatry still relies largely on what patients report about their symptoms to diagnose and treat mental disorders. But two people with the same diagnosis can look very different, while the same symptoms can occur across different disorders, making misdiagnosis possible. Treatment decisions also largely follow general guidelines rather than information measured in the individual patient. This can mean delays in finding the right treatment, or receiving a treatment that was never likely to work.
 
 My research asks whether measurements of the brain can add something useful.
 
@@ -28,18 +24,9 @@ Four strands run through this work.
 
 ## Brain development and individual trajectories
 
-Many psychiatric disorders first appear during childhood, adolescence or young
-adulthood, while the brain is still changing rapidly. Yet most brain imaging
-studies take a single snapshot, comparing a group of patients with a group of
-healthy people at one moment in time. A snapshot cannot show how anyone got
-there, or what happens next.
+Many psychiatric disorders first appear during childhood, adolescence or young adulthood, while the brain is still changing rapidly. Yet much of psychiatric brain imaging relies on **single time-point measurements** and **group averages**: patients are scanned once and compared with healthy people, rather than tracking how an individual brain develops over time. This tells us how groups differ, but not how an individual got there or where they may be heading.
 
-**Normative modelling** offers one way to address this. It works much like the
-growth charts used at any child health clinic: instead of asking whether a
-group of patients differs from a group of controls on average, it maps the
-range of brain measures expected at each age, and then asks where one
-individual sits relative to that range. How far someone deviates from the
-expected range becomes a measurement in its own right.
+**Normative modelling** offers a way to shift the focus from group averages to the individual. Like growth charts used in child health, it maps the range of brain measures expected at each age and asks where an individual sits within that range. The degree to which someone deviates from what is expected can then be measured directly.
 
 {% include figure-credit.html
    src="/assets/images/figures/fig-normative-model.svg"
@@ -68,7 +55,8 @@ age from their brain scan alone; applied to a new individual, the gap between
 the guessed age and their real age becomes a simple summary of whether their
 brain looks older or younger than expected.
 
-A **KNAW Ter Meulen Beurs** supports an international extension of this line of research with the University of Southern California and the University of Michigan. Using scans from roughly 15,000 young people across more than thirty countries, this work aims to develop developmental reference curves that capture normative variation across populations rather than being specific to individual diagnostic groups.
+A **KNAW Ter Meulen Beurs** supports an international extension of this line of research with the University of Southern California and the University of Michigan. Using scans from roughly 15,000 young people across more than thirty countries, this work aims to develop reference curves that capture normative variation in brain development across the population, and identify individual deviations across the full spectrum of mental health disorders.
+
 
 ## Diagnostic biomarkers in OCD and anxiety
 
@@ -129,13 +117,9 @@ Key papers
 
 ## Predicting treatment outcome
 
-Diagnosis is only one challenge. Clinicians usually know who is unwell. What
-they cannot know in advance is **which treatment is likely to work for which
-patient**, and choosing wrongly can cost months.
+Diagnosis is only one challenge. Clinicians usually know who is unwell. What they cannot know in advance is **which treatment is likely to work for which patient**. Choosing the wrong treatment can cost months, years, or, in some cases, a life.
 
-My clearest example concerns **electroconvulsive therapy (ECT)**, one of the
-most effective treatments for severe depression that has resisted other
-options. Working within the **Global ECT-MRI Collaboration (GEMRIC)**, I built
+My clearest example is **electroconvulsive therapy (ECT)**, one of the most effective treatments for patients with treatment-resistant depression (TRD), who have not responded to prior medication and therapy. Working within the **Global ECT-MRI Collaboration (GEMRIC)**, I built
 models that combine brain structure, brain activity and clinical information to
 predict, before treatment begins, who will recover. At the larger contributing
 centres these predictions were right substantially more often than chance, and

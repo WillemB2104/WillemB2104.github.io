@@ -13,12 +13,19 @@ anxiety or depression themselves. This page brings together interviews and publi
 
 ## Interviews and public engagement
 
+**KNAW-beurs maakt internationaal onderzoek naar psychische aandoeningen bij jongeren mogelijk**
+*Leiden University*, September 2026. On the KNAW Ter Meulen Beurs supporting six weeks
+of work with the University of Southern California and the University of Michigan,
+analysing brain scans from roughly 15,000 young people across more than thirty
+countries to build what amounts to a growth curve for the brain. In Dutch.
+[Read the piece](https://www.universiteitleiden.nl/nieuws/2026/08/knaw-beurs-maakt-internationaal-onderzoek-naar-psychische-aandoeningen-bij-jongeren-mogelijk)
+
 **Clinical data predict the outcome of cognitive behavioural therapy in obsessive-compulsive disorder**
 *Psychiatry Amsterdam*, 2025. A piece about our research on using clinical data to predict treatment outcomes in obsessive-compulsive disorder.
 [Read the piece](https://psychiatryamsterdam.nl/clinical-data-predict-the-outcome-of-cognitive-behavioural-therapy-in-obsessive-compulsive-disorder/)
 
 **Onderzoek naar stemmingsstoornissen bij jongeren**
-*Royal Netherlands Academy of Arts and Sciences (KNAW)*, 2024. On the Van de Gaag grant, and on using and normative modelling to study brain development in clinically anxious youth. In Dutch.
+*Royal Netherlands Academy of Arts and Sciences (KNAW)*, 2024. On the Van der Gaag grant, and on using and normative modelling to study brain development in clinically anxious youth. In Dutch.
 [Read the interview](https://www.knaw.nl/interview-van-der-gaag-beurs-willem-bruin-onderzoek-naar-stemmingsstoornissen-bij-jongeren)
 
 **Zoektocht naar biomarkers voor psychische aandoeningen**
@@ -30,7 +37,7 @@ anxiety or depression themselves. This page brings together interviews and publi
 [Read the conversation](https://nedkad.nl/nieuws/een-gesprek-over-biomarkers-en-machine-learning-in-de-psychiatrie/)
 
 **"Ik zie niet alleen maar nullen en enen, maar ook patiënten"**
-*Folia*, University of Amsterdam. Apparently, I gave quite a few interviews during my PhD. In Dutch.
+*Folia*, University of Amsterdam, 2018. Apparently, I gave quite a few interviews during my PhD. In Dutch.
 [Read the interview](https://www.folia.nl/actueel/123469/promovendus-willem-25-ik-zie-niet-alleen-maar-nullen-en-enen-maar-ook-patienten)
 
 ## Invited talks
@@ -41,7 +48,7 @@ anxiety or depression themselves. This page brings together interviews and publi
 **Neuroimaging Biomarkers in Psychiatry**, Guest lecture, Imaging Genetics Center, Mark & Mary Stevens Neuroimaging & Informatics, Institute, Keck School of Medicine, University of Southern California
 *2024 and 2025*
 
-**Machine Learning for Precision Psychiatry: Opportunities and Challengess**
+**Machine Learning for Precision Psychiatry: Opportunities and Challenges**
 Guest lecture, MICAN MSc course, Education and Child Studies, Leiden University
 *2024 and 2025*
 

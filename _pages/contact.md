@@ -5,25 +5,17 @@ layout: single
 author_profile: true
 ---
 
-I’m always glad to hear from potential collaborators, students looking for a project, and people interested in my research.
+Have a question, an idea, or an interest in my work? Feel free to get in touch. I'm always happy to hear from researchers, clinicians, students, journalists, and people with lived experience.
 
 ## Email
+
+I hold positions at two institutions, so either address will reach me.
 
 **Amsterdam UMC**, Department of Psychiatry
 [w.b.bruin@amsterdamumc.nl](mailto:w.b.bruin@amsterdamumc.nl)
 
 **Leiden University**, Institute of Education & Child Studies
 [w.b.bruin@fsw.leidenuniv.nl](mailto:w.b.bruin@fsw.leidenuniv.nl)
-
-## Where to find me
-
-**Leiden University**
-Institute of Education & Child Studies, Forensic Family & Youth Care
-[Staff page](https://www.universiteitleiden.nl/en/staffmembers/willem-bruin)
-
-**Amsterdam UMC**
-Team Neuropsychiatry, Department of Psychiatry, Amsterdam UMC - location VUmc
-[Research profile](https://pure.amsterdamumc.nl/en/persons/willem-bruin/)
 
 ## Elsewhere
 
@@ -34,19 +26,21 @@ Team Neuropsychiatry, Department of Psychiatry, Amsterdam UMC - location VUmc
 | **GitHub** | [WillemB2104](https://github.com/WillemB2104) |
 | **LinkedIn** | [willem-bruin](https://www.linkedin.com/in/willem-bruin-b2a2b6ba/) |
 
-## A few notes
+Staff pages:
+[Amsterdam UMC](https://pure.amsterdamumc.nl/en/persons/willem-bruin/) ·
+[Leiden University](https://www.universiteitleiden.nl/en/staffmembers/willem-bruin)
 
-**Students.** If you're interested in a master's or research project involving
-neuroimaging, machine learning, brain development or computational psychiatry, feel 
-free to get in touch. It helps to say a little about what draws you to the topic 
-and what methodological background you have.
+## Internships and student projects
 
-**Collaboration and data requests.** I work primarily within international
-consortia, and data sharing within those is governed by their own agreements
-rather than by me individually. I'm happy to point you toward the right
-process. My analysis code and preprocessing pipelines are
+I can rarely take on student interns at the moment, though it is not
+impossible. Internship enquiries at Amsterdam UMC are handled by my colleagues
+at [Team Neuropsychiatry](https://team-neuropsychiatry.github.io/team-NP-onboarding/contact-us/),
+who have a short form for exactly this and an overview of
+[the projects currently running](https://team-neuropsychiatry.github.io/team-NP-onboarding/projects/).
+
+## Data and code
+
+The consortium data I work with is governed by the agreements of the consortia
+themselves rather than by me individually, though I am happy to point you toward
+the right process. My analysis code and preprocessing pipelines are
 [openly available](https://github.com/WillemB2104).
-
-**Press and public engagement.** I'm glad to talk about brain development,
-biomarkers in psychiatry, and what machine learning can - and cannot - 
-currently deliver in mental health care. 

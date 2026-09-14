@@ -19,7 +19,7 @@
   doi: "10.1038/s41380-025-03376-4"
   url: "https://doi.org/10.1038/s41380-025-03376-4"
   year: 2026
-  citations: 1
+  citations: 2
 
 - title: "Mapping Higher-Order Topology in OCD Brain Networks with Hodge Laplacian"
   authors: "Ruan, H., Chung, M.K., <strong>Bruin, W.B.</strong>, Džinalija, N., Abe, Y., Alonso, P., Anticevic, A., Balachander, S., Batistuzzo, M.C., Benedetti, F., Bertolín, S., Brem, S., Cho, Y., Colombo, F., Couto, B., Eng, G.K., Ferreira, S., Feusner, J.D., Grazioplene, R.G., Gruner, P., Hagen, K., Hansen, B., Hirano, Y., Hoexter, M.Q., Ipser, J., Jaspers-Fayer, F., Kim, M., Kwon, J.S., Lazaro, L., Li, C.S.R., Lochner, C., Marsh, R., Martínez-Zalacaín, I., Menchón, J.M., Moreira, P.S., Morgado, P., Muñoz, E., Nakagawa, A., Narayanaswamy, J.C., Nurmi, E.L., O’Neill, J., Pariente, J.C., Piacentini, J.C., Picó-Pérez, M., Piras, F., Piras, F., Pittenger, C., Reddy, J.Y.C., Rodriguez-Manrique, D., Sakai, Y., Sato, J.R., Shimizu, E., Shivakumar, V., Simpson, H.B., Soriano-Mas, C., Sousa, N., Stern, E.R., Stewart, E., Szeszko, P.R., Thomopoulos, S.I., Thorsen, A.L., Vai, B., van der Straten, A., van der Werf, Y.D., van Leeuwen, W., van Marle, H., van Wingen, G., Vecchio, D., Venkatasubramanian, G., Vriend, C., Walitza, S., Wang, Z., Yoshida, T., Yun, J.Y., Zhao, Q., ENIGMA OCD Working Group, Thompson, P.M., Stein, D.J., van den Heuvel, O.A., Koch, K."
@@ -159,7 +159,7 @@
   doi: "10.1093/schbul/sbab122"
   url: "https://doi.org/10.1093/schbul/sbab122"
   year: 2021
-  citations: 6
+  citations: 7
 
 - title: "Neural excitation/inhibition imbalance and the treatment of severe depression"
   authors: "ten Doesschate, F., <strong>Bruin, W.</strong>, Zeidman, P., Abbott, C.C., Argyelan, M., Dols, A., Emsell, L., van Eijndhoven, P.F., van Exel, E., Mulders, P.C., Narr, K., Tendolkar, I., Rhebergen, D., Sienaert, P., Vandenbulcke, M., Verdijk, J., van Verseveld, M., Bartsch, H., Oltedal, L., van Waarde, J.A., van Wingen, G.A."
@@ -199,7 +199,7 @@
   doi: "10.1038/s41398-020-0705-1"
   url: "https://doi.org/10.1038/s41398-020-0705-1"
   year: 2020
-  citations: 581
+  citations: 583
 
 - title: "Dealing with missing data, small sample sizes, and heterogeneity in machine learning studies of brain disorders"
   authors: "Thomas, R.M., <strong>Bruin, W.</strong>, Zhutovsky, P., van Wingen, G."

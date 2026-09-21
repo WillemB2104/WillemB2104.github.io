@@ -49,7 +49,7 @@
   doi: "10.1016/j.biopsych.2025.08.003"
   url: "https://doi.org/10.1016/j.biopsych.2025.08.003"
   year: 2026
-  citations: 7
+  citations: 9
 
 - title: "Development and validation of a machine learning model to predict cognitive behavioral therapy outcome in obsessive-compulsive disorder using clinical and neuroimaging data"
   authors: "van de Mortel, L.A., <strong>Bruin, W.B.</strong>, Alonso, P., Bertolín, S., Feusner, J.D., Guo, J., Hagen, K., Hansen, B., Thorsen, A.L., Martínez-Zalacaín, I., Menchón, J.M., Nurmi, E.L., O’Neill, J., Piacentini, J.C., Real, E., Segalàs, C., Soriano-Mas, C., Thomopoulos, S.I., Stein, D.J., Thompson, P.M., van den Heuvel, O.A., van Wingen, G.A."
@@ -119,7 +119,7 @@
   doi: "10.1038/s41380-023-02077-0"
   url: "https://doi.org/10.1038/s41380-023-02077-0"
   year: 2023
-  citations: 72
+  citations: 74
 
 - title: "Development and validation of a multimodal neuroimaging biomarker for electroconvulsive therapy outcome in depression: a multicenter machine learning analysis"
   authors: "<strong>Bruin, W.B.</strong>, Oltedal, L., Bartsch, H., Abbott, C., Argyelan, M., Barbour, T., Camprodon, J., Chowdhury, S., Espinoza, R., Mulders, P., Narr, K., Oudega, M., Rhebergen, D., ten Doesschate, F., Tendolkar, I., van Eijndhoven, P., van Exel, E., van Verseveld, M., Wade, B., van Waarde, J., Zhutovsky, P., Dols, A., van Wingen, G."
@@ -199,7 +199,7 @@
   doi: "10.1038/s41398-020-0705-1"
   url: "https://doi.org/10.1038/s41398-020-0705-1"
   year: 2020
-  citations: 583
+  citations: 584
 
 - title: "Dealing with missing data, small sample sizes, and heterogeneity in machine learning studies of brain disorders"
   authors: "Thomas, R.M., <strong>Bruin, W.</strong>, Zhutovsky, P., van Wingen, G."
@@ -219,7 +219,7 @@
   doi: "10.1016/j.pnpbp.2018.08.005"
   url: "https://doi.org/10.1016/j.pnpbp.2018.08.005"
   year: 2019
-  citations: 46
+  citations: 47
 
 - title: "Dose-dependent effects of the selective serotonin reuptake inhibitor citalopram: A combined SPECT and phMRI study"
   authors: "Schrantee, A., Solleveld, M.M., Schwantje, H., <strong>Bruin, W.B.</strong>, Mutsaerts, H.J.M., Adriaanse, S.M., Lucassen, P., Booij, J., Reneman, L."

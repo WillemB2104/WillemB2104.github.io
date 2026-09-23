@@ -183,13 +183,6 @@
   papers: 1
   home: false
 
-- code: "PL"
-  name: "Poland"
-  lat: 52.0
-  lon: 19.3
-  papers: 1
-  home: false
-
 - code: "RU"
   name: "Russia"
   lat: 57.0

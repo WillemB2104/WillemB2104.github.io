@@ -44,6 +44,7 @@ KEEP_TYPES = {
     "review",
     "data-set",
     "software",
+    "working-paper",
     "other",
 }
 
@@ -426,7 +427,8 @@ def main():
     for s in summaries:
         wtype = (s.get("type") or "other").lower().replace("_", "-")
         if wtype not in KEEP_TYPES:
-            print(f"  (skipping type '{wtype}')")
+            title = dig(s, "title", "title", "value", default="")
+            print(f"  (skipping type '{wtype}': {title[:60]})")
             continue
         rec = build_record(s)
         if not rec["title"]:

@@ -5,42 +5,42 @@
   name: "Netherlands"
   lat: 52.2
   lon: 5.3
-  papers: 24
+  papers: 25
   home: true
 
 - code: "US"
   name: "United States"
   lat: 39.5
   lon: -98.4
-  papers: 19
+  papers: 20
   home: false
 
 - code: "NO"
   name: "Norway"
   lat: 61.0
   lon: 8.5
-  papers: 16
+  papers: 17
   home: false
 
 - code: "ZA"
   name: "South Africa"
   lat: -30.6
   lon: 22.9
-  papers: 12
+  papers: 13
   home: false
 
 - code: "DE"
   name: "Germany"
   lat: 51.2
   lon: 10.4
-  papers: 11
+  papers: 12
   home: false
 
 - code: "ES"
   name: "Spain"
   lat: 40.3
   lon: -3.7
-  papers: 11
+  papers: 12
   home: false
 
 - code: "GB"

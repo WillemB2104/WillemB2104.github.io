@@ -189,7 +189,7 @@
   doi: "10.1002/hbm.24972"
   url: "https://doi.org/10.1002/hbm.24972"
   year: 2020
-  citations: 72
+  citations: 73
 
 - title: "Structural neuroimaging biomarkers for obsessive-compulsive disorder in the ENIGMA-OCD consortium: medication matters"
   authors: "<strong>Bruin, W.B.</strong>, Taylor, L., Thomas, R.M., Shock, J.P., Zhutovsky, P., Abe, Y., Alonso, P., Ameis, S.H., Anticevic, A., Arnold, P.D., Assogna, F., Benedetti, F., Beucke, J.C., Boedhoe, P.S.W., Bollettini, I., Bose, A., Brem, S., Brennan, B.P., Buitelaar, J.K., Calvo, R., Cheng, Y., Cho, K.I.K., Dallaspezia, S., Denys, D., Ely, B.A., Feusner, J.D., Fitzgerald, K.D., Fouche, J.P., Fridgeirsson, E.A., Gruner, P., Gürsel, D.A., Hauser, T.U., Hirano, Y., Hoexter, M.Q., Hu, H., Huyser, C., Ivanov, I., James, A., Jaspers-Fayer, F., Kathmann, N., Kaufmann, C., Koch, K., Kuno, M., Kvale, G., Kwon, J.S., Liu, Y., Lochner, C., Lázaro, L., Marques, P., Marsh, R., Martínez-Zalacaín, I., Mataix-Cols, D., Menchón, J.M., Minuzzi, L., Moreira, P.S., Morer, A., Morgado, P., Nakagawa, A., Nakamae, T., Nakao, T., Narayanaswamy, J.C., Nurmi, E.L., O’Neill, J., Pariente, J.C., Perriello, C., Piacentini, J., Piras, F., Piras, F., Reddy, Y.C.J., Rus-Oswald, O.G., Sakai, Y., Sato, J.R., Schmaal, L., Shimizu, E., Simpson, H.B., Soreni, N., Soriano-Mas, C., Spalletta, G., Stern, E.R., Stevens, M.C., Stewart, S.E., Szeszko, P.R., Tolin, D.F., Venkatasubramanian, G., Wang, Z., Yun, J.Y., van Rooij, D., ENIGMA-OCD Working Group, Banaj, N., Bargalló, N., Batistuzzo, M.C., Brandeis, D., Busatto, G.F., Calvo, A., Ciullo, V., Drechsler, R., Esteves, M., Falini, A., Fang, Y., Figee, M., Fontaine, M., Gueguen, M., Hamatani, S., Hanna, G.L., Hansen, B., Ikari, K., Lázaro, L., Magalhães, R., Masuda, Y., Matsumoto, K., Miguel, E.C., Morer, A., Pittenger, C., Poletti, S., Sakai, Y., Sousa, N., Takahashi, J., Thorsen, A.L., Tsuchiyagaito, A., Vecchio, D., Veltman, D.J., Walitza, S., Watanabe, A., Xu, X., Xu, J., Yamada, K., Yoshida, T., Zarei, M., Zhao, Q., Zhou, C., de Vries, F.E., de Wit, S.J., van Rooij, D., van Wingen, G.A., van den Heuvel, O.A., van der Werf, Y.D., Thompson, P.M., van den Heuvel, O.A., Stein, D.J., van Wingen, G.A."
@@ -209,7 +209,7 @@
   doi: "10.1038/s41398-020-0705-1"
   url: "https://doi.org/10.1038/s41398-020-0705-1"
   year: 2020
-  citations: 584
+  citations: 586
 
 - title: "Dealing with missing data, small sample sizes, and heterogeneity in machine learning studies of brain disorders"
   authors: "Thomas, R.M., <strong>Bruin, W.</strong>, Zhutovsky, P., van Wingen, G."

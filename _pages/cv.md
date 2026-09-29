@@ -45,7 +45,7 @@ groups, and of [GEMRIC](https://mmiv.no/gemric/).
 **Selected Early Career Scientist**, ECNP Workshop on Neuropsychopharmacology,
 Nice, 2019
 
-**Travel Grant** (recipient), Society of Biological Psychiatry 74th Annual Meeting, Chicago,
+**Selected Symposium Speaker**, Society of Biological Psychiatry 74th Annual Meeting, Chicago,
 2019
 
 The PDF has the full record, including education, certifications and work

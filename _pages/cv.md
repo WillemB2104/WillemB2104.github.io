@@ -19,8 +19,7 @@ Studies (2023–present)
 *[Neuroimaging Biomarkers for Psychiatry: Predicting Diagnosis and Treatment
 Outcome using Machine Learning](https://pure.uva.nl/ws/files/163646716/Thesis.pdf)*
 
-Daily supervisor and co-promotor for one PhD candidate, and supervisor to four
-MSc research students. Guest lecturer at Leiden University since 2024.
+PhD daily supervisor and co-promotor, and supervisor of MSc research students for internships and dissertations. Guest lecturer at Leiden University since 2024.
 
 Member of the
 [ENIGMA-OCD](https://enigma.ini.usc.edu/ongoing/enigma-ocd-working-group/) and

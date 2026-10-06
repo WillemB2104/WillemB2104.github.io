@@ -1,37 +1,230 @@
 <script>
-/* Normative trajectory field.
+/* ---------------------------------------------------------------------------
+   Normative trajectory field.
+
    Percentile bands with individual trajectories, and measurement points
    travelling along them through developmental time. Teal is within the
    expected range; a point turns amber when its trajectory leaves the band.
-   Rendered twice: large in the splash hero, and as a faint strip behind the
-   masthead so every page carries it. */
+
+   Rendered twice, from one function:
+
+     - the splash hero, where the points also draw a portrait. Each row of the
+       portrait is displaced upward by the surface of the head where it
+       crosses, so the face is not drawn on the field: it is what the field
+       does when it passes through an individual. A point reveals the stretch
+       it has just travelled, and that reveal fades over a few seconds, so the
+       face is continually assembling and dissolving and is never solid.
+
+     - a faint strip behind the masthead on every other page: the same model
+       with no portrait and no reveal, so the identity carries across the site
+       without the landing page's one trick being repeated everywhere.
+
+   Five things here are deliberate and easy to undo by accident.
+
+   1. The relief carries the VOLUME of the head, from the outline of the
+      cut-out, with the photograph shading that surface (DOME_W). Taking it
+      from brightness alone leaves dark hair with no relief at all, and the
+      round top of the head is simply thrown away.
+   2. The band spans most of the hero (SCALE). It has to: the trajectories are
+      what reveal the portrait, and at a narrower scale none of them ever
+      reaches the top of the head.
+   3. The portrait is rendered ONCE, in strict back-to-front order, into its
+      own canvas. Rows occlude the ones behind them, which is what turns a
+      stack of lines into a surface. Drawing it progressively puts the rows out
+      of order and their occlusion fills erase each other: gaps and striping.
+   4. Each row's weight follows the cut-out's alpha channel, so a row is bright
+      only while it crosses the head and fades to nothing either side. At even
+      weight across the hero it reads as a ruled grid with a face caught in it.
+   5. CROP is not square, so the box it is drawn into must not be either, or
+      the face is stretched. faceBox derives its width from the crop's ratio.
+
+   Colours come from main.scss: EXPECTED is $expected, DEVIATION is $deviation.
+--------------------------------------------------------------------------- */
 (function () {
+  "use strict";
+
   var reduce = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var EXPECTED = [63, 208, 201];
   var DEVIATION = [240, 168, 72];
+  var PORTRAIT = "{{ '/assets/images/hero-portrait.webp' | relative_url }}";
+
+  /* The portrait's shape. Measured off the image rather than guessed: the
+     crown sits at 0.111 of its height, the head is widest at 0.40-0.50, the
+     jaw narrows through 0.55-0.70, and the shoulders begin at 0.725. A bottom
+     edge above about 0.80 therefore cuts straight across the neck. */
+  var CROP = { x0: 0.175, y0: 0.015, x1: 0.825, y1: 0.885 };
+
+  var ROWS = 84;        // density of the portrait
+  var AMP_MULT = 7.5;   // relief height, in units of row spacing
+  var LOCAL_W = 0.58;   // local versus global contrast in the tone map
+  var DOME_W = 0.42;    // how much of the relief is the head's own volume
+  var PEAK = 0.36;      // brightest a row gets while crossing the head
+  var TAU = 6.0;        // seconds for a point's trace to fade
+  var FACE_MIN_ROOM = 190;  // give up on the portrait below this much space
 
   function rgba(c, a) { return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")"; }
-  function mean(t) { return 0.62 * (1 - Math.exp(-3.4 * t)) - 0.16 * t * t; }
-  function spread(t) { return 0.05 + 0.17 * Math.pow(t, 0.9); }
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
+  var mean = function (t) { return 0.62 * (1 - Math.exp(-3.4 * t)) - 0.16 * t * t; };
+  var spread = function (t) { return 0.05 + 0.17 * Math.pow(t, 0.9); };
+
+  /* ---- the portrait, sampled and conditioned once ---------------------- */
+  var G = 200;
+  var depth = null, alf = null, portraitReady = false, portraitWaiting = [];
+
+  function boxBlur(src, r) {
+    var t = new Float32Array(G * G), o = new Float32Array(G * G), x, y, k, sum, n, xx, yy;
+    for (y = 0; y < G; y++) for (x = 0; x < G; x++) {
+      sum = 0; n = 0;
+      for (k = -r; k <= r; k++) { xx = x + k; if (xx < 0 || xx >= G) continue; sum += src[y * G + xx]; n++; }
+      t[y * G + x] = sum / n;
+    }
+    for (y = 0; y < G; y++) for (x = 0; x < G; x++) {
+      sum = 0; n = 0;
+      for (k = -r; k <= r; k++) { yy = y + k; if (yy < 0 || yy >= G) continue; sum += t[yy * G + x]; n++; }
+      o[y * G + x] = sum / n;
+    }
+    return o;
+  }
+
+  /* The volume of the head, taken from its own silhouette: distance to the
+     nearest edge by a two-pass chamfer transform, then through a spherical
+     profile so the result is round rather than conical. */
+  function buildDome() {
+    var INF = 1e9, d = new Float32Array(G * G), A = 1.0, B = Math.SQRT2, i, x, y, v;
+    for (i = 0; i < G * G; i++) d[i] = alf[i] > 0.5 ? INF : 0;
+    for (y = 0; y < G; y++) for (x = 0; x < G; x++) {
+      i = y * G + x; if (d[i] === 0) continue;
+      v = d[i];
+      if (y > 0) {
+        v = Math.min(v, d[i - G] + A);
+        if (x > 0) v = Math.min(v, d[i - G - 1] + B);
+        if (x < G - 1) v = Math.min(v, d[i - G + 1] + B);
+      }
+      if (x > 0) v = Math.min(v, d[i - 1] + A);
+      d[i] = v;
+    }
+    for (y = G - 1; y >= 0; y--) for (x = G - 1; x >= 0; x--) {
+      i = y * G + x; if (d[i] === 0) continue;
+      v = d[i];
+      if (y < G - 1) {
+        v = Math.min(v, d[i + G] + A);
+        if (x > 0) v = Math.min(v, d[i + G - 1] + B);
+        if (x < G - 1) v = Math.min(v, d[i + G + 1] + B);
+      }
+      if (x < G - 1) v = Math.min(v, d[i + 1] + A);
+      d[i] = v;
+    }
+    var mx = 0;
+    for (i = 0; i < G * G; i++) if (d[i] < INF && d[i] > mx) mx = d[i];
+    var out = new Float32Array(G * G), t;
+    for (i = 0; i < G * G; i++) {
+      t = Math.min(1, d[i] / Math.max(1e-6, mx));
+      out[i] = Math.sqrt(Math.max(0, t * (2 - t)));
+    }
+    return boxBlur(out, 2);
+  }
+
+  function samplePortrait(img) {
+    var off = document.createElement("canvas");
+    off.width = G; off.height = G;
+    var o = off.getContext("2d", { willReadFrequently: true });
+    if (!o) return false;
+    o.drawImage(img, 0, 0, G, G);
+    var px;
+    try { px = o.getImageData(0, 0, G, G).data; } catch (e) { return false; }
+
+    var lum = new Float32Array(G * G), vals = [], i;
+    alf = new Float32Array(G * G);
+    for (i = 0; i < G * G; i++) {
+      var a = px[i * 4 + 3] / 255;
+      alf[i] = a;
+      var l = 0.2126 * px[i * 4] + 0.7152 * px[i * 4 + 1] + 0.0722 * px[i * 4 + 2];
+      lum[i] = l;
+      if (a > 0.35) vals.push(l);
+    }
+    if (vals.length < 500) return false;
+    vals.sort(function (p, q) { return p - q; });
+    var lo = vals[Math.floor(vals.length * 0.04)], hi = vals[Math.floor(vals.length * 0.97)];
+    var span = Math.max(1, hi - lo);
+    for (i = 0; i < G * G; i++) lum[i] = clamp((lum[i] - lo) / span, 0, 1);
+
+    /* Displacement mapping is a low-pass filter, so gentle tonal gradients
+       become relief too shallow to read; it is also unforgiving of noise, and
+       a beard at this scale is noise. Smooth away the stubble, then raise
+       LOCAL contrast with a wide-radius unsharp mask: the lit forehead is the
+       brightest thing by a distance, so a straight luminance map builds one
+       dome and leaves the eyes and the mouth flat in the dark half of the
+       face. Finally blend in the head's own volume. */
+    var dome = buildDome();
+    var smooth = boxBlur(lum, 2), wide = boxBlur(smooth, 16);
+    var out = new Float32Array(G * G);
+    for (i = 0; i < G * G; i++) {
+      var local = clamp(0.5 + 2.7 * (smooth[i] - wide[i]), 0, 1);
+      var v = clamp((1 - LOCAL_W) * smooth[i] + LOCAL_W * local, 0, 1);
+      v = v * v * (3 - 2 * v);
+      v = v * v * (3 - 2 * v);
+      out[i] = clamp((1 - DOME_W) * v + DOME_W * dome[i], 0, 1);
+    }
+    depth = boxBlur(out, 1);
+    return true;
+  }
+
+  /* Bilinear, not nearest: the rows sample far more finely than the grid, and
+     nearest-neighbour puts a staircase on every one of them. */
+  function sampleAt(cu, cv) {
+    if (!depth || cu < 0 || cu > 1 || cv < 0 || cv > 1) return [0, 0];
+    var u = CROP.x0 + cu * (CROP.x1 - CROP.x0);
+    var v = CROP.y0 + cv * (CROP.y1 - CROP.y0);
+    var x = u * (G - 1), y = v * (G - 1);
+    var x0 = x | 0, y0 = y | 0;
+    var x1 = Math.min(G - 1, x0 + 1), y1 = Math.min(G - 1, y0 + 1);
+    var ax = x - x0, ay = y - y0;
+    var i00 = y0 * G + x0, i10 = y0 * G + x1, i01 = y1 * G + x0, i11 = y1 * G + x1;
+    return [
+      (depth[i00] * (1 - ax) + depth[i10] * ax) * (1 - ay) + (depth[i01] * (1 - ax) + depth[i11] * ax) * ay,
+      (alf[i00] * (1 - ax) + alf[i10] * ax) * (1 - ay) + (alf[i01] * (1 - ax) + alf[i11] * ax) * ay
+    ];
+  }
+
+  function loadPortrait(cb) {
+    if (portraitReady) { cb(true); return; }
+    portraitWaiting.push(cb);
+    if (portraitWaiting.length > 1) return;
+    var img = new Image();
+    img.onload = function () {
+      var ok = false;
+      try { ok = samplePortrait(img); } catch (e) { ok = false; }
+      portraitReady = ok;
+      for (var i = 0; i < portraitWaiting.length; i++) portraitWaiting[i](ok);
+      portraitWaiting = [];
+    };
+    img.onerror = function () {
+      for (var i = 0; i < portraitWaiting.length; i++) portraitWaiting[i](false);
+      portraitWaiting = [];
+    };
+    img.src = PORTRAIT;
+  }
+
+  /* ---- one field ------------------------------------------------------- */
   function createField(host, o) {
     if (!host) return;
 
     var canvas = document.createElement("canvas");
     canvas.className = "trajectory-field";
     canvas.setAttribute("aria-hidden", "true");
-    var s = canvas.style;
-    s.position = "absolute"; s.top = "0"; s.left = "0"; s.right = "0"; s.bottom = "0";
-    s.width = "100%"; s.height = "100%";
-    s.zIndex = "0"; s.display = "block"; s.pointerEvents = "none";
-    if (o.opacity) s.opacity = String(o.opacity);
+    var st = canvas.style;
+    st.position = "absolute"; st.top = "0"; st.left = "0"; st.right = "0"; st.bottom = "0";
+    st.width = "100%"; st.height = "100%";
+    st.zIndex = "0"; st.display = "block"; st.pointerEvents = "none";
+    if (o.opacity) st.opacity = String(o.opacity);
 
     var cs = window.getComputedStyle(host);
     if (cs.position === "static") host.style.position = "relative";
-    // Deliberately not setting overflow here: the masthead needs to let its
-    // mobile nav dropdown escape. The hero clips itself via CSS instead.
+    // Deliberately not setting overflow here: the masthead has to let its
+    // mobile nav dropdown escape. The hero clips itself through CSS instead.
     host.insertBefore(canvas, host.firstChild);
 
     if (o.lift) {
@@ -45,137 +238,399 @@
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    var W = 0, H = 0, lines = [], points = [], raf = null, last = null, onscreen = true;
+    var W = 0, H = 0, lines = [], flow = [], raf = null, last = null, onscreen = true;
+    var modelCv = null, modelCtx = null;
+    var faceCv = null, fctx = null, actCv = null, actx = null, revCv = null, rctx = null;
+    var region = null, seedKey = "", wantFace = !!o.face;
 
     function px(t) { return t * W; }
     function py(v) { return H - (o.base * H + v * H * o.scale); }
-    function zOf(t, ln) { return ln.z + ln.drift * Math.pow(t, 2.6); }
-    function yOf(t, ln) {
-      return mean(t) + zOf(t, ln) * spread(t)
-        + Math.sin(t * ln.freq * Math.PI + ln.phase) * ln.wob;
+    function vAt(y) { return (1 - o.base - y / H) / o.scale; }
+    function zOf(t, l) { return l.z + l.drift * Math.pow(t, 2.6); }
+    function yOf(t, l) {
+      return mean(t) + zOf(t, l) * spread(t) + Math.sin(t * l.freq * Math.PI + l.phase) * l.wob;
     }
 
-    function seed(n) {
-      lines = []; points = [];
-      for (var i = 0; i < n; i++) {
-        var dev = (i === n - 1);
-        var ln = {
-          dev: dev,
-          z: dev ? 0.05 : (Math.random() * 2 - 1),
-          drift: dev ? 2.3 : (Math.random() * 0.4 - 0.2),
-          wob: 0.006 + Math.random() * 0.012,
-          phase: Math.random() * Math.PI * 2,
-          freq: 2 + Math.random() * 3
-        };
-        lines.push(ln);
-        for (var m = 0; m < o.dotsPerLine; m++) {
-          points.push({ line: ln, t: (i * 0.11 + m / o.dotsPerLine) % 1,
-                        speed: 0.045 + Math.random() * 0.02 });
+    /* How far right the hero copy actually reaches. Measured from the text
+       itself, because the paragraphs are block elements as wide as the column
+       whatever their content. */
+    function textRight() {
+      if (!o.textSelectors) return 0;
+      var hr = host.getBoundingClientRect(), far = 0, i, j;
+      for (i = 0; i < o.textSelectors.length; i++) {
+        var el = host.querySelector(o.textSelectors[i]);
+        if (!el) continue;
+        var rects = null;
+        try {
+          var range = document.createRange();
+          range.selectNodeContents(el);
+          rects = range.getClientRects();
+        } catch (e) { rects = null; }
+        if (rects && rects.length) {
+          for (j = 0; j < rects.length; j++) far = Math.max(far, rects[j].right - hr.left);
+        } else {
+          far = Math.max(far, el.getBoundingClientRect().right - hr.left);
         }
       }
+      return far;
     }
 
-    function band(zLo, zHi, alpha) {
-      var i, t;
-      ctx.beginPath();
-      for (i = 0; i <= 90; i++) {
-        t = i / 90;
-        var v = mean(t) + zHi * spread(t);
-        if (i === 0) ctx.moveTo(px(t), py(v)); else ctx.lineTo(px(t), py(v));
+    /* Where the portrait sits. Fitted INTO the expected-range band at its own
+       x rather than placed and then reached for, so every trajectory crosses
+       it and the points can reveal all of it without any of them sitting
+       outside the band. Width follows the crop's ratio, not a square, or the
+       face comes out stretched. Returns null when there is no room beside the
+       copy, which is what keeps it off narrow screens. */
+    function faceBox() {
+      if (!wantFace || !W || !H) return null;
+      var room = W - textRight() - 28;
+      if (room < FACE_MIN_ROOM) return null;
+      var ar = (CROP.x1 - CROP.x0) / (CROP.y1 - CROP.y0);
+      var h = Math.min(H * 0.82, 330);
+      var w = h * ar, x = W - w - Math.max(18, W * 0.06), yc = H * 0.5, it;
+      for (it = 0; it < 3; it++) {
+        var tc = clamp((x + w * 0.5) / W, 0.03, 0.97);
+        var mc = mean(tc), sp = spread(tc);
+        var yTop = py(mc + 1.96 * sp), yBot = py(mc - 1.96 * sp);
+        yc = (yTop + yBot) * 0.5;
+        h = Math.min(h, Math.max(60, yBot - yTop) * 0.99);
+        w = h * ar;
+        x = W - w - Math.max(18, W * 0.06);
       }
-      for (i = 90; i >= 0; i--) {
-        t = i / 90;
-        ctx.lineTo(px(t), py(mean(t) + zLo * spread(t)));
-      }
-      ctx.closePath();
-      ctx.fillStyle = rgba(EXPECTED, alpha);
-      ctx.fill();
+      if (w > room || h < 120) return null;
+      return { x: x, y: yc - h * 0.5, w: w, h: h };
     }
 
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      band(-1.96, 1.96, o.bandAlpha);
-      band(-0.67, 0.67, o.bandAlpha * 1.2);
+    function seed() {
+      lines = []; flow = [];
+      if (!W || !H) return;
+      var box = faceBox(), i, m, z, l;
+      var N = o.lines;
+      if (box) {
+        // spread them so that, where they cross the portrait, they span it
+        var tc = clamp((box.x + box.w * 0.5) / W, 0.03, 0.97);
+        var mc = mean(tc), sp = spread(tc);
+        var zTop = (vAt(box.y - box.h * 0.05) - mc) / sp;
+        var zBot = (vAt(box.y + box.h * 1.03) - mc) / sp;
+        for (i = 0; i < N; i++) {
+          z = zBot + (zTop - zBot) * (i / (N - 1)) + (Math.random() - 0.5) * 0.12;
+          l = { z: z, dev: false, drift: (Math.random() - 0.5) * 0.3,
+                wob: 0.004 + Math.random() * 0.008,
+                phase: Math.random() * 6.2832, freq: 2 + Math.random() * 3 };
+          lines.push(l);
+          for (m = 0; m < o.dotsPerLine; m++) {
+            flow.push({ line: l, t: (i * 0.37 + m / o.dotsPerLine) % 1,
+                        speed: 0.055 + Math.random() * 0.02 });
+          }
+        }
+      } else {
+        for (i = 0; i < N; i++) {
+          l = { z: Math.random() * 2 - 1, dev: false, drift: Math.random() * 0.4 - 0.2,
+                wob: 0.005 + Math.random() * 0.01,
+                phase: Math.random() * 6.2832, freq: 2 + Math.random() * 3 };
+          lines.push(l);
+          for (m = 0; m < o.dotsPerLine; m++) {
+            flow.push({ line: l, t: (i * 0.23 + m / o.dotsPerLine) % 1,
+                        speed: 0.05 + Math.random() * 0.02 });
+          }
+        }
+      }
+      // one or two individuals that leave the expected range, which is the
+      // whole reason for drawing a normative model in the first place
+      for (i = 0; i < o.deviators; i++) {
+        l = { z: 0.05 + i * 0.5, drift: 2.1 + i * 0.5, dev: true,
+              wob: 0.006 + Math.random() * 0.01,
+              phase: Math.random() * 6.2832, freq: 2 + Math.random() * 3 };
+        lines.push(l);
+        flow.push({ line: l, t: (0.2 + i * 0.5) % 1, speed: 0.05 + Math.random() * 0.02 });
+      }
+    }
+
+    /* The model has no time term at all, so it is drawn once and blitted. */
+    function buildModel() {
+      if (!W || !H) return;
+      if (!modelCv) { modelCv = document.createElement("canvas"); modelCtx = modelCv.getContext("2d"); }
+      if (!modelCtx) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      modelCv.width = Math.round(W * dpr); modelCv.height = Math.round(H * dpr);
+      modelCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      modelCtx.clearRect(0, 0, W, H);
+      var c = modelCtx, i, t;
+
+      function bandPath(lo, hi, a) {
+        c.beginPath();
+        for (i = 0; i <= 90; i++) {
+          t = i / 90;
+          var v = mean(t) + hi * spread(t);
+          if (i === 0) c.moveTo(px(t), py(v)); else c.lineTo(px(t), py(v));
+        }
+        for (i = 90; i >= 0; i--) { t = i / 90; c.lineTo(px(t), py(mean(t) + lo * spread(t))); }
+        c.closePath(); c.fillStyle = rgba(EXPECTED, a); c.fill();
+      }
+      bandPath(-1.96, 1.96, o.bandAlpha); bandPath(-0.67, 0.67, o.bandAlpha * 1.3);
 
       if (o.median) {
-        ctx.beginPath();
-        for (var i = 0; i <= 90; i++) {
-          var t = i / 90;
-          if (i === 0) ctx.moveTo(px(t), py(mean(t))); else ctx.lineTo(px(t), py(mean(t)));
-        }
-        ctx.strokeStyle = rgba(EXPECTED, 0.32);
-        ctx.lineWidth = 1;
-        ctx.setLineDash([4, 6]);
-        ctx.stroke();
-        ctx.setLineDash([]);
+        c.beginPath();
+        for (i = 0; i <= 90; i++) { t = i / 90; if (i === 0) c.moveTo(px(t), py(mean(t))); else c.lineTo(px(t), py(mean(t))); }
+        c.strokeStyle = rgba(EXPECTED, 0.26); c.lineWidth = 1;
+        c.setLineDash([4, 6]); c.stroke(); c.setLineDash([]);
       }
 
+      // The trajectories fade on the left, so a page of curves is not running
+      // underneath the copy at full strength.
+      var box = faceBox();
+      var fade = box ? box.x - box.w * 0.25 : (o.fadeFrom || 0) * W;
+      var early = box ? box.x - box.w * 1.9 : fade * 0.45;
       for (var k = 0; k < lines.length; k++) {
-        var ln = lines[k];
-        ctx.beginPath();
-        for (var j = 0; j <= 90; j++) {
-          var tt = j / 90, yy = py(yOf(tt, ln));
-          if (j === 0) ctx.moveTo(px(tt), yy); else ctx.lineTo(px(tt), yy);
+        var l = lines[k];
+        var col = l.dev ? DEVIATION : EXPECTED;
+        var peak = l.dev ? o.lineAlpha * 2 : o.lineAlpha;
+        var strokeStyle;
+        if (fade > 0) {
+          var g = c.createLinearGradient(0, 0, W, 0);
+          g.addColorStop(0, rgba(col, peak * 0.14));
+          g.addColorStop(clamp(early / W, 0, 0.998), rgba(col, peak * 0.28));
+          g.addColorStop(clamp(fade / W, 0.001, 0.999), rgba(col, peak));
+          g.addColorStop(1, rgba(col, peak * 0.85));
+          strokeStyle = g;
+        } else {
+          strokeStyle = rgba(col, peak);
         }
-        ctx.strokeStyle = rgba(ln.dev ? DEVIATION : EXPECTED,
-          ln.dev ? o.lineAlpha * 2 : o.lineAlpha);
-        ctx.lineWidth = 1;
-        ctx.stroke();
+        c.beginPath();
+        for (var j = 0; j <= 90; j++) {
+          t = j / 90;
+          if (j === 0) c.moveTo(px(t), py(yOf(t, l))); else c.lineTo(px(t), py(yOf(t, l)));
+        }
+        c.strokeStyle = strokeStyle; c.lineWidth = 1; c.stroke();
+      }
+    }
+
+    /* ---- the portrait surface, rendered once --------------------------- */
+    function buildFace() {
+      region = null;
+      if (!wantFace || !portraitReady || !W || !H) return;
+      var box = faceBox();
+      if (!box) return;
+      var fx = box.x, fy = box.y, fw = box.w, fh = box.h;
+      var spacing = fh / ROWS, amp = spacing * AMP_MULT;
+
+      // The straight runs either side are the measurement grid the face rises
+      // out of, so they are given real length.
+      var RX0 = Math.max(0, fx - fw * 1.45), RX1 = Math.min(W, fx + fw * 2.1);
+      var RY0 = Math.max(0, fy - fh * 0.08), RY1 = Math.min(H, fy + fh * 1.12);
+      var RW = RX1 - RX0, RH = RY1 - RY0;
+      if (RW < 40 || RH < 40) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      if (!faceCv) {
+        faceCv = document.createElement("canvas"); fctx = faceCv.getContext("2d");
+        actCv = document.createElement("canvas"); actx = actCv.getContext("2d");
+        revCv = document.createElement("canvas"); rctx = revCv.getContext("2d");
+      }
+      if (!fctx || !actx || !rctx) return;
+      var pairs = [[faceCv, fctx], [actCv, actx], [revCv, rctx]];
+      for (var pi = 0; pi < pairs.length; pi++) {
+        pairs[pi][0].width = Math.round(RW * dpr);
+        pairs[pi][0].height = Math.round(RH * dpr);
+        // the offset lives in the transform, so everything is drawn in page
+        // coordinates and the canvas only has to cover the head
+        pairs[pi][1].setTransform(dpr, 0, 0, dpr, -RX0 * dpr, -RY0 * dpr);
+        pairs[pi][1].clearRect(RX0, RY0, RW, RH);
       }
 
-      for (var q = 0; q < points.length; q++) {
-        var p = points[q];
+      var x0 = Math.max(RX0, fx - fw * 0.05), x1 = Math.min(RX1, fx + fw * 1.05);
+      var STEP = 2, n = Math.max(2, Math.ceil((x1 - x0) / STEP) + 1);
+
+      function xFall(x) {
+        var a = clamp((x - RX0) / (fw * 1.25), 0, 1);
+        var b = clamp((RX1 - x) / (fw * 0.85), 0, 1);
+        return Math.pow(a, 1.5) * Math.pow(b, 1.2);
+      }
+
+      var rows = [], i, k;
+      for (i = 0; i < ROWS; i++) {
+        var cvv = (i + 0.5) / ROWS, yBase = fy + cvv * fh;
+        var xs = new Float32Array(n), ys = new Float32Array(n),
+            lifts = new Float32Array(n), als = new Float32Array(n);
+        for (k = 0; k < n; k++) {
+          var xp = Math.min(x1, x0 + k * STEP);
+          var cu = (xp - fx) / fw, lift = 0, al = 0;
+          if (cu >= -0.03 && cu <= 1.03) {
+            var r = sampleAt(clamp(cu, 0, 1), cvv);
+            al = r[1]; lift = r[0] * al * amp;
+          }
+          xs[k] = xp; lifts[k] = lift; als[k] = al; ys[k] = yBase - lift;
+        }
+        rows.push({ yBase: yBase, xs: xs, ys: ys, lifts: lifts, als: als });
+      }
+
+      var EPS = amp * 0.05;
+      for (i = 0; i < ROWS; i++) {
+        var row = rows[i], floorY = row.yBase + spacing * 2.8;
+
+        fctx.fillStyle = "rgba(21,26,36,0.86)";
+        var runStart = -1;
+        for (k = 0; k < n; k++) {
+          var on = row.lifts[k] > EPS;
+          if (on && runStart < 0) runStart = k;
+          if ((!on || k === n - 1) && runStart >= 0) {
+            var end = on ? k : k - 1;
+            if (end - runStart > 1) {
+              fctx.beginPath();
+              fctx.moveTo(row.xs[runStart], row.ys[runStart]);
+              for (var m = runStart + 1; m <= end; m++) fctx.lineTo(row.xs[m], row.ys[m]);
+              fctx.lineTo(row.xs[end], floorY);
+              fctx.lineTo(row.xs[runStart], floorY);
+              fctx.closePath();
+              fctx.fill();
+            }
+            runStart = -1;
+          }
+        }
+
+        // one gradient per row, a stop per sample: weight follows the
+        // silhouette, with a lift on the steep parts so the features and the
+        // edge of the head come forward
+        var g = fctx.createLinearGradient(RX0, 0, RX1, 0);
+        g.addColorStop(0, rgba(EXPECTED, 0.012 * xFall(RX0)));
+        for (k = 0; k < n; k++) {
+          var slope = k > 0 ? Math.abs(row.lifts[k] - row.lifts[k - 1]) / STEP : 0;
+          var a2 = xFall(row.xs[k]) * (0.012 + PEAK * row.als[k] + 0.20 * Math.min(1, slope * 1.2));
+          g.addColorStop(clamp((row.xs[k] - RX0) / RW, 0, 1), rgba(EXPECTED, Math.min(0.85, a2)));
+        }
+        g.addColorStop(1, rgba(EXPECTED, 0.012 * xFall(RX1)));
+
+        fctx.beginPath();
+        fctx.moveTo(RX0, row.yBase);
+        fctx.lineTo(x0, row.yBase);
+        for (k = 0; k < n; k++) fctx.lineTo(row.xs[k], row.ys[k]);
+        fctx.lineTo(RX1, row.yBase);
+        fctx.strokeStyle = g; fctx.lineWidth = 1; fctx.stroke();
+      }
+
+      region = { RX0: RX0, RY0: RY0, RW: RW, RH: RH, x1: x1, h: fh };
+      for (var f = 0; f < flow.length; f++) { flow[f].hx = undefined; flow[f].hy = undefined; }
+    }
+
+    function drawFace(time, dt) {
+      if (!region) return;
+      var RX0 = region.RX0, RY0 = region.RY0, RW = region.RW, RH = region.RH;
+
+      if (reduce) {
+        // no reveal to animate: show it quietly and leave it alone
+        ctx.globalAlpha = 0.55;
+        ctx.drawImage(faceCv, RX0, RY0, RW, RH);
+        ctx.globalAlpha = 1;
+        return;
+      }
+
+      var R = Math.max(18, region.h * 0.105);
+      actx.globalCompositeOperation = "lighter";
+      actx.lineCap = "round"; actx.lineJoin = "round";
+      for (var i = 0; i < flow.length; i++) {
+        var p = flow[i];
+        var x = px(p.t), y = py(yOf(p.t, p.line));
+        if (p.hx === undefined) { p.hx = x; p.hy = y; }
+        // a point that has just wrapped would otherwise paint a streak back
+        // across the whole hero
+        var wrapped = x < p.hx - W * 0.5;
+        if (!wrapped && x > RX0 - R && p.hx < region.x1 + R) {
+          // two widths rather than one: a single hard-edged stroke reveals the
+          // face in a band with a visible edge down it
+          actx.lineWidth = R * 1.9;
+          actx.strokeStyle = "rgba(255,255,255,0.055)";
+          actx.beginPath(); actx.moveTo(p.hx, p.hy); actx.lineTo(x, y); actx.stroke();
+          actx.lineWidth = R * 0.9;
+          actx.strokeStyle = "rgba(255,255,255,0.15)";
+          actx.beginPath(); actx.moveTo(p.hx, p.hy); actx.lineTo(x, y); actx.stroke();
+        }
+        p.hx = x; p.hy = y;
+      }
+      // exponential decay of the bright trace: nothing is kept, so the face is
+      // only ever as complete as the last few sweeps
+      actx.globalCompositeOperation = "destination-out";
+      actx.fillStyle = "rgba(0,0,0," + (1 - Math.exp(-dt / TAU)) + ")";
+      actx.fillRect(RX0, RY0, RW, RH);
+      actx.globalCompositeOperation = "source-over";
+
+      rctx.globalCompositeOperation = "source-over";
+      rctx.clearRect(RX0, RY0, RW, RH);
+      rctx.drawImage(faceCv, RX0, RY0, RW, RH);
+      rctx.globalCompositeOperation = "destination-in";
+      rctx.drawImage(actCv, RX0, RY0, RW, RH);
+      rctx.globalCompositeOperation = "source-over";
+
+      ctx.drawImage(revCv, RX0, RY0 + Math.sin(time * 0.00022) * 1.8, RW, RH);
+    }
+
+    function drawPoints() {
+      for (var q = 0; q < flow.length; q++) {
+        var p = flow[q];
         var outside = Math.abs(zOf(p.t, p.line)) > 1.96;
         var col = outside ? DEVIATION : EXPECTED;
         var x = px(p.t), y = py(yOf(p.t, p.line));
         var edge = Math.min(1, Math.min(p.t, 1 - p.t) / 0.06);
         var r = o.dot * (outside ? 1.4 : 1);
-
-        ctx.beginPath();
-        ctx.arc(x, y, r * 2.8, 0, Math.PI * 2);
-        ctx.fillStyle = rgba(col, 0.12 * edge);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = rgba(col, (outside ? 1 : 0.78) * edge);
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, r * 2.8, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(col, 0.11 * edge); ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(col, (outside ? 0.95 : 0.75) * edge); ctx.fill();
       }
+    }
+
+    function draw(time, dt) {
+      ctx.clearRect(0, 0, W, H);
+      if (modelCv) ctx.drawImage(modelCv, 0, 0, W, H);
+      drawFace(time, dt);
+      drawPoints();
     }
 
     function frame(ts) {
       if (last === null) last = ts;
       var dt = Math.min((ts - last) / 1000, 0.05);
       last = ts;
-      for (var q = 0; q < points.length; q++) {
-        points[q].t += points[q].speed * dt;
-        if (points[q].t > 1) points[q].t -= 1;
+      for (var q = 0; q < flow.length; q++) {
+        flow[q].t += flow[q].speed * dt;
+        if (flow[q].t > 1) flow[q].t -= 1;
       }
-      draw();
+      draw(ts, dt);
       raf = window.requestAnimationFrame(frame);
     }
 
     function resize() {
+      var w = host.clientWidth, h = host.clientHeight;
+      if (!w || !h) return;
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = host.clientWidth; H = host.clientHeight;
-      if (!W || !H) return;
+      W = w; H = h;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      draw();
+      var key = W + "x" + H;
+      if (key !== seedKey) { seedKey = key; seed(); }
+      buildModel();
+      buildFace();
+      draw(window.performance ? performance.now() : 0, 0);
     }
 
     function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = null; } }
     function play() { if (!raf && !reduce) { last = null; raf = window.requestAnimationFrame(frame); } }
 
-    seed(o.lines);
     resize();
 
     var rt;
     window.addEventListener("resize", function () {
-      clearTimeout(rt); rt = setTimeout(resize, 120);
+      clearTimeout(rt); rt = setTimeout(resize, 140);
     });
 
-    if (reduce) { draw(); return; }
+    if (wantFace) {
+      loadPortrait(function (ok) {
+        if (!ok) return;          // no portrait: the field alone is the design
+        buildFace();
+        draw(window.performance ? performance.now() : 0, 0);
+      });
+    }
+
+    if (reduce) return;
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (e) {
         onscreen = e[0].isIntersecting;
@@ -188,21 +643,23 @@
     play();
   }
 
-  // Splash hero: the full statement
   if (document.body.classList.contains("layout--splash")) {
     createField(document.querySelector(".page__hero--overlay"), {
-      lines: 9, dotsPerLine: 2, dot: 2.4, base: 0.09, scale: 0.66,
-      bandAlpha: 0.05, lineAlpha: 0.18, median: true, lift: ".wrapper"
+      face: true,
+      lines: 15, deviators: 2, dotsPerLine: 2, dot: 2.3,
+      base: 0.09, scale: 0.91,
+      bandAlpha: 0.034, lineAlpha: 0.15, median: true,
+      lift: ".wrapper",
+      textSelectors: [".page__title", ".hero-home__question", ".hero-home__affil", ".hero-home__actions"]
     });
-  }
-
-  // Masthead: a faint version on every page except the splash, which already
-  // carries the full-size field in its hero.
-  if (!document.body.classList.contains("layout--splash")) {
+  } else {
+    // Every other page: the same model, no portrait and no reveal.
     createField(document.querySelector(".masthead"), {
-      lines: 6, dotsPerLine: 1, dot: 1.8, base: 0.12, scale: 0.85,
-      bandAlpha: 0.035, lineAlpha: 0.14, median: false, opacity: 0.85,
-      lift: ".masthead__inner-wrap"
+      face: false,
+      lines: 7, deviators: 1, dotsPerLine: 1, dot: 1.8,
+      base: 0.12, scale: 0.85,
+      bandAlpha: 0.03, lineAlpha: 0.13, median: false,
+      fadeFrom: 0.3, opacity: 0.85, lift: ".masthead__inner-wrap"
     });
   }
 })();

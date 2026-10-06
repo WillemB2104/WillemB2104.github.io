@@ -18,8 +18,22 @@
           <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
         <a class="site-title" href="{{ '/' | relative_url }}">
-          {{ site.masthead_title | default: site.title | escape_once | strip }}
-          {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle | escape_once | strip }}</span>{% endif %}
+          {%- comment -%}
+            The mark from the site icon, traced as strokes. Both colours are
+            the palette's own: #3FD0C9 is $expected, #F0A848 is $deviation.
+            aria-hidden because the link already carries the name as text.
+          {%- endcomment -%}
+          <svg class="site-mark" viewBox="60 78 396 348" aria-hidden="true" focusable="false">
+            <g fill="none" stroke-width="53.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M95.3 215.2 L162.6 389.4 L233.5 237.4 L305.1 390.5" stroke="#3FD0C9"/>
+              <path d="M304.5 389.4 L377.7 177.7" stroke="#F0A848"/>
+            </g>
+            <circle cx="389.5" cy="143.4" r="57.7" fill="#F0A848"/>
+          </svg>
+          <span class="site-title__text">
+            {{ site.masthead_title | default: site.title | escape_once | strip }}
+            {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle | escape_once | strip }}</span>{% endif %}
+          </span>
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}

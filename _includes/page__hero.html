@@ -2,8 +2,8 @@
   Overrides minimal-mistakes 4.28.1 _includes/page__hero.html.
 
   Two modes:
-    - page.hero_home: the landing page hero (portrait, research question,
-      actions).
+    - page.hero_home: the landing page hero (research question, actions, and
+      the portrait that the "About me" action reveals on hover).
     - everything else: the stock theme markup, unchanged, so any other page
       that sets a header keeps working exactly as before.
 {% endcomment %}
@@ -36,8 +36,6 @@
 {% if page.hero_home %}
   {% assign hero = page.hero_home %}
   <div class="wrapper">
-    <div class="hero-home__grid">
-
       <div class="hero-home__text">
         {% if hero.eyebrow %}
           <p class="hero-home__eyebrow">{{ hero.eyebrow }}</p>
@@ -58,30 +56,26 @@
         {% if hero.actions %}
           <p class="hero-home__actions">
             {% for action in hero.actions %}
-              <a href="{{ action.url | relative_url }}"
-                 class="btn {% if forloop.first %}btn--primary{% else %}btn--quiet{% endif %}">{{ action.label }}</a>
+              {%- if action.portrait and hero.portrait_image -%}
+                {%- comment -%}
+                  The photograph lives here rather than in the hero: it is
+                  revealed above the button on hover or keyboard focus. Marked
+                  aria-hidden and carried by a span, not an <img>, because it
+                  is decoration on a link that already says "About me".
+                {%- endcomment -%}
+                <span class="btn-portrait">
+                  <span class="btn-portrait__photo" aria-hidden="true"
+                        style="background-image: url('{{ hero.portrait_image | relative_url }}');"></span>
+                  <a href="{{ action.url | relative_url }}" class="btn btn--quiet">{{ action.label }}</a>
+                </span>
+              {%- else -%}
+                <a href="{{ action.url | relative_url }}"
+                   class="btn {% if forloop.first %}btn--primary{% else %}btn--quiet{% endif %}">{{ action.label }}</a>
+              {%- endif -%}
             {% endfor %}
           </p>
         {% endif %}
       </div>
-
-      {% if hero.portrait %}
-        <div class="hero-home__portrait">
-          <picture>
-            {% if hero.portrait_webp %}
-              <source
-                srcset="{{ hero.portrait_webp | relative_url }} 1x{% if hero.portrait_webp_2x %}, {{ hero.portrait_webp_2x | relative_url }} 2x{% endif %}"
-                type="image/webp">
-            {% endif %}
-            <img src="{{ hero.portrait | relative_url }}"
-                 alt="{{ hero.portrait_alt | default: page.title | escape_once }}"
-                 width="560" height="560"
-                 fetchpriority="high" decoding="async">
-          </picture>
-        </div>
-      {% endif %}
-
-    </div>
   </div>
 
 {% elsif page.header.overlay_color or page.header.overlay_image %}

@@ -8,8 +8,7 @@ toc_label: "On this page"
 toc_sticky: true
 ---
 
-Part of the work is explaining it in- and outside the lab: to clinicians, to students, to patient organizations, and to people who have obsessive-compulsive disorder,
-anxiety or depression themselves. This page brings together interviews and public engagement, invited talks, conference presentations, teaching and supervision.
+Part of the work is explaining it both within and beyond academia: to clinicians, students, patient organizations, and people living with obsessive-compulsive disorder, anxiety, or depression. This page brings together interviews, public engagement, invited talks, conference presentations, teaching, and supervision.
 
 ## Interviews and public engagement
 

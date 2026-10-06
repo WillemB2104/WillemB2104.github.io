@@ -27,7 +27,7 @@ I hold positions at two institutions, so either address will reach me.
 | **LinkedIn** | [willem-bruin](https://www.linkedin.com/in/willem-bruin-b2a2b6ba/) |
 
 Staff pages:
-[Amsterdam UMC](https://pure.amsterdamumc.nl/en/persons/willem-bruin/) ·
+[Amsterdam UMC](https://pure.amsterdamumc.nl/en/persons/willem-bruin/) and
 [Leiden University](https://www.universiteitleiden.nl/en/staffmembers/willem-bruin)
 
 ## Internships and student projects

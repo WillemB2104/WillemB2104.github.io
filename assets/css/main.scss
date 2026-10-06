@@ -152,6 +152,22 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 .greedy-nav {
   background: transparent;
   a { font-family: $header-font-family; font-weight: 500; font-size: 1em; }
+
+  // Current section. Marked with a colour and a rule rather than hover alone,
+  // so where you are is readable without a pointer. aria-current is set in
+  // _includes/masthead.html.
+  .visible-links a[aria-current="page"] {
+    color: $expected;
+
+    &::before {
+      height: 2px;
+      background: $expected;
+      width: 100%;
+      transition: none;
+    }
+  }
+
+  .hidden-links a[aria-current="page"] { color: $expected; }
 }
 
 // Hero ----------------------------------------------------------------------
@@ -199,80 +215,238 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   z-index: 3;
 }
 
-// Landing page cards --------------------------------------------------------
-.feature__wrapper { border-bottom: 0; padding-top: 0.5em; }
+// Landing hero -------------------------------------------------------------
+// Two columns on desktop: the statement on the left, the portrait on the
+// right. The portrait is a cut-out with a transparent background, so the
+// normative-model animation runs behind the shoulders rather than being
+// blocked by a photo panel.
+.hero-home {
+  padding: 4.5em 0 3.2em;
 
-// The theme floats these, so a longer excerpt makes one card taller than the
-// rest and strands its button mid-card. Flex gives equal heights and lets the
-// buttons line up along the bottom.
-@media (min-width: 37.5em) {
-  .feature__wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5em;
-  }
-
-  .feature__item {
-    float: none;
-    width: auto;
-    margin: 0;
-    flex: 1 1 0;
-    display: flex;
-  }
-
-  // the centred intro block is also a feature_row: keep it full width
-  .feature__item--center { flex: 1 1 100%; }
-
-  .feature__item .archive__item {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .feature__item .archive__item-body {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-  }
-
-  // the button is the last child; push it to the bottom of the card
-  .feature__item .archive__item-body > p:last-child {
-    margin-top: auto;
-    margin-bottom: 0;
-    padding-top: 1em;
+  .page__title {
+    font-size: 4.1em;
+    line-height: 1.02;
+    margin: 0.06em 0 0;
+    letter-spacing: -0.035em;
   }
 }
 
-// Trim the dead space between the cards and the footer on the landing page
-body.layout--splash #main { padding-bottom: 0; }
+.hero-home__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2em;
+  align-items: center;
+}
 
-.feature__item {
-  .archive__item {
-    background: $panel-slate;
-    border: 1px solid $hairline;
-    border-radius: 6px;
-    padding: 1.6em 1.4em 1.8em;
-    height: 100%;
-    transition: border-color 0.18s ease, transform 0.18s ease;
+@media (min-width: 48em) {
+  .hero-home__grid {
+    grid-template-columns: minmax(0, 1.75fr) minmax(0, 0.65fr);
+    gap: 2.6em;
   }
-  .archive__item:hover {
-    border-color: rgba(63, 208, 201, 0.55);
-    transform: translateY(-2px);
-  }
-  .archive__item-title { margin-top: 0; font-size: 1.2em; font-weight: 600; }
-  .archive__item-excerpt {
-    font-size: 0.92em;
-    line-height: 1.6;
+}
+
+.hero-home__text { min-width: 0; }
+
+// Small caps label above the name. Teal, because it names the research
+// programme and teal is the colour of the expected-range band behind it.
+.hero-home__eyebrow {
+  margin: 0;
+  font-family: $header-font-family;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $expected;
+}
+
+// The one sentence the page exists to ask. Scale and a rule carry the
+// emphasis, so the accent colours stay meaningful elsewhere.
+.hero-home__question {
+  margin: 0.95em 0 0;
+  padding-left: 1.05em;
+  border-left: 3px solid $deviation;
+  max-width: 30ch;
+  font-size: 1.32em;
+  line-height: 1.42;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  color: #e9eff6;
+  text-shadow: none;
+}
+
+.hero-home__affil {
+  margin: 1.25em 0 0;
+  font-family: $monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: $muted-text-color;
+  text-shadow: none;
+
+  a {
     color: $muted-text-color;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(138, 151, 171, 0.4);
+  }
+
+  a:hover { color: $expected; border-bottom-color: $expected; }
+}
+
+.hero-home__actions {
+  margin: 1.8em 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+}
+
+// The portrait sits below the name in the hierarchy, so it is small, low in
+// contrast, and feathered on every edge in the image file itself. It is meant
+// to register as "a person works here" at a glance, not to be looked at.
+.hero-home__portrait {
+  justify-self: start;
+  width: 100%;
+  max-width: 200px;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 }
 
-.feature__item--center .archive__item-excerpt {
-  font-size: 1.05em;
-  line-height: 1.75;
+@media (min-width: 48em) {
+  .hero-home__portrait { justify-self: end; max-width: 240px; }
+}
+
+// Landing intro -------------------------------------------------------------
+// Left-aligned rather than centred, so the name, this paragraph and the cards
+// all hang off the same left edge. A centred block here floats free of both.
+.home-intro {
+  max-width: 42em;
+  margin: 0;
+  padding: 2.6em 0 0.6em;
+}
+
+.home-intro__lead {
+  margin: 0;
+  font-size: 1.16em;
+  line-height: 1.72;
   color: $text-color;
-  max-width: 46em;
-  margin: 0 auto;
+}
+
+.home-intro__body {
+  margin: 1.3em 0 0;
+  font-size: 1em;
+  line-height: 1.75;
+  color: $muted-text-color;
+}
+
+// Landing cards -------------------------------------------------------------
+// Editorial rather than UI: a label, a kicker, the content, and a text link.
+// No button, no box-within-a-box.
+.home-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin: 3.4em 0 0;
+  border-top: 1px solid $hairline;
+}
+
+@media (min-width: 48em) {
+  .home-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 2.4em;
+  }
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.9em 0 2em;
+  border-bottom: 1px solid $hairline;
+  min-width: 0;
+}
+
+@media (min-width: 48em) {
+  .home-card { border-bottom: 0; }
+}
+
+.home-card__label {
+  margin: 0;
+  font-family: $header-font-family;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $expected;
+}
+
+.home-card__kicker {
+  margin: 0.75em 0 0;
+  font-size: 1.02rem;
+  line-height: 1.45;
+  font-weight: 500;
+  color: $text-color;
+}
+
+.home-card__body {
+  margin: 0.7em 0 0;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: $muted-text-color;
+}
+
+// Live from _data/publications.yml
+.home-card__pubs {
+  list-style: none;
+  margin: 0.75em 0 0;
+  padding: 0;
+}
+
+.home-card__pub + .home-card__pub { margin-top: 0.95em; }
+
+.home-card__pub-title {
+  display: block;
+  font-size: 0.93rem;
+  line-height: 1.45;
+  font-weight: 500;
+  color: $text-color;
+  text-decoration: none;
+
+  &:hover { color: $expected; }
+}
+
+.home-card__pub-meta {
+  display: block;
+  margin-top: 0.3em;
+  font-family: $monospace;
+  font-size: 0.76rem;
+  color: $muted-text-color;
+}
+
+// The link follows its own card's content rather than being pushed to a shared
+// baseline. The cards are deliberately different lengths now, so aligning the
+// links left a hole under the two short ones.
+.home-card__link {
+  margin-top: 0;
+  padding-top: 1.1em;
+  align-self: start;
+  font-family: $header-font-family;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: $expected;
+  text-decoration: none;
+
+  &:hover { color: $deviation; }
+  &:hover .home-card__arrow { transform: translateX(3px); }
+}
+
+.home-card__arrow {
+  display: inline-block;
+  transition: transform 0.16s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-card__arrow { transition: none; }
 }
 
 // Buttons -------------------------------------------------------------------
@@ -289,6 +463,19 @@ body.layout--splash #main { padding-bottom: 0; }
   border: 1px solid $expected;
   color: $expected;
   &:hover { background-color: $expected; color: $deep-slate; }
+}
+
+// Secondary action. Same size as the primary button so the hero row stays
+// even, but it recedes until hovered: one obvious next step, two quiet ones.
+.btn--quiet {
+  background-color: transparent;
+  border: 1px solid $hairline;
+  color: $text-color;
+  &:hover {
+    background-color: transparent;
+    border-color: rgba(63, 208, 201, 0.55);
+    color: $expected;
+  }
 }
 
 // Sidebar -------------------------------------------------------------------
@@ -399,30 +586,64 @@ body.layout--splash #main { padding-bottom: 0; }
 }
 
 // Footer --------------------------------------------------------------------
+// Compact, and it signs off rather than trailing away: name, one line of
+// description, links, copyright. Markup in _includes/footer.html.
 .page__footer {
   border-top: 1px solid $hairline;
+  margin-top: 0;
 
   footer {
     text-align: center;
     max-width: 100%;
+    padding-top: 1.6em;
+    padding-bottom: 1.6em;
   }
 
   a { font-family: $monospace; font-size: 0.95rem; }
+
+  .site-footer__identity { margin: 0 0 0.9em; }
+
+  .site-footer__name {
+    margin: 0;
+    font-family: $header-font-family;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: $text-color;
+  }
+
+  .site-footer__tagline {
+    margin: 0.15em 0 0;
+    font-size: 0.85rem;
+    color: $muted-text-color;
+  }
+
+  .page__footer-follow { margin: 0; }
 
   .page__footer-follow ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.4em 1.4em;
-    margin: 0 0 0.6em;
+    gap: 0.3em 1.3em;
+    margin: 0 0 0.9em;
   }
 
   .page__footer-follow li { padding: 0; }
 
+  // The theme shouts these in caps. Sentence case is quieter and matches the
+  // way the links are named everywhere else on the site.
+  .page__footer-follow a {
+    font-size: 0.86rem;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
   .page__footer-copyright {
     font-family: $monospace;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: $muted-text-color;
+
+    a { font-size: inherit; }
   }
 }
 
@@ -440,6 +661,31 @@ button:focus-visible {
     .page__lead { font-size: 0.85em; }
   }
   .author__avatar img { max-width: 90px; }
+
+  // Landing hero on a phone: name, question, actions, and only then the
+  // portrait, which is the markup order, so nothing needs reordering. Putting
+  // the face first meant a visitor met a headshot before they met the work.
+  .hero-home {
+    padding: 2.4em 0 2.6em;
+    .page__title { font-size: 2.45em; }
+  }
+
+  .hero-home__grid { gap: 1.8em; }
+  .hero-home__portrait { max-width: 160px; justify-self: start; }
+
+  .hero-home__question { font-size: 1.08em; max-width: none; }
+  .hero-home__actions { margin-top: 1.4em; }
+
+  .home-intro { padding-top: 2.4em; }
+  .home-intro__lead { font-size: 1.05em; }
+  .home-cards { margin-top: 2.4em; }
+}
+
+// Between phone and the two-column breakpoint, keep the portrait from
+// swelling to half the screen.
+@media (min-width: 37.5625em) and (max-width: 47.9375em) {
+  .hero-home .page__title { font-size: 3.2em; }
+  .hero-home__portrait { max-width: 190px; justify-self: start; }
 }
 
 // Figures -------------------------------------------------------------------

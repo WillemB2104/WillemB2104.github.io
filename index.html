@@ -2,34 +2,50 @@
 layout: splash
 permalink: /
 title: "Willem B. Bruin"
-excerpt: "Postdoctoral researcher · Amsterdam UMC & Leiden University"
+excerpt: "Postdoctoral researcher at Amsterdam UMC and Leiden University"
 description: "Willem B. Bruin is a postdoctoral researcher at Amsterdam UMC and Leiden University, working on brain development, diagnostic biomarkers and treatment prediction in obsessive-compulsive, anxiety and mood disorders using large-scale neuroimaging and machine learning."
 header:
   overlay_color: "#151a24"
 
-intro:
-  - excerpt: >-
-      Psychiatry starts with people and their experiences, which clinicians consider alongside their history and circumstances to inform diagnosis and treatment. My research asks whether brain measures can add to this picture. Can they help us understand why mental health conditions develop differently from one person to the next, make diagnoses more precise, and predict whether a particular treatment will help? I study these questions across obsessive-compulsive, anxiety and mood disorders, working with researchers, clinicians and people with lived experience around the world. My broader aim is to move beyond the “average patient” towards precision psychiatry, using what is unique about each person to better understand their needs and guide their care.
-
-
-feature_row:
-  - title: "Research"
-    excerpt: "Brain development, diagnostic biomarkers, and predicting who responds to which treatment."
-    url: "/research/"
-    btn_label: "What I work on"
-    btn_class: "btn--primary"
-  - title: "Publications"
-    excerpt: "Every paper and preprint, pulled from my ORCID record and refreshed each week."
-    url: "/publications/"
-    btn_label: "Browse publications"
-    btn_class: "btn--primary"
-  - title: "Contact"
-    excerpt: "For collaborators, students looking for a project, and anyone with questions about the research."
-    url: "/contact/"
-    btn_label: "Get in touch"
-    btn_class: "btn--primary"
+# Drives _includes/page__hero.html.
+hero_home:
+  eyebrow: "Precision psychiatry & neuroimaging"
+  question: >-
+    Can we measure something in an individual's brain that helps explain,
+    predict, and ultimately improve their diagnosis and treatment?
+  affiliation: >-
+    Postdoctoral researcher at
+    [Amsterdam UMC](https://pure.amsterdamumc.nl/en/persons/willem-bruin/) and
+    [Leiden University](https://www.universiteitleiden.nl/en/staffmembers/willem-bruin)
+  portrait: "/assets/images/hero-portrait.png"
+  portrait_webp: "/assets/images/hero-portrait.webp"
+  portrait_webp_2x: "/assets/images/hero-portrait@2x.webp"
+  portrait_alt: "Willem B. Bruin"
+  actions:
+    - label: "What I work on"
+      url: "/research/"
+    - label: "Publications"
+      url: "/publications/"
+    - label: "About me"
+      url: "/about/"
 ---
 
-{% include feature_row id="intro" type="center" %}
+<div class="home-intro">
+  <p class="home-intro__lead">
+    Psychiatry starts with people and their experiences, which clinicians weigh
+    alongside history and circumstances to inform diagnosis and treatment. My
+    research asks what brain measures can add to that picture: why conditions
+    develop differently from one person to the next, how to make diagnoses more
+    precise, and whether a particular treatment is likely to help.
+  </p>
 
-{% include feature_row %}
+  <p class="home-intro__body">
+    I study these questions across obsessive-compulsive, anxiety and mood
+    disorders, working with researchers, clinicians and people with lived
+    experience around the world. The broader aim is to move beyond the
+    “average patient” towards precision psychiatry, using what is unique about
+    each person to better understand their needs and guide their care.
+  </p>
+</div>
+
+{% include home-cards.html %}

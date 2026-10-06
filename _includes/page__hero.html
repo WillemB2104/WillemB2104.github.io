@@ -1,0 +1,117 @@
+{% comment %}
+  Overrides minimal-mistakes 4.28.1 _includes/page__hero.html.
+
+  Two modes:
+    - page.hero_home: the landing page hero (portrait, research question,
+      actions).
+    - everything else: the stock theme markup, unchanged, so any other page
+      that sets a header keeps working exactly as before.
+{% endcomment %}
+
+{% assign locale = include.locale | default: site.locale %}
+{% capture overlay_img_path %}{{ page.header.overlay_image | relative_url }}{% endcapture %}
+
+{% if page.header.overlay_filter contains "gradient" %}
+  {% capture overlay_filter %}{{ page.header.overlay_filter }}{% endcapture %}
+{% elsif page.header.overlay_filter contains "rgba" %}
+  {% capture overlay_filter %}{{ page.header.overlay_filter }}{% endcapture %}
+  {% capture overlay_filter %}linear-gradient({{ overlay_filter }}, {{ overlay_filter }}){% endcapture %}
+{% elsif page.header.overlay_filter %}
+  {% capture overlay_filter %}rgba(0, 0, 0, {{ page.header.overlay_filter }}){% endcapture %}
+  {% capture overlay_filter %}linear-gradient({{ overlay_filter }}, {{ overlay_filter }}){% endcapture %}
+{% endif %}
+
+{% if page.header.image_description %}
+  {% assign image_description = page.header.image_description %}
+{% else %}
+  {% assign image_description = page.title %}
+{% endif %}
+
+{% assign image_description = image_description | markdownify | strip_html | strip_newlines | escape_once %}
+
+<div class="page__hero{% if page.header.overlay_color or page.header.overlay_image %}--overlay{% endif %}{% if page.hero_home %} hero-home{% endif %}"
+  style="{% if page.header.overlay_color %}background-color: {{ page.header.overlay_color | default: 'transparent' }};{% endif %} {% if overlay_img_path %}background-image: {% if overlay_filter %}{{ overlay_filter }}, {% endif %}url('{{ overlay_img_path }}');{% endif %}"
+>
+
+{% if page.hero_home %}
+  {% assign hero = page.hero_home %}
+  <div class="wrapper">
+    <div class="hero-home__grid">
+
+      <div class="hero-home__text">
+        {% if hero.eyebrow %}
+          <p class="hero-home__eyebrow">{{ hero.eyebrow }}</p>
+        {% endif %}
+
+        <h1 id="page-title" class="page__title" itemprop="headline">
+          {{ page.title | default: site.title | markdownify | remove: "<p>" | remove: "</p>" }}
+        </h1>
+
+        {% if hero.question %}
+          <p class="hero-home__question">{{ hero.question | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+        {% endif %}
+
+        {% if hero.affiliation %}
+          <p class="hero-home__affil">{{ hero.affiliation | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+        {% endif %}
+
+        {% if hero.actions %}
+          <p class="hero-home__actions">
+            {% for action in hero.actions %}
+              <a href="{{ action.url | relative_url }}"
+                 class="btn {% if forloop.first %}btn--primary{% else %}btn--quiet{% endif %}">{{ action.label }}</a>
+            {% endfor %}
+          </p>
+        {% endif %}
+      </div>
+
+      {% if hero.portrait %}
+        <div class="hero-home__portrait">
+          <picture>
+            {% if hero.portrait_webp %}
+              <source
+                srcset="{{ hero.portrait_webp | relative_url }} 1x{% if hero.portrait_webp_2x %}, {{ hero.portrait_webp_2x | relative_url }} 2x{% endif %}"
+                type="image/webp">
+            {% endif %}
+            <img src="{{ hero.portrait | relative_url }}"
+                 alt="{{ hero.portrait_alt | default: page.title | escape_once }}"
+                 width="560" height="560"
+                 fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+{% elsif page.header.overlay_color or page.header.overlay_image %}
+  <div class="wrapper">
+    <h1 id="page-title" class="page__title" itemprop="headline">
+      {% if paginator and site.paginate_show_page_num %}
+        {{ site.title }}{% unless paginator.page == 1 %} {{ site.data.ui-text[locale].page | default: "Page" }} {{ paginator.page }}{% endunless %}
+      {% else %}
+        {{ page.title | default: site.title | markdownify | remove: "<p>" | remove: "</p>" }}
+      {% endif %}
+    </h1>
+    {% if page.tagline %}
+      <p class="page__lead">{{ page.tagline | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+    {% elsif page.header.show_overlay_excerpt != false and page.excerpt %}
+      <p class="page__lead">{{ page.excerpt | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+    {% endif %}
+    {% include page__meta.html locale=locale %}
+    {% if page.header.actions %}
+      <p>
+      {% for action in page.header.actions %}
+        <a href="{{ action.url | relative_url }}" class="btn btn--light-outline btn--large">{{ action.label | default: site.data.ui-text[locale].more_label | default: "Learn More" }}</a>
+      {% endfor %}
+      </p>
+    {% endif %}
+  </div>
+{% else %}
+  <img src="{{ page.header.image | relative_url }}" alt="{{ image_description }}" class="page__hero-image">
+{% endif %}
+
+{% if page.header.caption %}
+  <span class="page__hero-caption">{{ page.header.caption | markdownify | remove: "<p>" | remove: "</p>" }}</span>
+{% endif %}
+</div>

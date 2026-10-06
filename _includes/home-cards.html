@@ -1,0 +1,59 @@
+{% comment %}
+  The three landing-page cards. The middle one reads straight from
+  _data/publications.yml, which scripts/fetch_orcid.py refreshes weekly, so the
+  home page shows real papers rather than a static description of papers.
+{% endcomment %}
+
+{% comment %}
+  scripts/fetch_orcid.py already writes publications.yml newest first, so the
+  file order is the order to use. Datasets and book chapters are skipped: the
+  ORCID record includes a Zenodo deposit that would otherwise lead here.
+{% endcomment %}
+
+<div class="home-cards">
+
+  <article class="home-card">
+    <p class="home-card__label">Research</p>
+    <p class="home-card__kicker">Precision psychiatry &amp; neuroimaging</p>
+    <a class="home-card__link" href="{{ '/research/' | relative_url }}">
+      Explore my research <span class="home-card__arrow" aria-hidden="true">→</span>
+    </a>
+  </article>
+
+  <article class="home-card">
+    <p class="home-card__label">Latest work</p>
+    <ol class="home-card__pubs">
+      {% assign shown = 0 %}
+      {% for pub in site.data.publications %}
+        {% if shown >= 2 %}{% break %}{% endif %}
+        {% if pub.type == "data-set" or pub.type == "book-chapter" %}{% continue %}{% endif %}
+        {% if pub.journal and pub.journal != "" %}
+          {% assign venue = pub.journal %}
+        {% elsif pub.type == "preprint" %}
+          {% assign venue = "Preprint" %}
+        {% else %}
+          {% assign venue = "" %}
+        {% endif %}
+        <li class="home-card__pub">
+          <a class="home-card__pub-title" href="{{ pub.url }}">{{ pub.title | truncate: 92 }}</a>
+          <span class="home-card__pub-meta">{{ venue }}{% if venue != "" and pub.year %}, {% endif %}{{ pub.year }}</span>
+        </li>
+        {% assign shown = shown | plus: 1 %}
+      {% endfor %}
+    </ol>
+    <a class="home-card__link" href="{{ '/publications/' | relative_url }}">
+      All publications <span class="home-card__arrow" aria-hidden="true">→</span>
+    </a>
+  </article>
+
+  <article class="home-card">
+    <p class="home-card__label">Currently</p>
+    <p class="home-card__kicker">
+      Postdoctoral researcher at Amsterdam UMC &amp; Leiden University
+    </p>
+    <a class="home-card__link" href="{{ '/about/' | relative_url }}">
+      More about me <span class="home-card__arrow" aria-hidden="true">→</span>
+    </a>
+  </article>
+
+</div>

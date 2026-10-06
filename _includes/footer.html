@@ -1,0 +1,37 @@
+{% comment %}
+  Overrides minimal-mistakes 4.28.1 _includes/footer.html.
+
+  Compact version: the page used to end abruptly after the cards and then leave
+  a wide empty band before a row of shouting links. This closes it off with the
+  name and the one-line description, then the links, then the copyright. The
+  "Follow:" label and the Atom feed link are dropped.
+{% endcomment %}
+
+{% assign locale = include.locale | default: site.locale %}
+
+<div class="site-footer__identity">
+  <p class="site-footer__name">{{ site.title | escape_once | strip }}</p>
+  {% if site.subtitle %}
+    <p class="site-footer__tagline">{{ site.subtitle | escape_once | strip }}</p>
+  {% endif %}
+</div>
+
+{% if site.footer.links %}
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    {% for link in site.footer.links %}
+      {% if link.label and link.url %}
+        <li><a href="{{ link.url }}" rel="nofollow noopener noreferrer{% if link.rel %} {{ link.rel }}{% endif %}"><i class="{{ link.icon | default: 'fas fa-link' }}" aria-hidden="true"></i> {{ link.label | escape_once | strip }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="page__footer-copyright">
+  &copy; {% assign site_time = site.time | date: '%Y' %}{{ site_time }}
+  {{ site.title | escape_once | strip }}.
+  {{ site.data.ui-text[locale].powered_by | default: "Powered by" }}
+  <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp;
+  <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>
+</div>

@@ -16,7 +16,7 @@ Usage:
     {% if include.caption %}<span class="fig-caption">{{ include.caption }}</span>{% endif %}
     {% if include.credit %}
       <span class="fig-source">
-        {% if include.url %}<a href="{{ include.url }}">{{ include.credit }}</a>{% else %}{{ include.credit }}{% endif %}{% if include.licence %} · {{ include.licence }}{% endif %}
+        {% if include.url %}<a href="{{ include.url }}">{{ include.credit }}</a>{% else %}{{ include.credit }}{% endif %}{% if include.licence %}, {{ include.licence }}{% endif %}
       </span>
     {% endif %}
   </figcaption>

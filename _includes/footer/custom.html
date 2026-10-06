@@ -215,10 +215,23 @@
    measurement points. Fixed behind the content, drifts slowly, shifts a little
    with scroll. Sets window.__backdrop so its state can be checked from the
    console.
+
+   Deliberately much quieter than the hero field. The hero animation carries
+   meaning (percentile bands, individual trajectories, deviation); this one is
+   texture. When the two ran at similar strength the hero read as decoration,
+   and the lines competed with the body copy and the cards. Three lines at a
+   third of the old opacity, no glow halos, and nothing at all over the
+   centre column where the text sits.
+
+   To turn it off completely, set BACKDROP to false.
 --------------------------------------------------------------------------- */
 (function () {
+  var BACKDROP = true;
+
   var state = { started: false, reason: null, canvas: null };
   window.__backdrop = state;
+
+  if (!BACKDROP) { state.reason = "disabled"; return; }
 
   var reduce = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -235,7 +248,14 @@
   s.position = "fixed"; s.top = "0"; s.left = "0";
   s.width = "100%"; s.height = "100%";
   s.zIndex = "0"; s.pointerEvents = "none";
-  s.opacity = "0.75";
+  s.opacity = "0.30";
+  // Keep the backdrop out of the reading column entirely: it survives only in
+  // the outer margins, so nothing ever drifts behind a paragraph.
+  var mask = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 14%, " +
+             "rgba(0,0,0,0) 32%, rgba(0,0,0,0) 68%, rgba(0,0,0,1) 86%, " +
+             "rgba(0,0,0,1) 100%)";
+  s.webkitMaskImage = mask;
+  s.maskImage = mask;
   document.body.insertBefore(canvas, document.body.firstChild);
   state.canvas = canvas;
 
@@ -258,20 +278,17 @@
 
   function seed() {
     lines = []; pts = [];
-    var n = 8;
+    var n = 3;
     for (var i = 0; i < n; i++) {
       var ln = {
-        y0: 0.06 + (i / n) * 0.9,
-        amp: 0.03 + Math.random() * 0.07,
+        y0: 0.14 + (i / n) * 0.72,
+        amp: 0.03 + Math.random() * 0.06,
         freq: 0.7 + Math.random() * 1.1,
         phase: Math.random() * Math.PI * 2,
-        dev: (i === n - 3)
+        dev: (i === n - 2)
       };
       lines.push(ln);
-      var count = 1 + Math.floor(Math.random() * 2);
-      for (var k = 0; k < count; k++) {
-        pts.push({ line: ln, t: Math.random(), speed: 0.012 + Math.random() * 0.016 });
-      }
+      pts.push({ line: ln, t: Math.random(), speed: 0.012 + Math.random() * 0.014 });
     }
   }
 
@@ -290,23 +307,21 @@
         var t = j / 60, x = t * W, y = yOf(t, ln, off);
         if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = rgba(ln.dev ? DEVIATION : EXPECTED, ln.dev ? 0.10 : 0.07);
+      ctx.strokeStyle = rgba(ln.dev ? DEVIATION : EXPECTED, ln.dev ? 0.08 : 0.055);
       ctx.lineWidth = 1;
       ctx.stroke();
     }
 
+    // No glow halo out here: the halos are what made the backdrop read as the
+    // same object as the hero field. Bare points only.
     for (var q = 0; q < pts.length; q++) {
       var p = pts[q];
       var col = p.line.dev ? DEVIATION : EXPECTED;
       var x = p.t * W, y = yOf(p.t, p.line, off);
       var edge = Math.min(1, Math.min(p.t, 1 - p.t) / 0.08);
       ctx.beginPath();
-      ctx.arc(x, y, 6, 0, Math.PI * 2);
-      ctx.fillStyle = rgba(col, 0.06 * edge);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x, y, 1.9, 0, Math.PI * 2);
-      ctx.fillStyle = rgba(col, 0.34 * edge);
+      ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(col, 0.22 * edge);
       ctx.fill();
     }
   }

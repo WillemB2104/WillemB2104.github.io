@@ -46,10 +46,43 @@ _config.yml                 site settings, author profile, social links
 _data/navigation.yml        top navigation bar
 _data/publications.yml      generated, see above
 _pages/                     about, research, publications, cv, contact
-assets/images/              profile photo, thesis cover
+_includes/                  theme overrides and custom markup, see below
+assets/css/main.scss        all styling, with the adjustable values at the top
+assets/images/              portrait, profile photo, thesis cover
 scripts/                    ORCID fetcher (excluded from the built site)
-index.html                  landing page
+index.html                  landing page, including its hero content
 ```
+
+### Theme overrides
+
+A file in `_includes/` with the same name as one in Minimal Mistakes replaces
+the theme's copy. Three do, and each is a small change on top of the 4.28.1
+original, so compare against upstream before bumping `remote_theme`:
+
+| File | What it changes |
+|---|---|
+| `_includes/page__hero.html` | Adds the landing-page hero (portrait, research question, actions). Every other page falls through to the stock markup. |
+| `_includes/masthead.html` | Adds `aria-current="page"` to the matching nav link, so the current section is marked. |
+| `_includes/footer.html` | Compact footer: name, tagline, links. Drops the "Follow:" label and the Atom feed link. |
+
+`_includes/home-cards.html` is not an override; it is the three landing-page
+cards, and the middle one reads the two most recent entries from
+`_data/publications.yml` so the home page updates with the ORCID job.
+
+The landing hero's text lives in the `hero_home:` block in `index.html`'s front
+matter, not in the include.
+
+### The hero animation
+
+`_includes/footer/custom.html` draws two canvases. The one in the splash hero is
+a normative model: shaded percentile bands, individual trajectories, and
+measurement points that turn amber once they leave the ±1.96 SD band. If you
+change the accent colours in `main.scss`, change `EXPECTED` and `DEVIATION`
+here to match.
+
+The second canvas is a much fainter site-wide backdrop, masked out of the
+centre column so it never sits behind body text. Set `BACKDROP = false` at the
+top of its block to switch it off.
 
 ## Running it locally
 

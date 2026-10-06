@@ -1,0 +1,57 @@
+{% comment %}
+  Overrides minimal-mistakes 4.28.1 _includes/masthead.html.
+
+  Only change: each nav link gets aria-current="page" when it matches the page
+  being viewed, so the current section can be marked without relying on hover.
+  The greedy-nav script moves overflow links into .hidden-links at runtime and
+  carries the attribute with them, so the marker survives into the mobile menu.
+{% endcomment %}
+
+{% assign locale = include.locale | default: site.locale %}
+{% capture logo_path %}{{ site.logo }}{% endcapture %}
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
+        {% unless logo_path == empty %}
+          <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
+        {% endunless %}
+        <a class="site-title" href="{{ '/' | relative_url }}">
+          {{ site.masthead_title | default: site.title | escape_once | strip }}
+          {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle | escape_once | strip }}</span>{% endif %}
+        </a>
+        <ul class="visible-links">
+          {%- for link in site.data.navigation.main -%}
+            {%- assign link_url = link.url | relative_url -%}
+            {%- assign is_current = false -%}
+            {%- if link.url != "/" and page.url contains link.url -%}
+              {%- assign is_current = true -%}
+            {%- elsif link.url == "/" and page.url == "/" -%}
+              {%- assign is_current = true -%}
+            {%- endif -%}
+            <li class="masthead__menu-item">
+              <a
+                href="{{ link_url }}"
+                {% if is_current %} aria-current="page"{% endif %}
+                {% if link.description %} title="{{ link.description }}"{% endif %}
+                {% if link.target %} target="{{ link.target }}"{% endif %}
+              >{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+        {% if site.search == true %}
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">{{ site.data.ui-text[locale].search_label | default: "Toggle search" }}</span>
+          <i class="fas fa-search"></i>
+        </button>
+        {% endif %}
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">{{ site.data.ui-text[locale].menu_label | default: "Toggle menu" }}</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>

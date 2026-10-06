@@ -28,7 +28,7 @@ week, with metadata and citation counts from Crossref. My name is shown in
 [Google Scholar profile](https://scholar.google.nl/citations?user=TUq1H20AAAAJ&hl=en).
 {: .notice--info}
 
-**{{ pubs | size }} outputs · {{ total_citations }} citations recorded by Crossref.**
+**{{ pubs | size }} outputs, with {{ total_citations }} citations recorded by Crossref.**
 
 {% include collaboration-map.html %}
 
@@ -48,7 +48,7 @@ week, with metadata and citation counts from Crossref. My name is shown in
 {% when 'dissertation-thesis' %}<span class="pub-tag">Thesis</span>
 {% when 'conference-paper' %}<span class="pub-tag">Conference paper</span>
 {% endcase %}
-{% if p.url != "" %}[{% if p.doi != "" %}doi:{{ p.doi }}{% else %}link{% endif %}]({{ p.url }}){% endif %}{% if p.citations > 0 %} <span class="pub-cites">· {{ p.citations }} citations</span>{% endif %}
+{% if p.url != "" %}[{% if p.doi != "" %}doi:{{ p.doi }}{% else %}link{% endif %}]({{ p.url }}){% endif %}{% if p.citations > 0 %} <span class="pub-cites">({{ p.citations }} citations)</span>{% endif %}
 {: .pub-entry}
 
 {% endfor %}

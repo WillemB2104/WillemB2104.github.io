@@ -109,9 +109,16 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 
 // The theme colours this through `.greedy-nav a`, which outranks a bare
 // `.site-title` rule, so the selector has to be at least as specific.
+// The theme colours this through `.greedy-nav a`, which outranks a bare
+// `.site-title` rule, so the selector has to be at least as specific. The same
+// `.greedy-nav a` rule sets display:block, which also beats the theme's own
+// `.site-title { display: flex }`, so the flex row has to be restated here
+// too, or the mark stacks on top of the name instead of sitting beside it.
 .masthead .site-title,
 .greedy-nav .site-title,
 .greedy-nav a.site-title {
+  display: flex;
+  align-items: center;
   font-family: $header-font-family;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -122,6 +129,24 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 .greedy-nav .site-title:hover,
 .greedy-nav a.site-title:hover {
   color: lighten($deviation, 10%);
+}
+
+// The mark from the site icon, sitting left of the name. The theme already
+// makes .site-title a flex row, so it only needs sizing and alignment.
+.site-mark {
+  display: block;
+  flex: none;
+  width: 2.35em;
+  height: 2.35em;
+  margin-right: 0.55em;
+  align-self: center;
+  overflow: visible;
+}
+
+.site-title__text { display: block; }
+
+@media (max-width: 37.5em) {
+  .site-mark { width: 2em; height: 2em; margin-right: 0.45em; }
 }
 
 // Sans, not mono: this is a tagline, not metadata.
@@ -221,7 +246,10 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 // normative-model animation runs behind the shoulders rather than being
 // blocked by a photo panel.
 .hero-home {
-  padding: 4.5em 0 3.2em;
+  // The lower figure also leaves room for the portrait that "About me"
+  // reveals: the hero clips its overflow, so a 150px circle centred on a
+  // button near the bottom edge would lose its last few pixels.
+  padding: 4.5em 0 4.2em;
 
   .page__title {
     font-size: 4.1em;
@@ -231,24 +259,11 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   }
 }
 
-.hero-home__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 2em;
-  align-items: center;
-}
+.hero-home__text { min-width: 0; max-width: 46em; }
 
-@media (min-width: 48em) {
-  .hero-home__grid {
-    grid-template-columns: minmax(0, 1.75fr) minmax(0, 0.65fr);
-    gap: 2.6em;
-  }
-}
-
-.hero-home__text { min-width: 0; }
-
-// Small caps label above the name. Teal, because it names the research
-// programme and teal is the colour of the expected-range band behind it.
+// Small caps label above the name, teal to match the expected-range band
+// behind it. Currently unused: index.html sets no `eyebrow`, because the text
+// it held is already in the masthead. Kept so adding one back is a one-liner.
 .hero-home__eyebrow {
   margin: 0;
   font-family: $header-font-family;
@@ -274,10 +289,12 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   text-shadow: none;
 }
 
+// Same typeface as the question above it. This used to be monospace, which
+// made a plain sentence about two universities read as metadata.
 .hero-home__affil {
   margin: 1.25em 0 0;
-  font-family: $monospace;
-  font-size: 0.85rem;
+  font-family: $global-font-family;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: $muted-text-color;
   text-shadow: none;
@@ -292,52 +309,101 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
 }
 
 .hero-home__actions {
+  position: relative;   // the anchor for the revealed portrait, see below
   margin: 1.8em 0 0;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
   gap: 0.6em;
 }
 
-// The portrait sits below the name in the hierarchy, so it is small, low in
-// contrast, and feathered on every edge in the image file itself. It is meant
-// to register as "a person works here" at a glance, not to be looked at.
-.hero-home__portrait {
-  justify-self: start;
-  width: 100%;
-  max-width: 200px;
+// Portrait on hover ---------------------------------------------------------
+// The photograph is not on the page: it is revealed above the "About me"
+// button on hover or keyboard focus. Nothing ambiguous sits in the hero, and
+// the face is a real photograph at a size you can actually read it, shown to
+// someone who has just asked who you are.
+// Deliberately NOT position:relative. The portrait is positioned against the
+// actions row, not against this button, so that it clears the whole text
+// column: anchored to the button it sits only ~30px to its right, which is
+// still underneath the affiliation line.
+.btn-portrait {
+  display: inline-flex;
+}
 
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
+// It opens to the RIGHT of the text column, never above. Above the button sit
+// the research question and the affiliation, and a 150px circle lands straight
+// on top of the one sentence the page exists to ask.
+.btn-portrait__photo {
+  position: absolute;
+  left: calc(100% + 1em);
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin-top: -75px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: 50% 30%;
+  background-color: $panel-slate;
+  box-shadow: 0 0 0 1px rgba(63, 208, 201, 0.35),
+              0 14px 34px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateX(-10px) scale(0.94);
+  transform-origin: 0 50%;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+
+// Shown only where there is both a pointer that can hover and room to put it.
+// On a touch screen there is no hover state to leave, so it would appear on
+// tap and stay. The width floor is 62em, not the usual 48em: the circle opens
+// past the end of the 46em text column, so below roughly 992px it would run
+// off the edge of the hero, which clips.
+@media (hover: hover) and (min-width: 62em) {
+  .btn-portrait:hover .btn-portrait__photo,
+  .btn-portrait:focus-within .btn-portrait__photo {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }
 
-@media (min-width: 48em) {
-  .hero-home__portrait { justify-self: end; max-width: 240px; }
+@media (prefers-reduced-motion: reduce) {
+  .btn-portrait__photo { transition: opacity 0.22s ease; transform: none; }
+
+  @media (hover: hover) and (min-width: 62em) {
+    .btn-portrait:hover .btn-portrait__photo,
+    .btn-portrait:focus-within .btn-portrait__photo { transform: none; }
+  }
 }
 
 // Landing intro -------------------------------------------------------------
 // Left-aligned rather than centred, so the name, this paragraph and the cards
 // all hang off the same left edge. A centred block here floats free of both.
+//
+// Everything below is nested one level deeper than it needs to be, on purpose.
+// These blocks sit inside .page__content, which carries
+//   .page__content p, .page__content li { font-size: 1em; line-height: 1.7; }
+//   .page__content p { margin: 0 0 1.3em; }
+// at specificity (0,1,1). A bare .home-card__kicker is (0,1,0) and loses, so
+// the type here was silently rendering at inherited sizes. Nesting makes these
+// (0,2,0), which wins. Do not flatten them back out.
 .home-intro {
   max-width: 42em;
   margin: 0;
   padding: 2.6em 0 0.6em;
-}
 
-.home-intro__lead {
-  margin: 0;
-  font-size: 1.16em;
-  line-height: 1.72;
-  color: $text-color;
-}
+  .home-intro__lead {
+    margin: 0;
+    font-size: 1.16em;
+    line-height: 1.72;
+    color: $text-color;
+  }
 
-.home-intro__body {
-  margin: 1.3em 0 0;
-  font-size: 1em;
-  line-height: 1.75;
-  color: $muted-text-color;
+  .home-intro__body {
+    margin: 1.3em 0 0;
+    font-size: 1em;
+    line-height: 1.75;
+    color: $muted-text-color;
+  }
 }
 
 // Landing cards -------------------------------------------------------------
@@ -349,104 +415,113 @@ h1, h2, h3, h4, .page__title, .archive__item-title {
   gap: 0;
   margin: 3.4em 0 0;
   border-top: 1px solid $hairline;
+
+  .home-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.9em 0 2em;
+    border-bottom: 1px solid $hairline;
+    min-width: 0;
+  }
+
+  .home-card__label {
+    margin: 0;
+    font-family: $header-font-family;
+    font-size: 0.74rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $expected;
+  }
+
+  // The first line of every column has to start at the same height. That needs
+  // the same margin, font-size and line-height in all three, expressed in rem
+  // rather than em, because 0.8em under a heading and 0.8em under a list that
+  // inherits a different size are not the same distance. The three selectors
+  // below are a set: change one value and change it in all of them.
+  .home-card__kicker,
+  .home-card__pubs {
+    margin: 0.8rem 0 0;
+  }
+
+  .home-card__kicker,
+  .home-card__pub-title {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: $text-color;
+  }
+
+  .home-card__body {
+    margin: 0.7em 0 0;
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: $muted-text-color;
+  }
+
+  // Live from _data/publications.yml
+  .home-card__pubs {
+    list-style: none;
+    padding: 0;
+  }
+
+  .home-card__pub {
+    margin: 0;
+    + .home-card__pub { margin-top: 0.95em; }
+  }
+
+  .home-card__pub-title {
+    display: block;
+    text-decoration: none;
+
+    &:hover { color: $expected; }
+  }
+
+  .home-card__pub-meta {
+    display: block;
+    margin-top: 0.3em;
+    font-family: $monospace;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: $muted-text-color;
+  }
+
+  // The link follows its own card's content rather than being pushed to a
+  // shared baseline. The cards are deliberately different lengths, so aligning
+  // the links left a hole under the two short ones.
+  .home-card__link {
+    margin-top: 0;
+    padding-top: 1.1em;
+    align-self: start;
+    font-family: $header-font-family;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    font-weight: 500;
+    color: $expected;
+    text-decoration: none;
+
+    &:hover { color: $deviation; }
+    &:hover .home-card__arrow { transform: translateX(3px); }
+  }
+
+  .home-card__arrow {
+    display: inline-block;
+    transition: transform 0.16s ease;
+  }
 }
 
 @media (min-width: 48em) {
   .home-cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0 2.4em;
+
+    .home-card { border-bottom: 0; }
   }
 }
 
-.home-card {
-  display: flex;
-  flex-direction: column;
-  padding: 1.9em 0 2em;
-  border-bottom: 1px solid $hairline;
-  min-width: 0;
-}
-
-@media (min-width: 48em) {
-  .home-card { border-bottom: 0; }
-}
-
-.home-card__label {
-  margin: 0;
-  font-family: $header-font-family;
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: $expected;
-}
-
-.home-card__kicker {
-  margin: 0.75em 0 0;
-  font-size: 1.02rem;
-  line-height: 1.45;
-  font-weight: 500;
-  color: $text-color;
-}
-
-.home-card__body {
-  margin: 0.7em 0 0;
-  font-size: 0.93rem;
-  line-height: 1.65;
-  color: $muted-text-color;
-}
-
-// Live from _data/publications.yml
-.home-card__pubs {
-  list-style: none;
-  margin: 0.75em 0 0;
-  padding: 0;
-}
-
-.home-card__pub + .home-card__pub { margin-top: 0.95em; }
-
-.home-card__pub-title {
-  display: block;
-  font-size: 0.93rem;
-  line-height: 1.45;
-  font-weight: 500;
-  color: $text-color;
-  text-decoration: none;
-
-  &:hover { color: $expected; }
-}
-
-.home-card__pub-meta {
-  display: block;
-  margin-top: 0.3em;
-  font-family: $monospace;
-  font-size: 0.76rem;
-  color: $muted-text-color;
-}
-
-// The link follows its own card's content rather than being pushed to a shared
-// baseline. The cards are deliberately different lengths now, so aligning the
-// links left a hole under the two short ones.
-.home-card__link {
-  margin-top: 0;
-  padding-top: 1.1em;
-  align-self: start;
-  font-family: $header-font-family;
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: $expected;
-  text-decoration: none;
-
-  &:hover { color: $deviation; }
-  &:hover .home-card__arrow { transform: translateX(3px); }
-}
-
-.home-card__arrow {
-  display: inline-block;
-  transition: transform 0.16s ease;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .home-card__arrow { transition: none; }
+  .home-cards .home-card__arrow { transition: none; }
 }
 
 // Buttons -------------------------------------------------------------------
@@ -670,9 +745,6 @@ button:focus-visible {
     .page__title { font-size: 2.45em; }
   }
 
-  .hero-home__grid { gap: 1.8em; }
-  .hero-home__portrait { max-width: 160px; justify-self: start; }
-
   .hero-home__question { font-size: 1.08em; max-width: none; }
   .hero-home__actions { margin-top: 1.4em; }
 
@@ -685,7 +757,6 @@ button:focus-visible {
 // swelling to half the screen.
 @media (min-width: 37.5625em) and (max-width: 47.9375em) {
   .hero-home .page__title { font-size: 3.2em; }
-  .hero-home__portrait { max-width: 190px; justify-self: start; }
 }
 
 // Figures -------------------------------------------------------------------

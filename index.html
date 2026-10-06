@@ -9,7 +9,9 @@ header:
 
 # Drives _includes/page__hero.html.
 hero_home:
-  eyebrow: "Precision psychiatry & neuroimaging"
+  # No eyebrow. It read "Precision psychiatry & neuroimaging", which is the
+  # site subtitle, already sitting in the masthead a couple of centimetres
+  # above. Add an `eyebrow:` line here to bring one back.
   question: >-
     Can we measure something in an individual's brain that helps explain,
     predict, and ultimately improve their diagnosis and treatment?
@@ -17,10 +19,9 @@ hero_home:
     Postdoctoral researcher at
     [Amsterdam UMC](https://pure.amsterdamumc.nl/en/persons/willem-bruin/) and
     [Leiden University](https://www.universiteitleiden.nl/en/staffmembers/willem-bruin)
-  portrait: "/assets/images/hero-portrait.png"
-  portrait_webp: "/assets/images/hero-portrait.webp"
-  portrait_webp_2x: "/assets/images/hero-portrait@2x.webp"
-  portrait_alt: "Willem B. Bruin"
+  # No portrait in the hero. The photograph appears on hovering "About me"
+  # instead: an action marked `portrait: true` reveals it above the button.
+  portrait_image: "/assets/images/hero-portrait.webp"
   actions:
     - label: "What I work on"
       url: "/research/"
@@ -28,6 +29,7 @@ hero_home:
       url: "/publications/"
     - label: "About me"
       url: "/about/"
+      portrait: true
 ---
 
 <div class="home-intro">

@@ -5,19 +5,14 @@ layout: single
 author_profile: true
 ---
 
-Most of my research starts with something simple: a
-three-dimensional image made of numbers. Each number is the measured MRI signal
-at one small cube of space in the head called a **voxel**, the 3D counterpart of a
-pixel, typically about a millimetre across. A whole scan is a stack of several
-hundred thousand of these blocks, each holding a single number. Processed, they become measurements of brain structure, connectivity and development.
+Most of my research starts with something relatively simple, a three-dimensional image made of numbers! Each number is the measured MRI signal
+at one small cube of space in the head called a **voxel**, the 3D counterpart of a pixel, typically about a millimetre across. A single scan contains several hundred thousand of these tiny blocks, each holding just one number. Put them together and process them with neuroimaging software, and those numbers become measurements of brain structure, connectivity, and development.
 
-And below is a concrete example of what those numbers can represent: **my brain**! This is my own
-structural MRI scan, some of the raw material from
-which the measurements I work with are derived, rendered directly in your browser, 
+And below is a more concrete example: **my brain**! This is my own structural MRI scan, some of the raw material from which the measurements I work with are derived, rendered directly in your browser, 
 
 **Click or drag** to move the crosshair. **Right-click and drag** to adjust the
 contrast. Once you have clicked into the viewer, **scroll** moves through
-slices; until then scrolling just moves the page.
+slices; until then scrolling just moves the page. 
 
 <div id="brain-wrap">
   <div id="brain-status" role="status">Loading the scan (about 3 MB)...</div>
@@ -45,27 +40,37 @@ This viewer needs JavaScript. The scan itself is linked below and opens in any
 NIfTI viewer.
 </noscript>
 
+*The brain is mine. The credit for making it goes to Mom and Dad.*
+
 ## What you are looking at
 
-This is a **T1-weighted anatomical MRI**. It gives a detailed picture of the
-brain's structure: how bright each tissue appears
-depends on how it interacts with the MRI signal. In a T1-weighted image, white matter appears bright because of its lipid-rich
-myelin, grey matter sits in intermediate shades, and water-rich CSF is dark.
-These contrast differences are what let us distinguish and measure the
-different tissues from a single image.
+This is a **T1-weighted anatomical MRI**. It gives a detailed picture of the brain's structure, how bright each tissue appears depends on how it interacts with the MRI signal. In a T1-weighted image, white matter appears bright because of its lipid-rich myelin, grey matter sits in intermediate shades, and water-rich CSF is dark. These contrast differences are what let us distinguish and measure the different tissues from a single image.
 
 Around the outside are the scalp and skull. Just beneath them lies the **cerebral cortex**, the brain’s folded outer layer. It is made up mainly of **grey matter**, where nerve cells are densely packed, and is only about 2.5 mm thick. Beneath the cortex is **white matter**, made up of bundles of myelinated nerve fibres that carry signals between different brain regions.
 
-The dark spaces inside the brain are the ventricles, which are filled with **cerebrospinal fluid (CSF)**. CSF also flows around the brain and spinal cord, helping to cushion and protect them. Deep in the centre sit the **thalamus** and, just in front and to either side, the **basal ganglia**: drag the crosshair into the middle of the axial view and they appear as paired grey masses, separated by a pale band of white matter, the internal capsule. Both sit close to the questions I work on. The thalamus is the focus of one of my Generation R projects and has surfaced in my ENIGMA OCD analyses; the basal ganglia anchor the fronto-striatal circuits that most models of OCD are built on.
+The dark spaces inside the brain are the ventricles, which are filled with **cerebrospinal fluid (CSF)**. CSF also flows around the brain and spinal cord, helping to cushion and protect them. 
 
-## From an image to measurements
+Deep in the centre sit the **thalamus** and, just in front and to either side, the **basal ganglia**: drag the crosshair into the middle of the axial view and they appear as paired grey masses, separated by a pale band of white matter, the internal capsule. Both of these are **subcortical structures**, literally, structures beneath the cortex. They also sit close to some of the questions I work on. The thalamus is the focus of one of my Generation R projects and has surfaced in my previous ENIGMA-OCD analyses; the basal ganglia anchor the fronto-striatal circuits that feature prominently in models of OCD.
 
-A scan like this is where neuroimaging analyses begin. Depending on the question, it can be
-processed to identify tissue classes, locate anatomical structures, align the
-brain to a common space, and extract measures such as cortical thickness,
-surface area or subcortical volume. Multiply that by a few thousand people
-across a few dozen hospitals, and you have the sort of dataset the
-[research pages]({{ "/research/" | relative_url }}) describe.
+## From an images to measurements
+
+The scan above is a structural MRI, a snapshot. What it can tell us is
+anatomical. Depending on the question, it can be processed to identify tissue
+classes, locate structures, and extract measures of their shape and size like
+cortical thickness, surface area, subcortical volume.
+
+But a snapshot is only one way to look at a brain. Scan repeatedly while
+someone lies still and you get something closer to a film. **Functional MRI
+(fMRI)** tracks changes in blood flow and oxygenation over time, an indirect
+measure of activity that lets us follow how different regions behave, and how
+they behave together.
+
+**Diffusion MRI** looks at the wiring instead. It measures how water moves
+through tissue, and because water moves more freely along nerve fibres than
+across them, that movement traces the white-matter tracts connecting one region
+to another, the brain's structural connectivity.
+
+Anatomy, activity, and wiring are three quite different views of the same brain. Multiply any of them by a few thousand people across a few dozen research sites, and you have the sort of dataset the [research pages]({{ "/research/" | relative_url }}) describe.
 
 ## My scan has been defaced
 

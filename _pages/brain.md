@@ -5,7 +5,7 @@ layout: single
 author_profile: true
 ---
 
-Most of my research starts with something relatively simple, a three-dimensional image made of numbers! Each number is the measured MRI signal
+Most of my research starts with something relatively simple, a three-dimensional image made of numbers. Each number is the measured MRI signal
 at one small cube of space in the head called a **voxel**, the 3D counterpart of a pixel, typically about a millimetre across. A single scan contains several hundred thousand of these tiny blocks, each holding just one number. Put them together and process them with neuroimaging software, and those numbers become measurements of brain structure, connectivity, and development.
 
 And below is a more concrete example: **my brain**! This is my own structural MRI scan, some of the raw material from which the measurements I work with are derived, rendered directly in your browser, 

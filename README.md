@@ -55,12 +55,6 @@ index.html                  landing page, including its hero content
 
 ---
 
-## Theme overrides
-
-A file in `_includes/` with the same name as one in Minimal Mistakes replaces
-the theme's copy. Three do, and each is a small change on top of the 4.28.1
-original, so compare against upstream before bumping `remote_theme`:
-
 ## Licence
 
 Several different things live in this repo, under different licences.

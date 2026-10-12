@@ -3,11 +3,15 @@
 
   Compact version: the page used to end abruptly after the cards and then leave
   a wide empty band before a row of shouting links. This closes it off with the
-  name and the one-line description, then the links, then the copyright. The
+  name and the one-line description, then the links, then the licence line. The
   "Follow:" label and the Atom feed link are dropped.
-{% endcomment %}
 
-{% assign locale = include.locale | default: site.locale %}
+  No copyright symbol and no "Powered by" credit, deliberately. Copyright is
+  automatic under Berne, so the notice grants nothing; the MIT attribution for
+  Minimal Mistakes rides along in assets/css/main.scss, which is where the
+  theme's code actually ships to the reader, and is spelled out in README.md.
+  The licence line says what a reader may do, which the © never did.
+{% endcomment %}
 
 <div class="site-footer__identity">
   <p class="site-footer__name">{{ site.title | escape_once | strip }}</p>
@@ -29,9 +33,6 @@
 {% endif %}
 
 <div class="page__footer-copyright">
-  &copy; {% assign site_time = site.time | date: '%Y' %}{{ site_time }}
-  {{ site.title | escape_once | strip }}.
-  {{ site.data.ui-text[locale].powered_by | default: "Powered by" }}
-  <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp;
-  <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>
+  Text <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>.
+  Figures and images as credited.
 </div>

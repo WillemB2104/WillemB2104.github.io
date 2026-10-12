@@ -1,0 +1,38 @@
+{% comment %}
+  Overrides minimal-mistakes 4.28.1 _includes/footer.html.
+
+  Compact version: the page used to end abruptly after the cards and then leave
+  a wide empty band before a row of shouting links. This closes it off with the
+  name and the one-line description, then the links, then the licence line. The
+  "Follow:" label and the Atom feed link are dropped.
+
+  No copyright symbol and no "Powered by" credit, deliberately. Copyright is
+  automatic under Berne, so the notice grants nothing; the MIT attribution for
+  Minimal Mistakes rides along in assets/css/main.scss, which is where the
+  theme's code actually ships to the reader, and is spelled out in README.md.
+  The licence line says what a reader may do, which the © never did.
+{% endcomment %}
+
+<div class="site-footer__identity">
+  <p class="site-footer__name">{{ site.title | escape_once | strip }}</p>
+  {% if site.subtitle %}
+    <p class="site-footer__tagline">{{ site.subtitle | escape_once | strip }}</p>
+  {% endif %}
+</div>
+
+{% if site.footer.links %}
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    {% for link in site.footer.links %}
+      {% if link.label and link.url %}
+        <li><a href="{{ link.url }}" rel="nofollow noopener noreferrer{% if link.rel %} {{ link.rel }}{% endif %}"><i class="{{ link.icon | default: 'fas fa-link' }}" aria-hidden="true"></i> {{ link.label | escape_once | strip }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="page__footer-copyright">
+  Text <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>.
+  Figures and images as credited.
+</div>

@@ -53,7 +53,9 @@ scripts/                    ORCID fetcher (excluded from the built site)
 index.html                  landing page, including its hero content
 ```
 
-### Theme overrides
+---
+
+## Theme overrides
 
 A file in `_includes/` with the same name as one in Minimal Mistakes replaces
 the theme's copy. Three do, and each is a small change on top of the 4.28.1

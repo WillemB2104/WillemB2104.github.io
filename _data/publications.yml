@@ -8,7 +8,7 @@
   type: "journal-article"
   doi: "10.1016/j.euroneuro.2026.113879"
   url: "https://doi.org/10.1016/j.euroneuro.2026.113879"
-  year: 2026
+  year: 2027
   citations: 0
 
 - title: "Brain age prediction in generalized anxiety disorder using a convolutional neural network"
@@ -59,7 +59,7 @@
   doi: "10.1016/j.biopsych.2025.08.003"
   url: "https://doi.org/10.1016/j.biopsych.2025.08.003"
   year: 2026
-  citations: 9
+  citations: 11
 
 - title: "Development and validation of a machine learning model to predict cognitive behavioral therapy outcome in obsessive-compulsive disorder using clinical and neuroimaging data"
   authors: "van de Mortel, L.A., <strong>Bruin, W.B.</strong>, Alonso, P., Bertolín, S., Feusner, J.D., Guo, J., Hagen, K., Hansen, B., Thorsen, A.L., Martínez-Zalacaín, I., Menchón, J.M., Nurmi, E.L., O’Neill, J., Piacentini, J.C., Real, E., Segalàs, C., Soriano-Mas, C., Thomopoulos, S.I., Stein, D.J., Thompson, P.M., van den Heuvel, O.A., van Wingen, G.A."
@@ -129,7 +129,7 @@
   doi: "10.1038/s41380-023-02077-0"
   url: "https://doi.org/10.1038/s41380-023-02077-0"
   year: 2023
-  citations: 79
+  citations: 80
 
 - title: "Development and validation of a multimodal neuroimaging biomarker for electroconvulsive therapy outcome in depression: a multicenter machine learning analysis"
   authors: "<strong>Bruin, W.B.</strong>, Oltedal, L., Bartsch, H., Abbott, C., Argyelan, M., Barbour, T., Camprodon, J., Chowdhury, S., Espinoza, R., Mulders, P., Narr, K., Oudega, M., Rhebergen, D., ten Doesschate, F., Tendolkar, I., van Eijndhoven, P., van Exel, E., van Verseveld, M., Wade, B., van Waarde, J., Zhutovsky, P., Dols, A., van Wingen, G."
@@ -139,7 +139,7 @@
   doi: "10.1017/s0033291723002040"
   url: "https://doi.org/10.1017/s0033291723002040"
   year: 2023
-  citations: 20
+  citations: 22
 
 - title: "Effective resting-state connectivity in severe unipolar depression before and after electroconvulsive therapy"
   authors: "ten Doesschate, F., <strong>Bruin, W.</strong>, Zeidman, P., Abbott, C.C., Argyelan, M., Dols, A., Emsell, L., van Eijndhoven, P.F., van Exel, E., Mulders, P.C., Narr, K., Tendolkar, I., Rhebergen, D., Sienaert, P., Vandenbulcke, M., Verdijk, J., van Verseveld, M., Bartsch, H., Oltedal, L., van Waarde, J.A., van Wingen, G.A."
@@ -209,7 +209,7 @@
   doi: "10.1038/s41398-020-0705-1"
   url: "https://doi.org/10.1038/s41398-020-0705-1"
   year: 2020
-  citations: 588
+  citations: 590
 
 - title: "Dealing with missing data, small sample sizes, and heterogeneity in machine learning studies of brain disorders"
   authors: "Thomas, R.M., <strong>Bruin, W.</strong>, Zhutovsky, P., van Wingen, G."

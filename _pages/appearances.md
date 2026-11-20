@@ -43,6 +43,10 @@ countries to build what amounts to a growth curve for the brain. In Dutch.
 *NedKAD*, the Dutch knowledge centre for anxiety and compulsive disorders, 2024. Another interview about my PhD research, in Dutch.
 [Read it in full](https://nedkad.nl/nieuws/een-gesprek-over-biomarkers-en-machine-learning-in-de-psychiatrie/)
 
+**Functional connectivity brain changes involving linkages between cognition and motor function are discerned in OCD patients**
+*Brain & Behavior Research Foundation*, July 2023. A feature on our Molecular Psychiatry study, which pooled resting-state fMRI data from 1,024 patients with OCD and 1,028 healthy controls across 28 independent samples from the ENIGMA-OCD consortium. The study identified widespread reductions in functional connectivity, particularly within the sensorimotor network, highlighting the involvement of brain networks beyond the traditionally studied frontostriatal circuitry in OCD pathophysiology.
+[Read it in full](https://bbrfoundation.org/content/functional-connectivity-brain-changes-involving-linkages-between-cognition-and-motor)
+
 **"Ik zie niet alleen maar nullen en enen, maar ook patiënten"**
 *Folia*, University of Amsterdam, 2018. Apparently, I gave quite a few interviews during my PhD. In Dutch.
 [Read it in full](https://www.folia.nl/actueel/123469/promovendus-willem-25-ik-zie-niet-alleen-maar-nullen-en-enen-maar-ook-patienten)
